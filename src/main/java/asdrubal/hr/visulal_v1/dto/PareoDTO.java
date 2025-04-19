@@ -43,6 +43,7 @@ public class PareoDTO {
         nrPareo = entity.getNrPareo();
         ordem = entity.getOrdem();
         prova = entity.getProva();
+        listaIdsCompetidores = entity.getListaIdsCompetidores();
         pista = entity.getPista();
         distancia = entity.getDistancia();
         bolsa = entity.getDistancia();
@@ -282,6 +283,7 @@ public class PareoDTO {
                 ", prova='" + prova + '\'' +
                 ", pista='" + pista + '\'' +
                 ", distancia=" + distancia +
+                "\n listaIdsCompetidores='" + listaIdsCompetidores + '\'' +
                 "\n bolsa=" + bolsa +
                 ", p1=" + p1 +
                 ", p2=" + p2 +
@@ -298,7 +300,6 @@ public class PareoDTO {
                 ", idDoPrograma=" + idDoPrograma +
                 "\n" + programaDTO +
                 "\n competidoresDTOs=" + competidoresDTOs +
-                "\n listaIdsCompetidores='" + listaIdsCompetidores + '\'' +
                 '}';
     }
 }

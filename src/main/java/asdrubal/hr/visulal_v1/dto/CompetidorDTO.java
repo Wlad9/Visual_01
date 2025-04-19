@@ -69,6 +69,8 @@ public class CompetidorDTO {
         baliza = entity.getBaliza();
         nr = entity.getNr();
         entradaReta = entity.getEntradaReta();
+        idade = entity.getIdade();
+        sexo = entity.getSexo();
 //        pareoId = entity.getPareoId();
     }
 

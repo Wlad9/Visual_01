@@ -4,6 +4,7 @@ import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
 import asdrubal.hr.visulal_v1.frame1.TelaInicial;
 import asdrubal.hr.visulal_v1.painel_pareos.PainelPareos;
 import asdrubal.hr.visulal_v1.repositoreis.CompetidorRepository;
+import asdrubal.hr.visulal_v1.services.CompetidorService;
 import asdrubal.hr.visulal_v1.services.PareoService;
 import asdrubal.hr.visulal_v1.services.ProgramaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ public class Start_Application implements CommandLineRunner {
     @Autowired
     private PareoService pareoService;
     @Autowired
-    private CompetidorRepository competidorRepository;
+    private CompetidorService competidorService;
+
 
     public static void main(String[] args) {
         System.setProperty("java.awt.headless", "false");
@@ -30,7 +32,11 @@ public class Start_Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<ProgramaDTO> programasOpen = programaService.findByProgOpen();
-        PainelPareos painelPareos = new PainelPareos(pareoService);
-        TelaInicial telaInicial = new TelaInicial(programasOpen, painelPareos);
+//        PainelPareos painelPareos = new PainelPareos(pareoService, competidorService);
+//        TelaInicial telaInicial = new TelaInicial(programasOpen, painelPareos);
+
+
+        Painel_Base painelBase = new Painel_Base(pareoService, competidorService);
+        TelaInicial telaInicial1 = new TelaInicial(programasOpen, painelBase);
     }
 }

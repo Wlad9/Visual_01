@@ -16,7 +16,6 @@ public class ProgramaService {
 
     public List<ProgramaDTO> findByProgOpen() {
         List<Programa> programas = programaRepository.findBySt(1);
-        System.out.println("retorno="+programas.size());
         List<ProgramaDTO> lista = new ArrayList<>();
         if (programas != null) {
             for (Programa entity : programas) {
