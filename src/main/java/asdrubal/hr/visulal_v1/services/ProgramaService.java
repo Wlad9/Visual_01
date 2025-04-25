@@ -2,7 +2,7 @@ package asdrubal.hr.visulal_v1.services;
 
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
 import asdrubal.hr.visulal_v1.entities.Programa;
-import asdrubal.hr.visulal_v1.repositoreis.ProgramaRepository;
+import asdrubal.hr.visulal_v1.repositories.ProgramaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

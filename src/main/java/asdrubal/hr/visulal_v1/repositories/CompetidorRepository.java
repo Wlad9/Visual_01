@@ -1,4 +1,4 @@
-package asdrubal.hr.visulal_v1.repositoreis;
+package asdrubal.hr.visulal_v1.repositories;
 
 import asdrubal.hr.visulal_v1.entities.Competidor;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -2,8 +2,7 @@ package asdrubal.hr.visulal_v1.dto_especiais;
 
 import asdrubal.hr.visulal_v1.entities.Temp;
 
-public class DTO_TabelaCompetidores {
-    private Integer idCompetidor;
+public class DTO_Temp {
     private String cavalo;
     private String nr;
     private String joquei;
@@ -16,29 +15,20 @@ public class DTO_TabelaCompetidores {
     private Integer idJoquei;
     private Integer idTreinador;
 
-    public DTO_TabelaCompetidores() {
+    public DTO_Temp() {
     }
 
-    public DTO_TabelaCompetidores(DTO_Temp dto) {
-        cavalo = dto.getCavalo();
-        nr = dto.getNr();
-        joquei = dto.getJoquei();
-        treinador = dto.getTreinador();
-        proprietario = dto.getProprietario();
-        sexo = dto.getSexo();
-        idade = dto.getIdade();
-        idCavalo = dto.getIdCavalo();
-        idJoquei = dto.getIdJoquei();
-        idTreinador = dto.getIdTreinador();
-    }
-
-
-    public Integer getIdCompetidor() {
-        return idCompetidor;
-    }
-
-    public void setIdCompetidor(Integer idCompetidor) {
-        this.idCompetidor = idCompetidor;
+    public DTO_Temp(Temp entity) {
+        cavalo = entity.getCavalo();
+        nr = entity.getNr();
+        joquei = entity.getJoquei();
+        treinador = entity.getTreinador();
+        proprietario = entity.getProprietario();
+        sexo = entity.getSexo();
+        idade = entity.getIdade();
+        idCavalo = entity.getIdCavalo();
+        idJoquei = entity.getJoqueiId();
+        idTreinador = entity.getTreinadorId();
     }
 
     public String getCavalo() {
@@ -123,11 +113,10 @@ public class DTO_TabelaCompetidores {
 
     @Override
     public String toString() {
-        return "DTO_TabelaCompetidores{" +
-                "idCompetidor=" + idCompetidor +
-                ", cavalo='" + cavalo + '\'' +
+        return "DTO_Temp{" +
+                "cavalo='" + cavalo + '\'' +
                 ", nr='" + nr + '\'' +
-                "\n joquei='" + joquei + '\'' +
+                ", joquei='" + joquei + '\'' +
                 ", treinador='" + treinador + '\'' +
                 ", proprietario='" + proprietario + '\'' +
                 "\n sexo='" + sexo + '\'' +

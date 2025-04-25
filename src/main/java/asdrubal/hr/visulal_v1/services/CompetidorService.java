@@ -2,7 +2,7 @@ package asdrubal.hr.visulal_v1.services;
 
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.entities.Competidor;
-import asdrubal.hr.visulal_v1.repositoreis.CompetidorRepository;
+import asdrubal.hr.visulal_v1.repositories.CompetidorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

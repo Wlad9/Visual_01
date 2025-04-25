@@ -1,5 +1,6 @@
 package asdrubal.hr.visulal_v1;
 
+import asdrubal.hr.visulal_v1.classes_auxiliares.Constantes;
 import asdrubal.hr.visulal_v1.dto_especiais.DTO_TabelaCompetidores;
 import asdrubal.hr.visulal_v1.montadores.CompetidoresDoPareo;
 import asdrubal.hr.visulal_v1.painel_pareos.Bt_PesquisaCompetidoresDoPareo;
@@ -15,6 +16,9 @@ import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
+import static asdrubal.hr.visulal_v1.classes_auxiliares.Constantes.DISTANCIAS_LISTA;
+import static asdrubal.hr.visulal_v1.classes_auxiliares.Constantes.PISTAS_LISTA;
+
 public class Painel_Base extends JPanel {
     private JButton bt_BuscaCavalos;
     private PareoService pareoService;
@@ -23,6 +27,11 @@ public class Painel_Base extends JPanel {
     private JTable competidoresTab;
     private JScrollPane scrollCompetidores;
     private int nrLinhasCompetidores;
+
+    private JList<String> jlDistancias;
+    private JScrollPane scrollDistancia;
+    private JList<String> jlPistas;
+    private JScrollPane scrollPista;
 
     public Painel_Base(PareoService pareoService, CompetidorService competidorService) {
         this.pareoService = pareoService;
@@ -38,11 +47,23 @@ public class Painel_Base extends JPanel {
         competidoresTab = new JTable();
         scrollCompetidores = new JScrollPane(competidoresTab);
         scrollCompetidores.setVisible(false);
-//        add(scrollCompetidores);
+        add(scrollCompetidores);
+//  Incluindo as JList
+        jlDistancias = new JList<>();
+        scrollDistancia = new JScrollPane(jlDistancias);
+        scrollDistancia.setVisible(false);
+
+        jlPistas = new JList<>();
+        scrollPista = new JScrollPane(jlPistas);
+        scrollPista.setVisible(false);
+
+        add(scrollDistancia);
+        add(scrollPista);
     }
 
     public void inicia(String listaIds) {
         removeAll(); // Limpa painel
+        setLayout(null);
         revalidate();
         repaint();
 
@@ -75,6 +96,9 @@ public class Painel_Base extends JPanel {
                 competidoresTab.setModel(new DefaultTableModel());
                 competidoresTab.revalidate();
                 competidoresTab.repaint();
+
+                jlDistancias.setVisible(false);
+                jlPistas.setVisible(false);
             }
         });
 
@@ -95,12 +119,28 @@ public class Painel_Base extends JPanel {
         bt_BuscaCavalos.setBounds(10, scrollPareo.getY() + scrollPareo.getHeight() + 5, 90, 20);
         add(bt_BuscaCavalos);
 
-//        int alturaComp = competidoresTab.getRowHeight() * nrLinhasCompetidores + 24;
-//        scrollCompetidores.setBounds(10, 10 + alturaPareo + 10 + 40, 400, alturaComp);
+
         int alturaComp = 20 * Math.max(1, nrLinhasCompetidores) + 24;
         scrollCompetidores.setBounds(10, bt_BuscaCavalos.getY() + bt_BuscaCavalos.getHeight() + 10, 400, alturaComp);
         scrollCompetidores.setVisible(false);
+        add(scrollCompetidores);
 
+
+        scrollDistancia.setBounds(10, scrollCompetidores.getY() + scrollCompetidores.getHeight() + 10, 80, 150);
+        scrollPista.setBounds(100, scrollCompetidores.getY() + scrollCompetidores.getHeight() + 10, 80, 150);
+        scrollDistancia.setVisible(true);
+        scrollPista.setVisible(true);
+
+        scrollCompetidores.revalidate();
+        scrollCompetidores.repaint();
+
+        revalidate(); // Adicionado para garantir que o layout seja recalculado
+        repaint();    // Adicionado para garantir que a tela seja redesenhada
+//        jlDistancias.setBounds(10, scrollCompetidores.getY() + scrollCompetidores.getHeight() + 10, 40, 150);
+//        jlPistas.setBounds(60, scrollCompetidores.getY() + scrollCompetidores.getHeight() + 10, 40, 150);
+//        add(scrollCompetidores);
+//        add(jlDistancias);
+//        add(jlPistas);
     }
 
     private void abrirTabelaCavalosDoPareo(Integer idPareo) {
@@ -112,11 +152,11 @@ public class Painel_Base extends JPanel {
         DefaultTableModel modeloComp = new DefaultTableModel(colunasCompetidores, 0);
         competidoresTab.setModel(modeloComp);
         competidoresTab.setFont(new Font("Arial", Font.PLAIN, 10));
-
+        competidoresTab.setRowHeight(20);
+        competidoresTab.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         competidoresTab.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
-
 
         TableColumnModel cMode =  competidoresTab.getColumnModel();
         cMode.getColumn(0).setPreferredWidth(25);
@@ -133,17 +173,6 @@ public class Painel_Base extends JPanel {
                     dto.getTreinador(), dto.getIdade(), dto.getSexo()
             });
         }
-//        int linha = 0;
-//        for (Map.Entry<String, DTO_TabelaCompetidores> entry : mapaDadosCompetidores.entrySet()) {
-//            DTO_TabelaCompetidores dto = entry.getValue();
-//            modeloComp.setValueAt(entry.getKey(), linha, 0);
-//            modeloComp.setValueAt(dto.getCavalo(), linha, 1);
-//            modeloComp.setValueAt(dto.getJoquei(), linha, 2);
-//            modeloComp.setValueAt(dto.getTreinador(), linha, 3);
-//            modeloComp.setValueAt(dto.getIdade(), linha, 4);
-//            modeloComp.setValueAt(dto.getSexo(), linha, 5);
-//            linha++;
-//        }
 
         competidoresTab.setModel(modeloComp);
         competidoresTab.setRowHeight(20);
@@ -151,10 +180,21 @@ public class Painel_Base extends JPanel {
         int alturaComp = competidoresTab.getRowHeight() * nrLinhasCompetidores + 24;
         scrollCompetidores.setBounds(10, bt_BuscaCavalos.getY() + bt_BuscaCavalos.getHeight() + 10, 400, alturaComp);
         scrollCompetidores.setVisible(true);
+
+        jlDistancias.setVisible(true);
+        jlPistas.setVisible(true);
+
+        jlDistancias.setListData(DISTANCIAS_LISTA);
+        jlPistas.setListData(PISTAS_LISTA);
+
+        scrollDistancia.setVisible(true);
+        scrollPista.setVisible(true);
         scrollCompetidores.revalidate();
         scrollCompetidores.repaint();
-        add(scrollCompetidores);
+
     }
+
+
 
     private Integer identificaIdDoPareo(String textoBotao, Map<Integer, List<String>> mapaCampos) {
         String nr = textoBotao.replaceAll("[^0-9]", "").trim();

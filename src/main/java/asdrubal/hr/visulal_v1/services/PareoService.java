@@ -1,13 +1,17 @@
 package asdrubal.hr.visulal_v1.services;
 
 import asdrubal.hr.visulal_v1.dto.PareoDTO;
+import asdrubal.hr.visulal_v1.dto_especiais.DTO_JT_tabPareos;
 import asdrubal.hr.visulal_v1.entities.Pareo;
-import asdrubal.hr.visulal_v1.repositoreis.PareoRepository;
+import asdrubal.hr.visulal_v1.repositories.PareoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PareoService {
@@ -23,4 +27,27 @@ public class PareoService {
         }
         return null;
     }
+
+    @Transactional(readOnly = true)
+    public List<DTO_JT_tabPareos> buscaListaDePareos(List<Integer> ids, Integer idPrograma) {
+        return pareoRepository.findByIdPareoIn(ids)
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(pareo -> new DTO_JT_tabPareos(pareo, idPrograma))
+                .collect(Collectors.toList());
+
+
+
+
+//        return pareoRepository.findByIdPareoIn(ids)
+//                .orElse(Collections.emptyList())
+//                .stream()
+//                .map(DTO_JT_tabPareos::new)
+//                .collect(Collectors.toList());
+    }
 }
+// return pareoRepository.findByIdIn(ids)
+//            .orElse(Collections.emptyList())
+//            .stream()
+//            .map(DTO_JT_tabPareos::new)
+//            .collect(Collectors.toList());
