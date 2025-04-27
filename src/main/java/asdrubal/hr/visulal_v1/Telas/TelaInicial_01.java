@@ -101,10 +101,6 @@ public class TelaInicial_01 extends JFrame {
 
 //        scrol2PaneTabela.revalidate();
 //        scrol2PaneTabela.repaint();
-        System.out.println("panelTabelaPareos visible: " + panelTabelaPareos.isShowing());
-        System.out.println("scrol2PaneTabela visible: " + scrol2PaneTabela.isShowing());
-        System.out.println("Linhas da tabela: " + dados.length);
-        System.out.println("Colunas da tabela: " + colunas.length);
 
 //        if(scrolTabPareos != null){
 //            contentPane.remove(scrolTabPareos);

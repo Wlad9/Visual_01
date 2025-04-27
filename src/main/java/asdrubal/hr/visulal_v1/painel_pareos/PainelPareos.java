@@ -116,7 +116,6 @@ public class PainelPareos extends JPanel {
 
     private void abrirTabelaCavalosDoPareo(Integer idPareo) {
         // ação a ser executada
-        System.out.println("Pesquisar competidores do Páreo:" + idPareo);
         CompetidoresDoPareo comp = new CompetidoresDoPareo();
 //        List<String> dadosCompetidores = comp.identificaCompetidores(idPareo, pareoService, competidorService);
     }
@@ -126,9 +125,6 @@ public class PainelPareos extends JPanel {
         int ordem = Integer.parseInt(nr);
         List<String> valores = mapaCampos.get(ordem);
         int cont = 0;
-        for (String str : valores) {
-            System.out.println(cont++ + ">" + str);
-        }
         return Integer.parseInt(valores.get(3));
     }
 }

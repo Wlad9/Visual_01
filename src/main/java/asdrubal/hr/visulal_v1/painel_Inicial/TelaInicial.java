@@ -1,5 +1,6 @@
 package asdrubal.hr.visulal_v1.painel_Inicial;
 
+import asdrubal.hr.visulal_v1.analise_de_corridas.AnaliseDePareo;
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
 import asdrubal.hr.visulal_v1.dto_especiais.DTO_JT_tabPareos;
 import asdrubal.hr.visulal_v1.dto_especiais.DTO_TabelaCompetidores;
@@ -39,7 +40,7 @@ public class TelaInicial extends JFrame {
     private JMenuItem itemMenu;
 
     private Map<Integer, DTO_JT_tabPareos> mapa1;
-
+    private Map<Integer, DTO_TabelaCompetidores> mapa2;
     public TelaInicial(List<ProgramaDTO> programasOpen, PareoService pareoService, CompetidorService competidorService, TempService tempService) {
         this.pareoService = pareoService;
         this.competidorService = competidorService;
@@ -47,6 +48,7 @@ public class TelaInicial extends JFrame {
         setContentPane(contentPane);
         menuBar = new JMenuBar();
         programaMenu = new JMenu("Programas");
+        btPareoListener();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(screenSize.width, screenSize.height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,6 +58,12 @@ public class TelaInicial extends JFrame {
         setVisible(true);
         //        scrol1.setVisible(false);
     }
+
+    private void btPareoListener() {
+        btPareo.addActionListener(e-> new AnaliseDePareo(competidorService, mapa2).inicia());
+    }
+
+
 
     private void montaMenu(List<ProgramaDTO> programasOpen) {
         Map<Integer, ProgramaDTO> mapaProgramas = new HashMap<>();
@@ -86,8 +94,14 @@ public class TelaInicial extends JFrame {
     }
 
     private void prepTabPareos(Object[][] dados, String[] colunas) {
-        Tabela_Pareos tabPareos = new Tabela_Pareos(dados, colunas);
+        tabPareos = new Tabela_Pareos(dados, colunas);
+        tabPareos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
         scrolTabPareos.setViewportView(tabPareos);
+        scrolTabPareos.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrolTabPareos.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+//        tabPareos.setPreferredScrollableViewportSize(new Dimension(600, 400));
         tabPareos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
@@ -101,7 +115,6 @@ public class TelaInicial extends JFrame {
                         Integer idPareo = dto.getIdPareo();
                         Integer idPrograma = dto.getIdPrograma();
                         btPareo.setVisible(true);
-                        System.out.println(dto);
                         preparaTabelaCompetidores(idPareo, idPrograma);
                         // Para acessar os dados da linha selecionada:
                         // Object[] rowData = new Object[tabPareos.getColumnCount()];
@@ -128,25 +141,16 @@ public class TelaInicial extends JFrame {
 //        scrol2PaneTabela.repaint();
 //        System.out.println("panelTabelaPareos visible: " + panelTabelaPareos.isShowing());
 //        System.out.println("scrol2PaneTabela visible: " + scrol2PaneTabela.isShowing());
-        System.out.println("Linhas da tabela: " + dados.length);
-        System.out.println("Colunas da tabela: " + colunas.length);
     }
 
     private void preparaTabelaCompetidores(Integer idPareo, Integer idPrograma) {
         Mapa2Montador mapa2Montador = new Mapa2Montador();
-        Map<Integer, DTO_TabelaCompetidores> mapa2 = mapa2Montador.montaMapa2(tempService, idPareo, idPrograma);
-        System.out.println("MAPA2:"+mapa2.size());
+        mapa2 = mapa2Montador.montaMapa2(tempService, idPareo, idPrograma);
         AuxTabCompetidores auxComp = new AuxTabCompetidores(mapa2);
         Object[][] dados = auxComp.preparaDados();
-        for (int i = 0; i < dados.length; i++) {
-            for (int j = 0; j < dados[i].length; j++) {
-                System.out.print(dados[i][j] + "\t"); // usa \t para tabular
-            }
-            System.out.println(); // pula linha após cada linha da matriz
-        }
         Tabela_Competidores tabelaCompetidores = new Tabela_Competidores(dados, auxComp.getColunas());
         scrolTabComp.setViewportView(tabelaCompetidores);
-        contentPane.add(scrolTabComp);
+//        contentPane.add(scrolTabComp);
         scrolTabComp.setVisible(true);
         contentPane.revalidate();
         contentPane.repaint();

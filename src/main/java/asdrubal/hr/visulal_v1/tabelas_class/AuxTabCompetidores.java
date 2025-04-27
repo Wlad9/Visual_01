@@ -28,13 +28,13 @@ public class AuxTabCompetidores {
             dadosTabela[i][5] = dto.getSexo();
             i++;
         }
-        System.out.println("mostrar dados:"+dadosTabela.length);
-        for (int x = 0; x < dadosTabela.length;x++) {
-            for (int j = 0; j < dadosTabela[x].length; j++) {
-                System.out.print(dadosTabela[x][j] + "\t"); // usa \t para tabular
-            }
-            System.out.println(); // pula linha após cada linha da matriz
-        }
+//        System.out.println("mostrar dados:"+dadosTabela.length);
+//        for (int x = 0; x < dadosTabela.length;x++) {
+//            for (int j = 0; j < dadosTabela[x].length; j++) {
+//                System.out.print(dadosTabela[x][j] + "\t"); // usa \t para tabular
+//            }
+//            System.out.println(); // pula linha após cada linha da matriz
+//        }
         return dadosTabela;
     }
 

@@ -1,6 +1,7 @@
 package asdrubal.hr.visulal_v1.dto;
 
 import asdrubal.hr.visulal_v1.entities.Competidor;
+
 public class CompetidorDTO {
     private Integer idCompetidor;
     private Integer idDoPrograma;
@@ -34,12 +35,15 @@ public class CompetidorDTO {
     private String pai;
     private String mae;
     private String avo;
+    private String raia;
+    private String prova;
     private CavaloDTO cavaloDTO;
 
     //    private PareoDTO pareoDTO;
     public CompetidorDTO(Competidor entity) {
 //        System.out.println("Entity==->" + entity.getCavalo());
         idCompetidor = entity.getIdCompetidor();
+        tempo = entity.getTempo();
         cavalo = entity.getCavalo();
         joquei = entity.getJoquei();
         treinador = entity.getTreinador();
@@ -71,6 +75,8 @@ public class CompetidorDTO {
         entradaReta = entity.getEntradaReta();
         idade = entity.getIdade();
         sexo = entity.getSexo();
+        raia = entity.getRaia();
+        prova = entity.getProva();
 //        pareoId = entity.getPareoId();
     }
 
@@ -333,6 +339,22 @@ public class CompetidorDTO {
         this.cavaloDTO = cavaloDTO;
     }
 
+    public String getRaia() {
+        return raia;
+    }
+
+    public void setRaia(String raia) {
+        this.raia = raia;
+    }
+
+    public String getProva() {
+        return prova;
+    }
+
+    public void setProva(String prova) {
+        this.prova = prova;
+    }
+
     @Override
     public String toString() {
         return "\nCompetidorDTO{" +
@@ -340,7 +362,10 @@ public class CompetidorDTO {
                 ", idDoPrograma=" + idDoPrograma +
                 ", idDoPareo=" + idDoPareo +
                 ", cavalo='" + cavalo + '\'' +
+                ", Raia='" + raia + '\'' +
                 ", baliza='" + baliza + '\'' +
+                "\n Raia='" + raia + '\'' +
+                ", Prova='" + prova + '\'' +
                 ", nr='" + nr + '\'' +
                 ", colocacao=" + colocacao +
                 ", rateio='" + rateio + '\'' +

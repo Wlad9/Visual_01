@@ -28,7 +28,6 @@ public class TempService {
     }
     @Transactional(readOnly = true)
     public Map<Integer, DTO_TabelaCompetidores> montaMapa2(Integer idPareo, Integer idPrograma) {
-        System.out.println("idPareo:"+idPareo+"\tIdPrograma:"+idPrograma);
         return findByCompetidores(idPrograma, idPareo).stream()
                 .collect(Collectors.toMap(
                         DTO_Temp::getIdCavalo,

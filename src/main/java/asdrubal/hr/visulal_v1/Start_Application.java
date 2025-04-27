@@ -37,6 +37,7 @@ public class Start_Application implements CommandLineRunner {
 
         SwingUtilities.invokeLater(() -> {
             TelaInicial inicial = new TelaInicial(programasOpen, pareoService, competidorService, tempService);
+
 //            TelaInicial_01 inicial01 = new TelaInicial_01(programasOpen, pareoService, competidorService, tempService);// está ok
 //        PainelPareos painelPareos = new PainelPareos(pareoService, competidorService);
 //        TelaInicial telaInicial = new TelaInicial(programasOpen, painelPareos);

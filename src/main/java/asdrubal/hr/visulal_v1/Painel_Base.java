@@ -86,7 +86,6 @@ public class Painel_Base extends JPanel {
 
         tabelaDePareos.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && tabelaDePareos.getSelectedRow() != -1) {
-                System.out.println("Linha selecionada");
                 String textoBotao = String.valueOf(tabelaDePareos.getValueAt(tabelaDePareos.getSelectedRow(), 0));
                 bt_BuscaCavalos.setText(textoBotao);
                 bt_BuscaCavalos.setVisible(true);

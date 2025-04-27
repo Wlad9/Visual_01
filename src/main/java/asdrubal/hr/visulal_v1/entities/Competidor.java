@@ -34,6 +34,8 @@ public class Competidor {
     private Integer joqueiId;
     private Integer treinadorId;
     private Integer proprietarioId;
+    private String raia;
+    private String prova;
     @ManyToOne
     @JoinColumn(name = "horseId")
     private Cavalo horse;
@@ -68,6 +70,8 @@ public class Competidor {
         joqueiId = dto.getIdJoquei();
         treinadorId = dto.getIdTreinador();
         proprietarioId = dto.getIdProprietario();
+
+
 //        Cavalo cav = new Cavalo(dto.getCavaloDTO());
 //        horse = cav;
     }
@@ -272,6 +276,22 @@ public class Competidor {
         this.horse = horse;
     }
 
+    public String getRaia() {
+        return raia;
+    }
+
+    public void setRaia(String raia) {
+        this.raia = raia;
+    }
+
+    public String getProva() {
+        return prova;
+    }
+
+    public void setProva(String prova) {
+        this.prova = prova;
+    }
+
     @Override
     public String toString() {
         return "\nCompetidor{" +
@@ -280,12 +300,14 @@ public class Competidor {
                 ", idDoPareo=" + idDoPareo +
                 ", cavalo='" + cavalo + '\'' +
                 ", baliza='" + baliza + '\'' +
+                "\n Raia='" + raia + '\'' +
+                ", Prova='" + prova + '\'' +
                 ", nr='" + nr + '\'' +
                 "\n pesoCavalo='" + pesoCavalo + '\'' +
                 ", pesoJoquei='" + pesoJoquei + '\'' +
                 ", idade='" + idade + '\'' +
                 ", sexo='" + sexo + '\'' +
-                ", medicacao='" + medicacao + '\'' +
+                "\n medicacao='" + medicacao + '\'' +
                 ", colocacao=" + colocacao +
                 ", rateio='" + rateio + '\'' +
                 "\n corpoChegada='" + corpoChegada + '\'' +
