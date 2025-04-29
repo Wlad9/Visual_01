@@ -4,15 +4,17 @@ import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.dto_especiais.DTO_TabelaCompetidores;
 import asdrubal.hr.visulal_v1.montadores.Mapa3_Montador;
 import asdrubal.hr.visulal_v1.montadores.Mapa4_MontadorListaOrdenada;
+import asdrubal.hr.visulal_v1.montadores.Mapa6_OderByData;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.LeftPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.RightPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.services.CompetidorService;
+import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxiliarPesquisa_mk1;
-import org.hibernate.boot.model.internal.XMLContext;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,10 +32,11 @@ public class AnaliseDePareo extends JFrame {
     public AnaliseDePareo(CompetidorService competidorService, Map<Integer, DTO_TabelaCompetidores> mapa2) {
         this.competidorService = competidorService;
         this.mapa2 = mapa2;
+        showMapa2();
         setContentPane(contentPane);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(screenSize.width, screenSize.height);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         alinhaDireita.setHorizontalAlignment(SwingConstants.RIGHT);
         alinhaDireita.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
 
@@ -46,13 +49,23 @@ public class AnaliseDePareo extends JFrame {
 
     public void inicia() {
         mapa3 = new Mapa3_Montador(competidorService).montaMapa(mapa2);
+        for(Integer id: mapa3.keySet()){
+            List<CompetidorDTO>lista = mapa3.get(id);
+            for(CompetidorDTO dto:lista) {
+                System.out.println("\nid:" + id + "\tData:"+dto.getData()+"\tHipod:"+dto.getHipoCod());
+
+            }
+        }
+        Object [][] xxxxxx = new Object[2][2];//TODO CORRIJAR ENTRADA DE DADOS XXX
         Mapa4_MontadorListaOrdenada mapa4Monta = new Mapa4_MontadorListaOrdenada();
         Map<Integer, List<CompetidorDTO>> mapa4 = mapa4Monta.ordenaLista(mapa3);
         Map<Integer, List<CompetidorDTO>> mapa5 = mapa4Monta.getMapa5();
-        AuxiliarPesquisa_mk1 mk1 = new AuxiliarPesquisa_mk1(mapa4, mapa5);
-        String[] titulos = mk1.getTitulos();
-        Object[][] dadosPesquisaMk1 = mk1.montaDadosMk1();
-        tabAnalise = new JTable(dadosPesquisaMk1, titulos);
+        Mapa6_OderByData mapa6OderByData = new Mapa6_OderByData();
+        Map<Integer, List<CompetidorDTO>> mapa6 = mapa6OderByData.ordena(mapa3);
+        AuxPesquisa_mk2 auxMk2 = new AuxPesquisa_mk2(mapa6, xxxxxx);
+        String[] titulos = auxMk2.getTitulos();
+        Object[][] dadosMk2 = auxMk2.montaDadosDaTabela();
+        tabAnalise = new JTable(dadosMk2, titulos);
         tabAnalise.setFont(new Font("Arial", Font.PLAIN, 12));
         tabAnalise.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
@@ -78,5 +91,11 @@ public class AnaliseDePareo extends JFrame {
         this.revalidate();
         this.repaint();
     }
-
+    private void showMapa2(){
+        for(Integer id: mapa2.keySet()){
+            System.out.println("\nidCavalo:"+id);
+            DTO_TabelaCompetidores dto = mapa2.get(id);
+            System.out.println(dto);
+        }
+    }
 }

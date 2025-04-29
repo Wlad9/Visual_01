@@ -20,10 +20,11 @@ public class AuxTabPareos {
         colunas = new String[]{"Ordem", "Prova", "Raia", "Bolsa"};
     }
 
-    public void preparaDados(String listaIds, Integer idSelecionado) {
+    public void preparaDados(String listaIds) {
         List<Integer> idsLista = new ConvertStringIdsToListInteger().converte(listaIds);
-        List<DTO_JT_tabPareos> listaDTO = pareoService.buscaListaDePareos(idsLista, idSelecionado);
+        List<DTO_JT_tabPareos> listaDTO = pareoService.buscaListaDePareos(idsLista);
         mapa1 = new Mapa1Montador().montaMapa1(listaDTO);//TODO alt para List<>
+
         int nrCol = 4;
         dadosTabela = montaDadosDaTabela(mapa1, nrCol);
     }

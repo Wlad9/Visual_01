@@ -4,6 +4,8 @@ import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.sql.Date;
+
 @Entity
 @Table(name = "competidor")
 @DynamicUpdate
@@ -36,6 +38,8 @@ public class Competidor {
     private Integer proprietarioId;
     private String raia;
     private String prova;
+    private String hipoCod;
+    private Date data;
     @ManyToOne
     @JoinColumn(name = "horseId")
     private Cavalo horse;
@@ -70,7 +74,8 @@ public class Competidor {
         joqueiId = dto.getIdJoquei();
         treinadorId = dto.getIdTreinador();
         proprietarioId = dto.getIdProprietario();
-
+        data = dto.getData();
+        hipoCod = dto.getHipoCod();
 
 //        Cavalo cav = new Cavalo(dto.getCavaloDTO());
 //        horse = cav;
@@ -290,6 +295,22 @@ public class Competidor {
 
     public void setProva(String prova) {
         this.prova = prova;
+    }
+
+    public String getHipoCod() {
+        return hipoCod;
+    }
+
+    public void setHipoCod(String hipoCod) {
+        this.hipoCod = hipoCod;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
 
     @Override

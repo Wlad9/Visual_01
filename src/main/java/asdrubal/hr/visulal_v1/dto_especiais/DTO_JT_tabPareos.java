@@ -2,6 +2,8 @@ package asdrubal.hr.visulal_v1.dto_especiais;
 
 import asdrubal.hr.visulal_v1.entities.Pareo;
 
+import java.sql.Date;
+
 public class DTO_JT_tabPareos {
     private Integer idPareo;
     private Integer idPrograma;
@@ -12,20 +14,25 @@ public class DTO_JT_tabPareos {
     private int distancia;
     private int bolsa;
     private String chamada;
+    private Date data;
+    private String hipocod;
+
 
     public DTO_JT_tabPareos() {
     }
 
-    public DTO_JT_tabPareos(Pareo entity, Integer idPrograma) {
-        idPareo = entity.getIdPareo();
-        this.idPrograma = idPrograma;
-        nrPareo = entity.getNrPareo();
-        ordem = entity.getOrdem();
-        prova = entity.getProva();
-        pista = entity.getPista();
-        distancia = entity.getDistancia();
-        bolsa = entity.getBolsa();
-        chamada = entity.getChamada();
+    public DTO_JT_tabPareos(Pareo pareo) {
+        idPareo = pareo.getIdPareo();
+        idPrograma = pareo.getPrograma() != null ? pareo.getPrograma().getIdPrograma() : null;
+        nrPareo = pareo.getNrPareo();
+        ordem = pareo.getOrdem();
+        prova = pareo.getProva();
+        pista = pareo.getPista();
+        distancia = pareo.getDistancia();
+        bolsa = pareo.getBolsa();
+        chamada = pareo.getChamada();
+        hipocod = pareo.getPrograma() != null ? pareo.getPrograma().getHipodromoCod() : null;
+        data = pareo.getPrograma() != null ? pareo.getPrograma().getData() : null;
     }
 
     public Integer getIdPrograma() {
@@ -100,12 +107,30 @@ public class DTO_JT_tabPareos {
         this.chamada = chamada;
     }
 
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getHipocod() {
+        return hipocod;
+    }
+
+    public void setHipocod(String hipocod) {
+        this.hipocod = hipocod;
+    }
+
     @Override
     public String toString() {
         return "DTO_JT_tabPareos{" +
                 "idPareo=" + idPareo +
                 ", idPrograma=" + idPrograma +
                 ", nrPareo=" + nrPareo +
+                ", Data='" + data + '\'' +
+                ", hipoCod='" + hipocod + '\'' +
                 "\n ordem=" + ordem +
                 ", prova='" + prova + '\'' +
                 ", pista='" + pista + '\'' +

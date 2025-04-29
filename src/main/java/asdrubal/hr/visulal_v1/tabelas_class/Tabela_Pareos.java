@@ -34,21 +34,4 @@ public class Tabela_Pareos extends JTable {
         });
 
     }
-
-//    @Override
-//    public Dimension getPreferredScrollableViewportSize() {
-//        int totalWidth = 0;
-//        for (int i = 0; i < getColumnModel().getColumnCount(); i++) {
-//            totalWidth += getColumnModel().getColumn(i).getPreferredWidth();
-//        }
-//
-//        int rows = getRowCount();
-//        int rowHeight = getRowHeight();
-//        int height = rows * rowHeight;
-//
-//        height = Math.max(height, 80);
-//        height = Math.min(height, 800);
-//
-//        return new Dimension(totalWidth, height);
-//    }
 }

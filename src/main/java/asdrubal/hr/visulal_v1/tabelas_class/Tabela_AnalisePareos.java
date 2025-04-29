@@ -4,10 +4,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.util.Set;
 
-public class Tabela_Competidores extends JTable {
-    public Tabela_Competidores(Object[][] dados, String[] colunas) {
+public class Tabela_AnalisePareos extends JTable {
+    private Set<Integer> negrito;
+    public Tabela_AnalisePareos(Object[][] dados, String[] colunas, Set<Integer> negrito) {
         super(new DefaultTableModel(dados, colunas));
+        this.negrito = negrito;
         setFillsViewportHeight(true);
         setRowHeight(20);
     }
@@ -17,11 +20,8 @@ public class Tabela_Competidores extends JTable {
         int rows = getRowCount();
         int rowHeight = getRowHeight();
         int height = rows * rowHeight;
-
-        // Limite mínimo/máximo para não explodir a tela
-        height = Math.max(height, 80);   // mínimo
-        height = Math.min(height, 800);  // máximo
-
+        height = Math.max(height, 80);
+        height = Math.min(height, 800);
         return new Dimension(getPreferredSize().width, height);
     }
 
@@ -29,24 +29,26 @@ public class Tabela_Competidores extends JTable {
     public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
         Component comp = super.prepareRenderer(renderer, row, column);
 
-        // Reset de estilo padrão
+        // Reset estilo
         comp.setFont(getFont());
         comp.setForeground(getForeground());
         comp.setBackground(getBackground());
 
-
-        if (column == 1) {
+        // Negrito na coluna 0
+//        if (column == 1) {
+//            comp.setFont(comp.getFont().deriveFont(Font.BOLD));
+//        }
+        if (column == 1 && negrito.contains(row)) {
             comp.setFont(comp.getFont().deriveFont(Font.BOLD));
         }
-
-
-        Object valorColuna3 = getValueAt(row, 2); // Coluna 3 = índice 2
-        if (valorColuna3 != null && valorColuna3.toString().contains("69")) {
-            comp.setBackground(Color.CYAN);
-            comp.setForeground(Color.BLACK);
-        }
+//
+//        // Pintar linha se coluna 3 (índice 2) contiver "69"
+//        Object valorColuna3 = getValueAt(row, 2);
+//        if (valorColuna3 != null && valorColuna3.toString().contains("69")) {
+//            comp.setBackground(Color.CYAN);
+//            comp.setForeground(Color.BLACK);
+//        }
 
         return comp;
     }
 }
-

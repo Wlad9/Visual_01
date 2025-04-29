@@ -72,7 +72,7 @@ public class TelaInicial_01 extends JFrame {
                 ProgramaDTO programaSelecionado = mapaProgramas.get(idSelecionado);
                 listaIds = programaSelecionado.getStringIds();
                 AuxTabPareos aux = new AuxTabPareos(pareoService);
-                aux.preparaDados(listaIds, idSelecionado);
+                aux.preparaDados(listaIds);
                 prepTabPareos(aux.getDadosTabela(), aux.getColunas());
             });
             programaMenu.add(item);
@@ -98,28 +98,6 @@ public class TelaInicial_01 extends JFrame {
         contentPane.repaint();
         this.revalidate();  // <- revalida o JFrame (a própria janela)
         this.repaint();
-
-//        scrol2PaneTabela.revalidate();
-//        scrol2PaneTabela.repaint();
-
-//        if(scrolTabPareos != null){
-//            contentPane.remove(scrolTabPareos);
-//        }
-//        scrolTabPareos = new JScrollPane(tabPareos);
-//
-
-
-//        panelTabelaPareos.removeAll();
-//        panelTabelaPareos.setLayout(new BorderLayout()); // Define um layout adequado dentro do painel
-//        panelTabelaPareos.add(scrolTabPareos);
-//        contentPane.add(panelTabelaPareos);
-
-
-//        setVisible(true);
-//
-//        contentPane.revalidate();
-//        contentPane.repaint();
-//        dtmPareos = new DefaultTableModel(colunasPareo, nrLineTabPareos);
     }
 
 }

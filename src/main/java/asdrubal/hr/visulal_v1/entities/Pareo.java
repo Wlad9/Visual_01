@@ -294,6 +294,7 @@ public class Pareo {
     public List<Competidor> getCompetidores() {
         return competidores;
     }
+    
 
     @Override
     public String toString() {

@@ -1,18 +1,20 @@
 package asdrubal.hr.visulal_v1.painel_Inicial;
 
 import asdrubal.hr.visulal_v1.analise_de_corridas.AnaliseDePareo;
+import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
 import asdrubal.hr.visulal_v1.dto_especiais.DTO_JT_tabPareos;
 import asdrubal.hr.visulal_v1.dto_especiais.DTO_TabelaCompetidores;
 import asdrubal.hr.visulal_v1.frame1.MontaItensDoMenu;
 import asdrubal.hr.visulal_v1.montadores.Mapa2Montador;
+import asdrubal.hr.visulal_v1.montadores.Mapa3_Montador;
+import asdrubal.hr.visulal_v1.montadores.Mapa4_MontadorListaOrdenada;
+import asdrubal.hr.visulal_v1.montadores.Mapa6_OderByData;
 import asdrubal.hr.visulal_v1.services.CompetidorService;
 import asdrubal.hr.visulal_v1.services.PareoService;
 import asdrubal.hr.visulal_v1.services.TempService;
-import asdrubal.hr.visulal_v1.tabelas_class.AuxTabCompetidores;
-import asdrubal.hr.visulal_v1.tabelas_class.AuxTabPareos;
-import asdrubal.hr.visulal_v1.tabelas_class.Tabela_Competidores;
-import asdrubal.hr.visulal_v1.tabelas_class.Tabela_Pareos;
+import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2;
+import asdrubal.hr.visulal_v1.tabelas_class.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -21,6 +23,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TelaInicial extends JFrame {
     private final PareoService pareoService;
@@ -34,6 +37,8 @@ public class TelaInicial extends JFrame {
     private JButton btAnalisa;
     private JPanel tabCompetidores;
     private JScrollPane scrolTabComp;
+    private JTable tabela2;
+    private JScrollPane scroll2;
 
     private JMenuBar menuBar;
     private JMenu programaMenu;
@@ -41,6 +46,8 @@ public class TelaInicial extends JFrame {
 
     private Map<Integer, DTO_JT_tabPareos> mapa1;
     private Map<Integer, DTO_TabelaCompetidores> mapa2;
+    private Object[][] dadosCavalosDoPareo;
+
     public TelaInicial(List<ProgramaDTO> programasOpen, PareoService pareoService, CompetidorService competidorService, TempService tempService) {
         this.pareoService = pareoService;
         this.competidorService = competidorService;
@@ -48,9 +55,11 @@ public class TelaInicial extends JFrame {
         setContentPane(contentPane);
         menuBar = new JMenuBar();
         programaMenu = new JMenu("Programas");
-        btPareoListener();
+//        btPareoListener();
+        btAnalisaListener();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width, screenSize.height);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        setSize(screenSize.width, screenSize.height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         montaMenu(programasOpen);// construtor do menuProgramas
 
@@ -59,10 +68,13 @@ public class TelaInicial extends JFrame {
         //        scrol1.setVisible(false);
     }
 
-    private void btPareoListener() {
-        btPareo.addActionListener(e-> new AnaliseDePareo(competidorService, mapa2).inicia());
+    private void btAnalisaListener() {
+        btAnalisa.addActionListener(e -> montaAnalisePareos(mapa2));
     }
 
+//    private void btPareoListener() {
+//        btPareo.addActionListener(e -> new AnaliseDePareo(competidorService, mapa2).inicia());
+//    }
 
 
     private void montaMenu(List<ProgramaDTO> programasOpen) {
@@ -78,7 +90,7 @@ public class TelaInicial extends JFrame {
                 ProgramaDTO programaSelecionadoDTO = mapaProgramas.get(idSelecionado);
                 String listaIds = programaSelecionadoDTO.getStringIds();
                 AuxTabPareos aux = new AuxTabPareos(pareoService);
-                aux.preparaDados(listaIds, idSelecionado);
+                aux.preparaDados(listaIds);
                 mapa1 = aux.getMapa1();
                 prepTabPareos(aux.getDadosTabela(), aux.getColunas());
             });
@@ -116,16 +128,7 @@ public class TelaInicial extends JFrame {
                         Integer idPrograma = dto.getIdPrograma();
                         btPareo.setVisible(true);
                         preparaTabelaCompetidores(idPareo, idPrograma);
-                        // Para acessar os dados da linha selecionada:
-                        // Object[] rowData = new Object[tabPareos.getColumnCount()];
-                        // for (int i = 0; i < rowData.length; i++) {
-                        //     rowData[i] = tabPareos.getValueAt(selectedRow, i);
-                        //     System.out.println("Coluna " + i + ": " + rowData[i]);
-                        // }
 
-                        // Aqui você pode chamar outros métodos para processar a seleção
-                        // Exemplo: exibir detalhes, habilitar botões, etc.
-//                        processarSelecaoDaTabela(selectedRow);
                     }
                 }
             }
@@ -147,13 +150,43 @@ public class TelaInicial extends JFrame {
         Mapa2Montador mapa2Montador = new Mapa2Montador();
         mapa2 = mapa2Montador.montaMapa2(tempService, idPareo, idPrograma);
         AuxTabCompetidores auxComp = new AuxTabCompetidores(mapa2);
-        Object[][] dados = auxComp.preparaDados();
-        Tabela_Competidores tabelaCompetidores = new Tabela_Competidores(dados, auxComp.getColunas());
+        dadosCavalosDoPareo = auxComp.preparaDados();
+        Tabela_Competidores tabelaCompetidores = new Tabela_Competidores(dadosCavalosDoPareo, auxComp.getColunas());
         scrolTabComp.setViewportView(tabelaCompetidores);
 //        contentPane.add(scrolTabComp);
         scrolTabComp.setVisible(true);
         contentPane.revalidate();
         contentPane.repaint();
+        this.revalidate();
+        this.repaint();
+    }
+//---------------------------- Tabela de corridas
+
+    private void montaAnalisePareos(Map<Integer, DTO_TabelaCompetidores> mapa2) {
+        Map<Integer, List<CompetidorDTO>> mapa3 = new Mapa3_Montador(competidorService).montaMapa(mapa2);
+        Mapa4_MontadorListaOrdenada mapa4Monta = new Mapa4_MontadorListaOrdenada();
+        Map<Integer, List<CompetidorDTO>> mapa4 = mapa4Monta.ordenaLista(mapa3);
+        Map<Integer, List<CompetidorDTO>> mapa5 = mapa4Monta.getMapa5();
+        Mapa6_OderByData mapa6OderByData = new Mapa6_OderByData();
+        Map<Integer, List<CompetidorDTO>> mapa6 = mapa6OderByData.ordena(mapa3);
+        AuxPesquisa_mk2 auxMk2 = new AuxPesquisa_mk2(mapa6, dadosCavalosDoPareo);
+        String[] titulos = auxMk2.getTitulos();
+        Object[][] dadosMk2 = auxMk2.montaDadosDaTabela();
+        Set<Integer> negrito = auxMk2.getNegrito();
+//        tabela2 = new JTable(dadosMk2, titulos);
+        tabela2 = new Tabela_AnalisePareos(dadosMk2, titulos, negrito);
+        tabela2.setFont(new Font("Arial", Font.PLAIN, 10));
+        tabela2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tabela2.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tabela2.getColumnModel().getColumn(1).setPreferredWidth(90);
+        tabela2.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tabela2.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tabela2.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tabela2.getColumnModel().getColumn(5).setPreferredWidth(100);
+        tabela2.getColumnModel().getColumn(6).setPreferredWidth(100);
+        scroll2.setViewportView(tabela2);
+
+        this.setVisible(true);
         this.revalidate();
         this.repaint();
     }

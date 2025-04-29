@@ -29,21 +29,12 @@ public class PareoService {
     }
 
     @Transactional(readOnly = true)
-    public List<DTO_JT_tabPareos> buscaListaDePareos(List<Integer> ids, Integer idPrograma) {
+    public List<DTO_JT_tabPareos> buscaListaDePareos(List<Integer> ids) {
         return pareoRepository.findByIdPareoIn(ids)
                 .orElse(Collections.emptyList())
                 .stream()
-                .map(pareo -> new DTO_JT_tabPareos(pareo, idPrograma))
+                .map(DTO_JT_tabPareos::new)
                 .collect(Collectors.toList());
-
-
-
-
-//        return pareoRepository.findByIdPareoIn(ids)
-//                .orElse(Collections.emptyList())
-//                .stream()
-//                .map(DTO_JT_tabPareos::new)
-//                .collect(Collectors.toList());
     }
 }
 // return pareoRepository.findByIdIn(ids)
