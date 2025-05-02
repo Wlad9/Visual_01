@@ -20,8 +20,8 @@ public class AuxPesquisa_mk2 {
     public AuxPesquisa_mk2(Map<Integer, List<CompetidorDTO>> mapa6, Object[][] dadosDosCavalo) {
         mapa = mapa6;
         dadosDosCavalos = dadosDosCavalo;
-        titulos = new String[]{" ", "Pos", "Raia", "Prova", "Crono", "Rateio", "Jóquei", "Treinador", "CorpCheg", "EntraReta", "Tempo"};
-
+        titulos = new String[]{" ", "Pos", "Raia", "Prova", "Crono", "Rateio", "Jóquei", "Treinador", "CorpCheg", "ER", "Tempo"};
+//        listarDados(dadosDosCavalo);
     }
 
     public Object[][] montaDadosDaTabela() {
@@ -41,10 +41,12 @@ public class AuxPesquisa_mk2 {
             System.out.println(cDTO);
             String cavalo = cDTO.getCavalo();
             String nrCavalo = identifaNrDoCavalo(cavalo, dadosDosCavalos);
-            cavalo = nrCavalo.concat(" ").concat(cavalo);
+            if (nrCavalo != null) {
+                cavalo = nrCavalo.concat("- ").concat(cavalo);
+            }
             String str = MontaLinhaInicial.monta(soma1, soma2, soma3);//*********
-            dados[i][0] = "Cavalo:";
-            dados[i][1] = cavalo;
+//            dados[i][0] = "Cavalo:";
+            dados[i][0] = cavalo;
             dados[i][2] = str;
             negrito.add(i);
             i++;
@@ -103,7 +105,25 @@ public class AuxPesquisa_mk2 {
         }
         return null;
     }
-    public Set<Integer> getNegrito(){
+
+    public Set<Integer> getNegrito() {
         return negrito;
+    }
+    public void listarDados(Object[][] dados) {
+        if (dados != null) {
+            for (int i = 0; i < dados.length; i++) { // Loop pelas linhas
+                if (dados[i] != null) {
+                    for (int j = 0; j < dados[i].length; j++) { // Loop pelas colunas da linha atual
+                        Object valor = dados[i][j];
+                        System.out.print("[" + i + "][" + j + "]: " + valor + "\t"); // Imprime o índice e o valor
+                    }
+                    System.out.println(); // Nova linha após cada linha do array
+                } else {
+                    System.out.println("Linha [" + i + "] é nula.");
+                }
+            }
+        } else {
+            System.out.println("O array de dados é nulo.");
+        }
     }
 }

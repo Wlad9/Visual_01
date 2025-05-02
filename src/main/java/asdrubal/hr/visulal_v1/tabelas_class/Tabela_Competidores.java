@@ -34,16 +34,8 @@ public class Tabela_Competidores extends JTable {
         comp.setForeground(getForeground());
         comp.setBackground(getBackground());
 
-
         if (column == 1) {
             comp.setFont(comp.getFont().deriveFont(Font.BOLD));
-        }
-
-
-        Object valorColuna3 = getValueAt(row, 2); // Coluna 3 = índice 2
-        if (valorColuna3 != null && valorColuna3.toString().contains("69")) {
-            comp.setBackground(Color.CYAN);
-            comp.setForeground(Color.BLACK);
         }
 
         return comp;

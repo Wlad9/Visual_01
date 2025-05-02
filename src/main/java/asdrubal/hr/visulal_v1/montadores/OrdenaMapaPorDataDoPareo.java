@@ -2,12 +2,9 @@ package asdrubal.hr.visulal_v1.montadores;
 
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class Mapa6_OderByData {
+public class OrdenaMapaPorDataDoPareo {
     public Map<Integer, List<CompetidorDTO>> ordena(Map<Integer, List<CompetidorDTO>> mapa3) {
         Map<Integer, List<CompetidorDTO>> mapa = new HashMap<>();
         for (Map.Entry<Integer, List<CompetidorDTO>> entry : mapa3.entrySet()) {
@@ -18,5 +15,16 @@ public class Mapa6_OderByData {
             mapa.put(id, lista);
         }
         return mapa;
+    }
+
+    public Map<Integer, List<CompetidorDTO>> ordenaPorTempo(Map<Integer, List<CompetidorDTO>> mapa) {
+        Map<Integer, List<CompetidorDTO>> mapaOrdenado = new HashMap<>();
+        for (Integer key : mapa.keySet()) {
+            List<CompetidorDTO> lista = mapa.get(key);
+            List<CompetidorDTO> listaOrdenada = new ArrayList<>(lista);
+            listaOrdenada.sort(Comparator.comparing(CompetidorDTO::getTempo));
+            mapaOrdenado.put(key, listaOrdenada);
+        }
+        return mapaOrdenado;
     }
 }

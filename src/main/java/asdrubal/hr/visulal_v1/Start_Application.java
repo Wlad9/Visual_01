@@ -3,10 +3,7 @@ package asdrubal.hr.visulal_v1;
 import asdrubal.hr.visulal_v1.Telas.TelaInicial_01;
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
 import asdrubal.hr.visulal_v1.painel_Inicial.TelaInicial;
-import asdrubal.hr.visulal_v1.services.CompetidorService;
-import asdrubal.hr.visulal_v1.services.PareoService;
-import asdrubal.hr.visulal_v1.services.ProgramaService;
-import asdrubal.hr.visulal_v1.services.TempService;
+import asdrubal.hr.visulal_v1.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,6 +22,8 @@ public class Start_Application implements CommandLineRunner {
     private CompetidorService competidorService;
     @Autowired
     private TempService tempService;
+    @Autowired
+    private IndicesService indicesService;
 
     public static void main(String[] args) {
         System.setProperty("java.awt.headless", "false");
@@ -36,7 +35,7 @@ public class Start_Application implements CommandLineRunner {
         List<ProgramaDTO> programasOpen = programaService.findByProgOpen();
 
         SwingUtilities.invokeLater(() -> {
-            TelaInicial inicial = new TelaInicial(programasOpen, pareoService, competidorService, tempService);
+            TelaInicial inicial = new TelaInicial(programasOpen, pareoService, competidorService, tempService, indicesService);
 
 //            TelaInicial_01 inicial01 = new TelaInicial_01(programasOpen, pareoService, competidorService, tempService);// está ok
 //        PainelPareos painelPareos = new PainelPareos(pareoService, competidorService);
