@@ -27,7 +27,9 @@
             <children>
               <scrollpane id="658dd" binding="scrol1">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <preferredSize width="800" height="600"/>
+                </properties>
                 <border type="none"/>
                 <children/>
               </scrollpane>
@@ -35,58 +37,40 @@
           </scrollpane>
         </children>
       </grid>
-      <grid id="f7e51" binding="panel2" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="f7e51" binding="panelScrolDistancia" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false">
+            <preferred-size width="140" height="-1"/>
+          </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-10885869"/>
+        </properties>
         <border type="none"/>
         <children>
-          <scrollpane id="6696c" binding="scrol2">
+          <hspacer id="b4b66">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+          </hspacer>
+          <scrollpane id="49678" binding="scrolDistancias">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="80" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-6316120"/>
+            </properties>
             <border type="none"/>
             <children>
-              <component id="fbd16" class="javax.swing.JTable" binding="table1" default-binding="true">
+              <component id="b0589" class="javax.swing.JList" binding="distanciasLista">
                 <constraints/>
                 <properties/>
               </component>
             </children>
           </scrollpane>
-          <grid id="add08" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties/>
-            <border type="none"/>
-            <children>
-              <scrollpane id="6535e">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false">
-                    <preferred-size width="50" height="-1"/>
-                  </grid>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </scrollpane>
-            </children>
-          </grid>
-          <grid id="32804" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false">
-                <minimum-size width="40" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
-            <border type="none"/>
-            <children/>
-          </grid>
         </children>
       </grid>
     </children>

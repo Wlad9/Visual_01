@@ -43,7 +43,6 @@ public class CompetidorService {
         for (int page = 0; ; page++) {
             PageRequest pageRequest = PageRequest.of(page, 100);
             Page<Competidor> paginas = competidorRepository.findByHorse_IdCavalo(idCavalo, pageRequest);
-
             lista.addAll(
                     paginas.getContent()
                             .stream()

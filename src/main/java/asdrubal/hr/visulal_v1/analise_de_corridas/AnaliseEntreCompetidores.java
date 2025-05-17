@@ -7,6 +7,7 @@ import asdrubal.hr.visulal_v1.montadores.Mapa4_MontadorListaOrdenada;
 import asdrubal.hr.visulal_v1.montadores.OrdenaMapaPorDataDoPareo;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.LeftPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.RightPaddingCellRenderer;
+import asdrubal.hr.visulal_v1.services.CavaloService;
 import asdrubal.hr.visulal_v1.services.CompetidorService;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2;
 
@@ -18,20 +19,23 @@ import java.util.Map;
 
 public class AnaliseEntreCompetidores extends JFrame{
     private final CompetidorService competidorService;
+    private final CavaloService cavaloService;
     private final Map<Integer, DTO_TabelaCompetidores> mapa2;
     private JPanel contentPane;
     private JScrollPane panel1;
     private JScrollPane scrol1;
-    private JPanel panel2;
-    private JScrollPane scrol2;
-    private JTable table1;
+    private JPanel panelScrolDistancia;
+    private JList distanciasLista;
+    private JScrollPane scrolPista;
+    private JScrollPane scrolDistancias;
     private JTable tabela1;
     private RightPaddingCellRenderer alinhaDireita = new RightPaddingCellRenderer(5);
     private LeftPaddingCellRenderer alinhaEsquerda = new LeftPaddingCellRenderer(5);
     private DefaultTableCellRenderer centraliza = new DefaultTableCellRenderer();
 
-    public AnaliseEntreCompetidores(CompetidorService competidorService, Map<Integer, DTO_TabelaCompetidores> mapa2) {
+    public AnaliseEntreCompetidores(CompetidorService competidorService, Map<Integer, DTO_TabelaCompetidores> mapa2, CavaloService cavaloService) {
         this.competidorService = competidorService;
+        this.cavaloService = cavaloService;
         this.mapa2 = mapa2;
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -51,17 +55,18 @@ public class AnaliseEntreCompetidores extends JFrame{
         Object [][] dadosCavalo = new Object[2][2];
         Mapa4_MontadorListaOrdenada mapa4Monta = new Mapa4_MontadorListaOrdenada();
         Map<Integer, List<CompetidorDTO>> mapa4 = mapa4Monta.ordenaLista(mapa3);
-        for(Integer id: mapa4.keySet()){
-            List<CompetidorDTO> lista =mapa4.get(id);
-            for(CompetidorDTO c: lista){
-                System.out.println(c.getTempo());
-            }
-        }
+
+//        for(Integer id: mapa4.keySet()){
+//            List<CompetidorDTO> lista =mapa4.get(id);
+//            for(CompetidorDTO c: lista){
+//                System.out.println("---------------->>>>"+c.getTempo());
+//            }
+//        }
         Map<Integer, List<CompetidorDTO>> mapa5 = mapa4Monta.getMapa5();
         OrdenaMapaPorDataDoPareo ordenaMapa = new OrdenaMapaPorDataDoPareo();
 //        Map<Integer, List<CompetidorDTO>> mapa6 = ordenaMapa.ordena(mapa3);
         Map<Integer, List<CompetidorDTO>> mapa7 = ordenaMapa.ordenaPorTempo(mapa4);
-        AuxPesquisa_mk2 auxMk2 = new AuxPesquisa_mk2(mapa7, dadosCavalo);
+        AuxPesquisa_mk2 auxMk2 = new AuxPesquisa_mk2(mapa7, dadosCavalo, cavaloService);
         String[] titulos = auxMk2.getTitulos();
         Object[][] dadosMk2 = auxMk2.montaDadosDaTabela();
 
@@ -84,6 +89,11 @@ public class AnaliseEntreCompetidores extends JFrame{
         tabela1.getColumnModel().getColumn(0).setCellRenderer(centraliza);
 
         scrol1.setViewportView(tabela1);
+
+        Distancias_Lista listaDistancias = new Distancias_Lista();
+        scrolDistancias.setViewportView(listaDistancias);
+        Pistas_Lista pistasLista = new Pistas_Lista();
+        scrolPista.setViewportView(pistasLista);
 
         this.setVisible(true);
         this.revalidate();

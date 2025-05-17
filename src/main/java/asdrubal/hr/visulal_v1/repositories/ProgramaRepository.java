@@ -14,5 +14,5 @@ public interface ProgramaRepository extends JpaRepository<Programa, Integer> {
 
     Optional<Programa> findByDataAndHipodromoCod(Date data, String hipoCod);
 
-    List<Programa> findBySt(int i);
+    Optional<List<Programa>> findBySt(int i);
 }

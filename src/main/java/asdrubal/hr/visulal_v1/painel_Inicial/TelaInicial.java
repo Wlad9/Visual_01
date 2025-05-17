@@ -13,10 +13,8 @@ import asdrubal.hr.visulal_v1.montadores.Mapa4_MontadorListaOrdenada;
 import asdrubal.hr.visulal_v1.montadores.OrdenaMapaPorDataDoPareo;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.LeftPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.RightPaddingCellRenderer;
-import asdrubal.hr.visulal_v1.services.CompetidorService;
-import asdrubal.hr.visulal_v1.services.IndicesService;
-import asdrubal.hr.visulal_v1.services.PareoService;
-import asdrubal.hr.visulal_v1.services.TempService;
+import asdrubal.hr.visulal_v1.services.*;
+import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_Raias;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2;
 import asdrubal.hr.visulal_v1.tabelas_class.*;
 
@@ -25,7 +23,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +32,7 @@ public class TelaInicial extends JFrame {
     private final CompetidorService competidorService;
     private final TempService tempService;
     private final IndicesService indicesService;
+    private final CavaloService cavaloService;
 
     private JPanel contentPane;
     private JScrollPane scrolTabPareos;
@@ -45,6 +43,13 @@ public class TelaInicial extends JFrame {
     private JScrollPane scrolTabComp;
     private JTable tabela2;
     private JScrollPane scroll2;
+    private JTextField txtPista;
+    private JTextField txtDistancia;
+    private JLabel lbPista;
+    private JLabel lbDistancia;
+    private JButton bt_A;
+    private JButton bt_B;
+    private JPanel jp_A;
 
     private JMenuBar menuBar;
     private JMenu programaMenu;
@@ -52,6 +57,9 @@ public class TelaInicial extends JFrame {
 
     private Map<Integer, DTO_JT_tabPareos> mapa1;
     private Map<Integer, DTO_TabelaCompetidores> mapa2;
+    private Map<Integer, List<CompetidorDTO>> mapa3;
+    private Map<Integer, List<CompetidorDTO>> mapa4;
+    private Map<Integer, List<CompetidorDTO>> mapa6;
     private Object[][] dadosCavalosDoPareo;
     private IndicesDTO dtoIndices;
 
@@ -59,17 +67,20 @@ public class TelaInicial extends JFrame {
     private RightPaddingCellRenderer alinhaDireita = new RightPaddingCellRenderer(15);
     private LeftPaddingCellRenderer alinhaEsquerda = new LeftPaddingCellRenderer(5);
 
-    public TelaInicial(List<ProgramaDTO> programasOpen, PareoService pareoService, CompetidorService competidorService, TempService tempService, IndicesService indicesService) {
+    public TelaInicial(Map<Integer, ProgramaDTO> programasOpen, PareoService pareoService, CompetidorService competidorService,
+                       TempService tempService, IndicesService indicesService, CavaloService cavaloService) {
         this.pareoService = pareoService;
         this.competidorService = competidorService;
         this.tempService = tempService;
         this.indicesService = indicesService;
+        this.cavaloService = cavaloService;
         setContentPane(contentPane);
         menuBar = new JMenuBar();
         programaMenu = new JMenu("Programas");
 //  Listener dos Botões----------------------------------------------------------------------
         btPareoListener();
         btAnalisaListener();
+        bt_B_Listener();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        setSize(screenSize.width, screenSize.height);
@@ -81,27 +92,67 @@ public class TelaInicial extends JFrame {
         //        scrol1.setVisible(false);
     }
 
+    private void bt_B_Listener() {//lista cavalos por raia e tempo
+        bt_B.addActionListener(e -> montaPesquisaPorRaia());
+    }
+
+    private void montaPesquisaPorRaia() {
+        String distancia = txtDistancia.getText();
+        String pista = txtPista.getText();
+        distancia = distancia.trim().toUpperCase();
+        pista = pista.trim().toUpperCase();
+        String raia = pista.concat(distancia);
+        AuxPesquisa_Raias auxPesqRaias = new AuxPesquisa_Raias(mapa3, mapa4, mapa6, dadosCavalosDoPareo);
+        Object[][] dadosMk3 = auxPesqRaias.inicia(raia);
+
+        for (int i = 0; i < dadosMk3.length; i++) {
+            System.out.print("Linha " + (i + 1) + ": [");
+            for (int j = 0; j < dadosMk3[i].length; j++) {
+                System.out.print(dadosMk3[i][j]);
+                if (j < dadosMk3[i].length - 1) {
+                    System.out.print(", ");
+                }
+            }
+            System.out.println("]");
+        }
+
+        String[] titulos = auxPesqRaias.getTitulos();
+        System.out.println(titulos);
+        System.out.println(dadosMk3);
+//        tabela2 = new Tabela_AnalisePareos(dadosMk3, titulos);
+//        tabela2.setFont(new Font("Arial", Font.PLAIN, 12));
+//        tabela2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        tabela2.getColumnModel().getColumn(0).setPreferredWidth(120);
+//        tabela2.getColumnModel().getColumn(1).setPreferredWidth(40);
+//        tabela2.getColumnModel().getColumn(2).setPreferredWidth(80);
+//        tabela2.getColumnModel().getColumn(3).setPreferredWidth(80);
+//        tabela2.getColumnModel().getColumn(4).setPreferredWidth(80);
+//        tabela2.getColumnModel().getColumn(5).setPreferredWidth(40);
+//        tabela2.getColumnModel().getColumn(6).setPreferredWidth(100);
+//        tabela2.getColumnModel().getColumn(7).setPreferredWidth(110);
+//        tabela2.getColumnModel().getColumn(9).setPreferredWidth(30);
+    }
+
     private void btAnalisaListener() {
         btAnalisa.addActionListener(e -> montaAnalisePareos(mapa2));
     }
 
     private void btPareoListener() {
 //        btPareo.addActionListener(e -> new AnaliseDePareo(competidorService, mapa2).inicia());
-        btPareo.addActionListener(e -> new AnaliseEntreCompetidores(competidorService, mapa2).inicia());
+        btPareo.addActionListener(e -> new AnaliseEntreCompetidores(competidorService, mapa2, cavaloService).inicia());
     }
 
 
-    private void montaMenu(List<ProgramaDTO> programasOpen) {
-        Map<Integer, ProgramaDTO> mapaProgramas = new HashMap<>();
+    private void montaMenu(Map<Integer, ProgramaDTO> programasOpen) {
         MontaItensDoMenu menu = new MontaItensDoMenu();
-        for (ProgramaDTO dto : programasOpen) {
-            mapaProgramas.put(dto.getIdPrograma(), dto);
+        for (Integer idPrograma : programasOpen.keySet()) {
+            ProgramaDTO dto = programasOpen.get(idPrograma);
             JMenuItem item = new JMenuItem(menu.montaItemMenuPrograma(dto));
             item.setActionCommand(String.valueOf(dto.getIdPrograma()));
 //  Menu Listener
             item.addActionListener(e -> {
                 Integer idSelecionado = Integer.valueOf(e.getActionCommand());
-                ProgramaDTO programaSelecionadoDTO = mapaProgramas.get(idSelecionado);
+                ProgramaDTO programaSelecionadoDTO = programasOpen.get(idSelecionado);
                 String listaIds = programaSelecionadoDTO.getStringIds();
                 AuxTabPareos aux = new AuxTabPareos(pareoService);
                 aux.preparaDados(listaIds);
@@ -177,15 +228,15 @@ public class TelaInicial extends JFrame {
 //---------------------------- Tabela de corridas
 
     private void montaAnalisePareos(Map<Integer, DTO_TabelaCompetidores> mapa2) {
-        Map<Integer, List<CompetidorDTO>> mapa3 = new Mapa3_Montador(competidorService).montaMapa(mapa2);
+        mapa3 = new Mapa3_Montador(competidorService).montaMapa(mapa2);
         Mapa4_MontadorListaOrdenada mapa4Monta = new Mapa4_MontadorListaOrdenada();
-        Map<Integer, List<CompetidorDTO>> mapa4 = mapa4Monta.ordenaLista(mapa3);
+        mapa4 = mapa4Monta.ordenaLista(mapa3);
         Map<Integer, List<CompetidorDTO>> mapa5 = mapa4Monta.getMapa5();
         OrdenaMapaPorDataDoPareo mapa6OderByData = new OrdenaMapaPorDataDoPareo();
-        Map<Integer, List<CompetidorDTO>> mapa6 = mapa6OderByData.ordena(mapa3);
-        AuxPesquisa_mk2 auxMk2 = new AuxPesquisa_mk2(mapa6, dadosCavalosDoPareo);
-        String[] titulos = auxMk2.getTitulos();
+        mapa6 = mapa6OderByData.ordena(mapa3);
+        AuxPesquisa_mk2 auxMk2 = new AuxPesquisa_mk2(mapa6, dadosCavalosDoPareo, cavaloService);
         Object[][] dadosMk2 = auxMk2.montaDadosDaTabela();
+        String[] titulos = auxMk2.getTitulos();
         Set<Integer> negrito = auxMk2.getNegrito();
         Map<String, IndicesDTO> mapa1 = indicesService.findAll();
         tabela2 = new Tabela_AnalisePareos(dadosMk2, titulos, negrito, mapa1);

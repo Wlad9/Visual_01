@@ -7,6 +7,7 @@ import asdrubal.hr.visulal_v1.montadores.Mapa4_MontadorListaOrdenada;
 import asdrubal.hr.visulal_v1.montadores.OrdenaMapaPorDataDoPareo;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.LeftPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.RightPaddingCellRenderer;
+import asdrubal.hr.visulal_v1.services.CavaloService;
 import asdrubal.hr.visulal_v1.services.CompetidorService;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 
 public class AnaliseDePareo extends JFrame {
     private final CompetidorService competidorService;
+    private final CavaloService cavaloService;
     private final Map<Integer, DTO_TabelaCompetidores> mapa2;
     private JPanel contentPane;
     private JTable tabAnalise;
@@ -29,8 +31,9 @@ public class AnaliseDePareo extends JFrame {
     private LeftPaddingCellRenderer alinhaEsquerda = new LeftPaddingCellRenderer(5);
     private DefaultTableCellRenderer centraliza = new DefaultTableCellRenderer();
 
-    public AnaliseDePareo(CompetidorService competidorService, Map<Integer, DTO_TabelaCompetidores> mapa2) {
+    public AnaliseDePareo(CompetidorService competidorService, Map<Integer, DTO_TabelaCompetidores> mapa2, CavaloService cavaloService) {
         this.competidorService = competidorService;
+        this.cavaloService = cavaloService;
         this.mapa2 = mapa2;
 //        showMapa2();
         setContentPane(contentPane);
@@ -56,7 +59,7 @@ public class AnaliseDePareo extends JFrame {
         Map<Integer, List<CompetidorDTO>> mapa5 = mapa4Monta.getMapa5();
         OrdenaMapaPorDataDoPareo ordenaMapa = new OrdenaMapaPorDataDoPareo();
         Map<Integer, List<CompetidorDTO>> mapa6 = ordenaMapa.ordena(mapa3);
-        AuxPesquisa_mk2 auxMk2 = new AuxPesquisa_mk2(mapa6, xxxxxx);
+        AuxPesquisa_mk2 auxMk2 = new AuxPesquisa_mk2(mapa6, xxxxxx, cavaloService);
         String[] titulos = auxMk2.getTitulos();
         Object[][] dadosMk2 = auxMk2.montaDadosDaTabela();
         tabAnalise = new JTable(dadosMk2, titulos);

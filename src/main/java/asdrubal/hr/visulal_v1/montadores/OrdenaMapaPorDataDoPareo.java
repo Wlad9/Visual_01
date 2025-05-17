@@ -6,14 +6,24 @@ import java.util.*;
 
 public class OrdenaMapaPorDataDoPareo {
     public Map<Integer, List<CompetidorDTO>> ordena(Map<Integer, List<CompetidorDTO>> mapa3) {
+        for(Integer id: mapa3.keySet()){
+            List<CompetidorDTO>lista = mapa3.get(id);
+
+            for(CompetidorDTO c:lista){
+                System.out.println("\nCavalo:"+c.getCavalo()+ "\tIdCavalo:"+ id+ "\t idPrograma:"+ c.getIdDoPrograma()+"\tHipo:"+c.getHipoCod());
+            }
+        }
         Map<Integer, List<CompetidorDTO>> mapa = new HashMap<>();
         for (Map.Entry<Integer, List<CompetidorDTO>> entry : mapa3.entrySet()) {
             Integer id = entry.getKey();
             List<CompetidorDTO> lista = entry.getValue();
+//            System.out.println("..............>>>>>>>"+entry.getValue());
             lista.sort((Comparator.comparing(CompetidorDTO::getData).reversed()));
 //            lista.sort(Comparator.comparing(CompetidorDTO::getData));
             mapa.put(id, lista);
         }
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//        System.exit(0);///////////////////////////////////////////////////////////////////////////////////////
         return mapa;
     }
 
