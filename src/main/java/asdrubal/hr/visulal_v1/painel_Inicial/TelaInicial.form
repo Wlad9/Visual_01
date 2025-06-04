@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="asdrubal.hr.visulal_v1.painel_Inicial.TelaInicial">
-  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="4" column-count="10" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="5" column-count="10" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="714" height="653"/>
@@ -82,7 +82,7 @@
       </vspacer>
       <scrollpane id="b5a2" binding="scroll2">
         <constraints>
-          <grid row="0" column="8" row-span="4" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="8" row-span="5" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -98,7 +98,7 @@
           <grid row="1" column="5" row-span="3" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <grid id="61fe8" binding="jp_A" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="61fe8" binding="jp_A" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -106,56 +106,148 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="a90c0" class="javax.swing.JLabel" binding="lbPista">
+          <scrollpane id="9a3f2" binding="scrollPista">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Pista"/>
-            </properties>
-          </component>
-          <component id="93c80" class="javax.swing.JTextField" binding="txtPista">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <maximum-size width="80" height="-1"/>
-              </grid>
+              <grid row="0" column="0" row-span="4" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
-          </component>
-          <component id="5d3b7" class="javax.swing.JLabel" binding="lbDistancia">
+            <border type="none"/>
+            <children>
+              <component id="885ea" class="javax.swing.JList" binding="jlPista">
+                <constraints/>
+                <properties>
+                  <model>
+                    <item value="GL"/>
+                    <item value="GM"/>
+                    <item value="GP"/>
+                    <item value="GE"/>
+                    <item value="AL"/>
+                    <item value="AM"/>
+                    <item value="AP"/>
+                    <item value="AE"/>
+                    <item value="ALV"/>
+                    <item value="AEV"/>
+                    <item value="AMV"/>
+                    <item value="APV"/>
+                    <item value="GLV"/>
+                    <item value="GMV"/>
+                    <item value="GPV"/>
+                    <item value="GEV"/>
+                    <item value="AÚ"/>
+                    <item value="G"/>
+                    <item value="A"/>
+                  </model>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <scrollpane id="c8310" binding="scrollDistancia">
             <constraints>
-              <grid row="1" column="0" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Distância"/>
-            </properties>
-          </component>
-          <component id="a09a6" class="javax.swing.JTextField" binding="txtDistancia">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <maximum-size width="80" height="-1"/>
-              </grid>
+              <grid row="0" column="1" row-span="4" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
-          </component>
-          <component id="aac93" class="javax.swing.JButton" binding="bt_A">
+            <border type="none"/>
+            <children>
+              <component id="7b38e" class="javax.swing.JList" binding="jlDistancia">
+                <constraints/>
+                <properties>
+                  <model>
+                    <item value="700"/>
+                    <item value="800"/>
+                    <item value="1000"/>
+                    <item value="1100"/>
+                    <item value="1200"/>
+                    <item value="1300"/>
+                    <item value="1380"/>
+                    <item value="1400"/>
+                    <item value="1500"/>
+                    <item value="1600"/>
+                    <item value="1800"/>
+                    <item value="1900"/>
+                    <item value="2000"/>
+                    <item value="2100"/>
+                    <item value="2200"/>
+                    <item value="2400"/>
+                    <item value="2500"/>
+                    <item value="2600"/>
+                    <item value="2800"/>
+                    <item value="3000"/>
+                    <item value="3200"/>
+                    <item value="3218"/>
+                  </model>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <component id="4f81" class="javax.swing.JRadioButton" binding="rb23P">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Pesq. Ano"/>
+              <text value="Ano 2023 +"/>
             </properties>
           </component>
-          <component id="ed390" class="javax.swing.JButton" binding="bt_B">
+          <component id="8ea17" class="javax.swing.JRadioButton" binding="rb25">
             <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Pesq. Raia"/>
+              <text value="Ano 2025"/>
+            </properties>
+          </component>
+          <component id="2cef3" class="javax.swing.JRadioButton" binding="rb24P">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Ano 2024 +"/>
+            </properties>
+          </component>
+          <component id="9f675" class="javax.swing.JRadioButton" binding="rbTodos">
+            <constraints>
+              <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Todos"/>
             </properties>
           </component>
         </children>
       </grid>
+      <grid id="48855" binding="jpDiv" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="2aa49" class="javax.swing.JButton" binding="btFiltroRaia">
+            <constraints/>
+            <properties>
+              <text value="Raias"/>
+            </properties>
+          </component>
+          <component id="3da8f" class="javax.swing.JButton" binding="btPesq_X">
+            <constraints/>
+            <properties>
+              <text value="X"/>
+            </properties>
+          </component>
+          <component id="fd890" class="javax.swing.JButton" binding="jbFiltroData">
+            <constraints/>
+            <properties>
+              <text value="Data"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="54d47" class="javax.swing.JButton" binding="btComparaCavalos">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Comparar"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

@@ -2,6 +2,7 @@ package asdrubal.hr.visulal_v1;
 
 import asdrubal.hr.visulal_v1.Telas.TelaInicial_01;
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
+import asdrubal.hr.visulal_v1.pagina_02.Pagina_02;
 import asdrubal.hr.visulal_v1.pagina_03.Pagina_03;
 import asdrubal.hr.visulal_v1.painel_Inicial.TelaInicial;
 import asdrubal.hr.visulal_v1.services.*;
@@ -38,6 +39,7 @@ public class Start_Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Map<Integer, ProgramaDTO> openPrograms = programaService.findByProgOpen();
         SwingUtilities.invokeLater(() -> {
+//            Pagina_02 pg2 = new Pagina_02();
 //            Pagina_03 pagina_03 = new Pagina_03();
 //
             TelaInicial inicial = new TelaInicial(openPrograms, pareoService, competidorService, tempService, indicesService, cavaloService);

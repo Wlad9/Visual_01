@@ -32,10 +32,7 @@ public class AuxPesquisa_mk2 {
         int nrLinhas = calculaLinhas(mapa) + nrCavalos;
         int nrColunas = titulos.length;
         Object[][] dados = new Object[nrLinhas][nrColunas];
-        int ordem = 1;
         int i = 0;
-
-        System.out.println("Tamanho do mapa:" + mapa.size());
         for (Integer idCavalo : mapa.keySet()) {
             List<CompetidorDTO> listaDTOs = mapa.get(idCavalo);
             if (listaDTOs.size() == 0) {
@@ -71,12 +68,20 @@ public class AuxPesquisa_mk2 {
                 for (CompetidorDTO c : listaDTOs) {
                     String dtHip = montaDataHipo(c.getData(), c.getHipoCod());
                     String pos = String.valueOf(c.getColocacao()).concat("°");
-
+                    if (c.getCronometro() == null) {
+                        dados[i][4] = "";
+                    } else if (c.getCronometro().equalsIgnoreCase("noInfo")) {
+                        dados[i][4] = "      --";
+                    } else {
+                        String cronometro = c.getCronometro();
+                        cronometro = cronometro.toLowerCase();
+                        dados[i][4] = cronometro;
+                    }
                     dados[i][0] = dtHip;
                     dados[i][1] = pos;
                     dados[i][2] = c.getRaia();
                     dados[i][3] = c.getProva();
-                    dados[i][4] = c.getCronometro();
+//                    dados[i][4] = c.getCronometro();
                     dados[i][5] = c.getRateio();
                     dados[i][6] = c.getJoquei();
                     dados[i][7] = c.getTreinador();

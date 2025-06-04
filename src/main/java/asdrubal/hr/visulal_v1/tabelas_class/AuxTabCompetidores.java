@@ -5,7 +5,7 @@ import asdrubal.hr.visulal_v1.dto_especiais.DTO_TabelaCompetidores;
 import java.util.Map;
 
 public class AuxTabCompetidores {
-   private int nrCol = 0;
+    private int nrCol = 0;
     private String[] colunas;
     private final Map<Integer, DTO_TabelaCompetidores> mapa2;
 

@@ -10,7 +10,5 @@ public class Mapa1Montador {
     public Map<Integer, DTO_JT_tabPareos> montaMapa1(List<DTO_JT_tabPareos> listaDTO) {
         return listaDTO.stream().
                 collect(Collectors.toMap(DTO_JT_tabPareos::getOrdem, dto -> dto));
-//                collect(Collectors.toMap(DTO_JT_tabPareos::getIdPareo, dto->dto));
-
     }
 }

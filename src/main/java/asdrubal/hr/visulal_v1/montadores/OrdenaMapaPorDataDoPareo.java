@@ -9,9 +9,6 @@ public class OrdenaMapaPorDataDoPareo {
         for(Integer id: mapa3.keySet()){
             List<CompetidorDTO>lista = mapa3.get(id);
 
-            for(CompetidorDTO c:lista){
-                System.out.println("\nCavalo:"+c.getCavalo()+ "\tIdCavalo:"+ id+ "\t idPrograma:"+ c.getIdDoPrograma()+"\tHipo:"+c.getHipoCod());
-            }
         }
         Map<Integer, List<CompetidorDTO>> mapa = new HashMap<>();
         for (Map.Entry<Integer, List<CompetidorDTO>> entry : mapa3.entrySet()) {
