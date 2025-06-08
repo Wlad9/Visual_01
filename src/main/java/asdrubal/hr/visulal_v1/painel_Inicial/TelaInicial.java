@@ -15,6 +15,7 @@ import asdrubal.hr.visulal_v1.montadores.*;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.LeftPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.RightPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.services.*;
+import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxMontaSetNegritoCorridasComuns;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2;
 import asdrubal.hr.visulal_v1.tabelas_class.*;
 
@@ -168,12 +169,12 @@ public class TelaInicial extends JFrame {
                 Object[][] dadosFiltradosPorData = MontaObjetoFiltradoPorData.filtra(dadosMk2, anoPesquisa, objEmUso);
                 Set<Integer> negritoPareoFiltroAno = MontaObjetoFiltradoPorData.getNegrito();
                 montaAnalisePareosComFiltroTempo(dadosFiltradosPorData, negritoPareoFiltroAno);
-                showDados(dadosFiltradosPorData);
+//                showDados(dadosFiltradosPorData);
             }
             case "Mk3" -> {
                 Object[][] raiasFiltradasPorData = MontaObjetoFiltradoPorData.filtra(dadosMk3, anoPesquisa, objEmUso);
                 Set<Integer> negritoRaiaFiltroAno = MontaObjetoFiltradoPorData.getNegrito();
-                showDados(raiasFiltradasPorData);
+//                showDados(raiasFiltradasPorData);
                 montaAnaliseDeRaiasComFiltroTempo(raiasFiltradasPorData, negritoRaiaFiltroAno);
             }
         }
@@ -278,12 +279,13 @@ public class TelaInicial extends JFrame {
 /// //////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void analisaCorridasEntreCompetidores() {//comparando corridas - isso é gambiarra
         showDados(dadosCavalosDoPareo);
-        for(Map.Entry<Integer, DTO_TabelaCompetidores> entry: mapa2.entrySet()){
-            System.out.println("\nidCavalo:"+entry.getKey());
-            System.out.println(entry.getValue());
-        }
+//        for(Map.Entry<Integer, DTO_TabelaCompetidores> entry: mapa2.entrySet()){
+//            System.out.println("\nidCavalo:"+entry.getKey());
+//            System.out.println(entry.getValue());
+//        }
         IdentificaCorridasComuns idcorridas = new IdentificaCorridasComuns(competidorService, mapa2);
         Object[][] corridasComuns = idcorridas.pesquisa();
+        montaTabelaComCorridasComuns(corridasComuns);
     }
 
 
@@ -434,6 +436,29 @@ public class TelaInicial extends JFrame {
         tabela2.getColumnModel().getColumn(9).setCellRenderer(centraliza);// ER- EntradaReta
         tabela2.getColumnModel().getColumn(10).setCellRenderer(centraliza);//tempo
 
+        scroll2.setViewportView(tabela2);
+
+        this.setVisible(true);
+        this.revalidate();
+        this.repaint();
+    }
+    private void montaTabelaComCorridasComuns(Object[][] corridasComuns) {
+        int nrColunas = 11;
+        String[] titulo = new String[]{"Crono", "Pos", "Cavalo", "Data", "Jóquei", "Treinador", "Rateio","Prova","Corp","ER","Tempo"};
+        Set<Integer> negrito = AuxMontaSetNegritoCorridasComuns.inicia(corridasComuns);
+        tabela2 = new Tabela_AnalisePareos(corridasComuns, titulo, negrito, indices, nrColunas, "CorridasComuns", null);
+        tabela2.setFont(new Font("Arial", Font.PLAIN, 12));
+        tabela2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tabela2.getColumnModel().getColumn(0).setPreferredWidth(120);
+        tabela2.getColumnModel().getColumn(1).setPreferredWidth(40);
+        tabela2.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tabela2.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tabela2.getColumnModel().getColumn(4).setPreferredWidth(80);
+        tabela2.getColumnModel().getColumn(5).setPreferredWidth(40);
+        tabela2.getColumnModel().getColumn(6).setPreferredWidth(100);
+        tabela2.getColumnModel().getColumn(7).setPreferredWidth(110);
+        tabela2.getColumnModel().getColumn(9).setPreferredWidth(30);
+        tabela2.getColumnModel().getColumn(10).setPreferredWidth(30);
         scroll2.setViewportView(tabela2);
 
         this.setVisible(true);

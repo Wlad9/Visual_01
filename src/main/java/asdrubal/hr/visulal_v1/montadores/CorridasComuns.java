@@ -32,9 +32,9 @@ public class CorridasComuns {
             List<DTO_x> listaDTOx = MapaDeDuplas_Montador.inicia(corridasCavalo1, corridasCavalo2, pareosComuns, cavalo1, cavalo2);
             mapaCorridasComunsPorDupla.put(animais, listaDTOx);
         }
-        MapaCorridasComunsPorDupla_Show.showMapaCorridasComunsPorDupla(mapaCorridasComunsPorDupla);
+//        MapaCorridasComunsPorDupla_Show.showMapaCorridasComunsPorDupla(mapaCorridasComunsPorDupla);
         Object[][] objeto = DuplasCorridasComuns.montaObjetoDuplas(mapaCorridasComunsPorDupla);
-        return null;
+        return objeto;
     }
 
     private static String montaDupla(String cavalo1, String cavalo2) {

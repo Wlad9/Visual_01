@@ -34,29 +34,28 @@ public class Tabela_AnalisePareos extends JTable {
         setFillsViewportHeight(true);
         setRowHeight(20);
 
-
         if (dados != null) {
-            for (int i = 0; i < dados.length; i++) { // Loop pelas linhas
-                if (dados[i] != null) {
-                    StringBuilder linha = new StringBuilder();
-                    for (int j = 0; j < dados[i].length; j++) { // Loop pelas colunas da linha atual
-                        Object valor = dados[i][j];
-                        linha.append(valor == null ? "" : valor.toString());
-                        if (j < dados[i].length - 1) {
-                            linha.append(" - ");
+            if (!analiseDe.equalsIgnoreCase("CorridasComuns")) {
+                for (int i = 0; i < dados.length; i++) { // Loop pelas linhas
+                    if (dados[i] != null) {
+                        StringBuilder linha = new StringBuilder();
+                        for (int j = 0; j < dados[i].length; j++) { // Loop pelas colunas da linha atual
+                            Object valor = dados[i][j];
+                            linha.append(valor == null ? "" : valor.toString());
+                            if (j < dados[i].length - 1) {
+                                linha.append(" - ");
+                            }
                         }
-                    }
 //                    System.out.println("Linha " + i + ": " + linha.toString());
-                    System.out.println(linha.toString());
-                } else {
-                    System.out.println("Linha " + i + ": (nula)");
+                        System.out.println(linha.toString());
+                    } else {
+                        System.out.println("Linha " + i + ": (nula)");
+                    }
                 }
+            } else {
+                System.out.println("O array de dados é nulo.");
             }
-        } else {
-            System.out.println("O array de dados é nulo.");
         }
-
-
     }
 
     public Tabela_AnalisePareos(Object[][] dadosFiltradosPorData, String[] titulosRaias, Set<Integer> negritoRaiaFiltroAno

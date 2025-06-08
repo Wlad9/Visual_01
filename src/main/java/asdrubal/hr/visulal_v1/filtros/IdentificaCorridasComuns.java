@@ -18,17 +18,16 @@ public class IdentificaCorridasComuns {
     }
 
     public Object[][] pesquisa() {
-
         Map<Integer, List<CompetidorDTO>> mapaDeCorridasDTO = montaMapa();
         Map<Integer, List<Integer>> mapaIdsPareos = montaMapaPareos(mapaDeCorridasDTO);
         Map<String, List<Integer>> corridasComuns = montaMapaDeCorridasComuns(mapaIdsPareos);
-        preparaDados(corridasComuns, mapaDeCorridasDTO);
-        return null;
+        Object[][] dados = preparaDados(corridasComuns, mapaDeCorridasDTO);
+        return dados;
     }
 
-    private void preparaDados(Map<String, List<Integer>> mapa, Map<Integer, List<CompetidorDTO>> mapaDeCorridasDTO) {
-
+    private Object[][] preparaDados(Map<String, List<Integer>> mapa, Map<Integer, List<CompetidorDTO>> mapaDeCorridasDTO) {
         Object[][] dados = CorridasComuns.montaObjeto(mapa, mapaDeCorridasDTO);
+        return dados;
     }
 
     private Map<String, List<Integer>> montaMapaDeCorridasComuns(Map<Integer, List<Integer>> mapaIdsPareos) {
