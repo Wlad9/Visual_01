@@ -93,7 +93,6 @@ public class MontaObjetoFiltradoPorData {
     }
 
     private static boolean passouNoFiltro(int anoPesquisa, String dt) {
-        System.out.println("------------>" + dt + "\tAno:" + anoPesquisa);
         String[] d = dt.split("-");
         String ano = d[2];
         int year = Integer.parseInt(ano);

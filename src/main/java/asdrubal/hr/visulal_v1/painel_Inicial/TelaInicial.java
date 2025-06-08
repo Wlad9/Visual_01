@@ -1,12 +1,12 @@
 package asdrubal.hr.visulal_v1.painel_Inicial;
 
-import asdrubal.hr.visulal_v1.analise_de_corridas.AnaliseEntreCompetidores;
 import asdrubal.hr.visulal_v1.classes_auxiliares.OrdenaMatriz;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.dto.IndicesDTO;
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
 import asdrubal.hr.visulal_v1.dto_especiais.DTO_JT_tabPareos;
 import asdrubal.hr.visulal_v1.dto_especiais.DTO_TabelaCompetidores;
+import asdrubal.hr.visulal_v1.filtros.IdentificaCorridasComuns;
 import asdrubal.hr.visulal_v1.filtros.MontaObjetoFiltradoPorData;
 import asdrubal.hr.visulal_v1.filtros.MontaObjetoFiltradoPorRaia;
 import asdrubal.hr.visulal_v1.filtros.Raias_Filtro;
@@ -270,9 +270,20 @@ public class TelaInicial extends JFrame {
         btAnalisa.addActionListener(e -> montaAnalisePareos(mapa2));
     }
 
-    private void btPareoListener() {
-        btPareo.addActionListener(e -> new AnaliseEntreCompetidores(competidorService, mapa2
-                , cavaloService).inicia());
+    private void btPareoListener() {//Compara. Corridas em comum entre to
+        btPareo.addActionListener(e -> analisaCorridasEntreCompetidores());
+//        btPareo.addActionListener(e -> new AnaliseEntreCompetidores(competidorService, mapa2
+//                , cavaloService).inicia());
+    }
+/// //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private void analisaCorridasEntreCompetidores() {//comparando corridas - isso é gambiarra
+        showDados(dadosCavalosDoPareo);
+        for(Map.Entry<Integer, DTO_TabelaCompetidores> entry: mapa2.entrySet()){
+            System.out.println("\nidCavalo:"+entry.getKey());
+            System.out.println(entry.getValue());
+        }
+        IdentificaCorridasComuns idcorridas = new IdentificaCorridasComuns(competidorService, mapa2);
+        Object[][] corridasComuns = idcorridas.pesquisa();
     }
 
 
