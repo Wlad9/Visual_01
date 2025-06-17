@@ -1,9 +1,11 @@
 package asdrubal.hr.visulal_v1.z_TesteTabela;
 
 import asdrubal.hr.visulal_v1.TitulosDasColunas.TitulosDados1;
+import asdrubal.hr.visulal_v1.TitulosDasColunas.TitulosDados2;
 import asdrubal.hr.visulal_v1.classes_auxiliares.CapturaLinhasMarcadasNaTabela;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.dto.IndicesDTO;
+import asdrubal.hr.visulal_v1.mesmo_pareo.CavalosCorrendoMesmoPareo;
 import asdrubal.hr.visulal_v1.objetos.ObjetoAlfa;
 import asdrubal.hr.visulal_v1.show.ShowDadosTipo_2;
 import asdrubal.hr.visulal_v1.z_TesteTabela.componentes_teste2.AlteraObjetoDados;
@@ -39,7 +41,7 @@ public class Tela_Analise2 extends JFrame {
     private JScrollPane js_Distancias;
     private JScrollPane js_Years;
     private JPanel jpBotoes;
-    private JButton button1;
+    private JButton jb_sameRun;
 
     public Tela_Analise2(Object[][] dadosCavalosDoPareo, Map<Integer, List<CompetidorDTO>> mapa3, Map<String, IndicesDTO> indices) {
         this.indices = indices;
@@ -49,14 +51,20 @@ public class Tela_Analise2 extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         iniciaTela();
+
         jb_Show.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 listenerBtPareos();
             }
         });
+        jb_sameRun.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listenerBtMesmoPareo();
+            }
+        });
     }
-
 
     private void iniciaTela() {
         String[] titulos00 = new String[]{"Nr", "Cavalo", "Jóquei", "treinador", "Sexo"};
@@ -83,20 +91,34 @@ public class Tela_Analise2 extends JFrame {
         lst_Years.clearSelection();
         ObjetoAlfa alfa = new ObjetoAlfa();
         Object[][] dados1 = alfa.montaObjeto(dadosLinhasSelec, pistasLista, distanciasLista, yearsLista, mapa);
-        ShowDadosTipo_2.showDadosTipo2(dados1,"->dadosA - Raia => Competidores");
+//        ShowDadosTipo_2.showDadosTipo2(dados1, "->dadosA - Raia => Competidores");
         TitulosDados1 titulos1 = new TitulosDados1();
         Object[] titulosDados1 = titulos1.inicia();
-        if (dados1.length == 0) {
+        setTabela(dados1, titulosDados1, "Dados1");
+
+    }
+
+    // Listener para o Botão Pareos------------------------------------------------------------------------
+    private void listenerBtMesmoPareo() {
+        CavalosCorrendoMesmoPareo ccmp = new CavalosCorrendoMesmoPareo(mapa);
+        Object[][] dados2 = ccmp.montaObjBravo();
+        TitulosDados2 titulos2 = new TitulosDados2();
+        Object[] titulosDados2 = titulos2.inicia();
+        setTabela(dados2, titulosDados2, "Dados2");
+    }
+
+    private void setTabela(Object[][] dados, Object[] titulosDados1, String tipo) {
+        if (dados.length == 0) {
             Object[] info = new Object[1];
             info[0] = "SEM DADOS1";
-            jt01 = new Tabela_01(dados1, info, indices);
+            jt01 = new Tabela_01(dados, info, indices);
         } else {
-            jt01 = new Tabela_01v2(dados1, titulosDados1, indices);
-//            jt01 = new Tabela_01(dados1, titulosDados1, indices);
+            jt01 = new Tabela_01v2(dados, titulosDados1, indices, tipo);
             js01.setViewportView(jt01);
             this.setVisible(true);
             this.revalidate();
             this.repaint();
         }
     }
+
 }

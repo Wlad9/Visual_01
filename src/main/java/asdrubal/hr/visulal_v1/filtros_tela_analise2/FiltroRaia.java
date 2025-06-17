@@ -35,7 +35,6 @@ public class FiltroRaia {
             List<CompetidorDTO> lista = entry.getValue();
             for (CompetidorDTO cDTO : lista) {
                 System.out.println(cDTO);
-
             }
         }
         if (mapaFiltradoPorAno == null) {

@@ -6,9 +6,6 @@ import asdrubal.hr.visulal_v1.filtros_corrida_por_raia.IdentificaCorridasPorRaia
 import asdrubal.hr.visulal_v1.montadores.CorridasComuns;
 import asdrubal.hr.visulal_v1.services.CompetidorService;
 import asdrubal.hr.visulal_v1.services.RaiaService;
-import asdrubal.hr.visulal_v1.show.MapaCorridasComuns_Show;
-import asdrubal.hr.visulal_v1.show.MapaDeCorridasDTO_Show;
-import asdrubal.hr.visulal_v1.show.MapaIdsPareos_Show;
 
 import java.util.*;
 import java.util.stream.Collectors;

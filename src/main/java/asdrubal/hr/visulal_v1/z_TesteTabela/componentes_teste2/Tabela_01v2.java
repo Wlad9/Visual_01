@@ -14,27 +14,44 @@ public class Tabela_01v2 extends JTable {
     private final Object[] titulos;
     private final Map<String, IndicesDTO> indices;
     private Color marrom = new Color(139, 69, 19);
-    private Color DARKER_ORANGE = new Color(200, 100, 0);
+    private Color DARKER_ORANGE = new Color(250, 100, 50);
     private Color DARKER_RED = new Color(255, 0, 0);
-    private Color DARKER_GREEN = new Color(0, 160, 10);
+    private Color DARKER_GREEN = new Color(30, 130, 10);
 
-    public Tabela_01v2(Object[][] dados1, Object[] titulosDados1, Map<String, IndicesDTO> indices) {
+    public Tabela_01v2(Object[][] dados1, Object[] titulosDados1, Map<String, IndicesDTO> indices, String dadosTipo) {
         super(new DefaultTableModel(dados1, titulosDados1));
         dados = dados1;
         titulos = titulosDados1;
         this.indices = indices;
-        setBackground(new Color(175,175,175));
-        setFont(new Font("Arial", Font.PLAIN, 14));
-        getColumnModel().getColumn(0).setPreferredWidth(25);
-        getColumnModel().getColumn(1).setPreferredWidth(5);
-        getColumnModel().getColumn(2).setPreferredWidth(100);
-        getColumnModel().getColumn(3).setPreferredWidth(60);
-        getColumnModel().getColumn(4).setPreferredWidth(80);
-        getColumnModel().getColumn(5).setPreferredWidth(20);
-        getColumnModel().getColumn(6).setPreferredWidth(80);
-        getColumnModel().getColumn(7).setPreferredWidth(15);
-        getColumnModel().getColumn(8).setPreferredWidth(20);
-        getColumnModel().getColumn(9).setPreferredWidth(5);
+        setBackground(new Color(128, 128, 128));
+        setFont(new Font("Arial", Font.PLAIN, 12));
+//        setBackground(new Color(119,136,153));  // sumiram as linhas
+//        setBackground(new Color(47,79,79));       ficou muito escuro
+        switch (dadosTipo) {
+            case "Dados1":
+                getColumnModel().getColumn(0).setPreferredWidth(25);
+                getColumnModel().getColumn(1).setPreferredWidth(5);
+                getColumnModel().getColumn(2).setPreferredWidth(100);
+                getColumnModel().getColumn(3).setPreferredWidth(60);
+                getColumnModel().getColumn(4).setPreferredWidth(80);
+                getColumnModel().getColumn(5).setPreferredWidth(20);
+                getColumnModel().getColumn(6).setPreferredWidth(80);
+                getColumnModel().getColumn(7).setPreferredWidth(15);
+                getColumnModel().getColumn(8).setPreferredWidth(20);
+                getColumnModel().getColumn(9).setPreferredWidth(5);
+                break;
+            case "Dados2":
+                getColumnModel().getColumn(0).setPreferredWidth(45);
+                getColumnModel().getColumn(1).setPreferredWidth(100);
+                getColumnModel().getColumn(2).setPreferredWidth(80);
+                getColumnModel().getColumn(3).setPreferredWidth(100);
+                getColumnModel().getColumn(4).setPreferredWidth(60);
+                getColumnModel().getColumn(5).setPreferredWidth(20);
+                getColumnModel().getColumn(6).setPreferredWidth(80);
+                getColumnModel().getColumn(7).setPreferredWidth(15);
+                getColumnModel().getColumn(8).setPreferredWidth(20);
+                getColumnModel().getColumn(9).setPreferredWidth(5);
+        }
         System.out.println(dados1.length + "--->" + titulosDados1.length);
         if (getColumnModel().getColumnCount() > 10) {
             getColumnModel().removeColumn(getColumnModel().getColumn(10));
@@ -84,16 +101,30 @@ public class Tabela_01v2 extends JTable {
         if (tempo <= dto.getAzul()) {
             return Color.BLUE;
         } else if (tempo <= dto.getVerde()) {
-            return DARKER_GREEN;
+            return Color.GREEN;
         } else if (tempo <= dto.getAmarelo()) {
             return Color.YELLOW;
         } else if (tempo <= dto.getLaranja()) {
-            return DARKER_ORANGE;
+            return Color.ORANGE;
         } else if (tempo <= dto.getVermelho()) {
-            return DARKER_RED;
+            return Color.RED;
         } else {
             return marrom;
         }
+//    private Color getCorPorTempo(Float tempo, IndicesDTO dto) {
+//        if (tempo <= dto.getAzul()) {
+//            return Color.BLUE;
+//        } else if (tempo <= dto.getVerde()) {
+//            return DARKER_GREEN;
+//        } else if (tempo <= dto.getAmarelo()) {
+//            return Color.YELLOW;
+//        } else if (tempo <= dto.getLaranja()) {
+//            return DARKER_ORANGE;
+//        } else if (tempo <= dto.getVermelho()) {
+//            return DARKER_RED;
+//        } else {
+//            return marrom;
+//        }
     }
 
     private boolean temComteudo(Object obj) {
