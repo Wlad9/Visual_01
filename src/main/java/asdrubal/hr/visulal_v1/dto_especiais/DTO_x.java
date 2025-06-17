@@ -27,6 +27,8 @@ public class DTO_x {
     private String treinador2;
     private Integer idCavalo1;
     private Integer idCavalo2;
+    private String cavalo1;
+    private String cavalo2;
 
     public DTO_x() {
     }
@@ -236,6 +238,22 @@ public class DTO_x {
         this.idCavalo2 = idCavalo2;
     }
 
+    public String getCavalo1() {
+        return cavalo1;
+    }
+
+    public void setCavalo1(String cavalo1) {
+        this.cavalo1 = cavalo1;
+    }
+
+    public String getCavalo2() {
+        return cavalo2;
+    }
+
+    public void setCavalo2(String cavalo2) {
+        this.cavalo2 = cavalo2;
+    }
+
     @Override
     public String toString() {
         return "DTO_x{" +
@@ -261,6 +279,8 @@ public class DTO_x {
                 ", treinador2='" + treinador2 + '\'' +
                 ", idCavalo1=" + idCavalo1 +
                 ", idCavalo2=" + idCavalo2 +
+                ", cavalo1='" + cavalo1 + '\'' +
+                ", cavalo2='" + cavalo2 + '\'' +
                 '}';
     }
 }

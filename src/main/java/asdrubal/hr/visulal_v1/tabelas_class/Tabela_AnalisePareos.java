@@ -33,7 +33,7 @@ public class Tabela_AnalisePareos extends JTable {
         this.raiasFiltro = raiasFiltro;
         setFillsViewportHeight(true);
         setRowHeight(20);
-
+//  Imprimir os dados da tabela--------------------------------------------------------------------------------------
         if (dados != null) {
             if (!analiseDe.equalsIgnoreCase("CorridasComuns")) {
                 for (int i = 0; i < dados.length; i++) { // Loop pelas linhas
@@ -57,6 +57,7 @@ public class Tabela_AnalisePareos extends JTable {
             }
         }
     }
+
 
     public Tabela_AnalisePareos(Object[][] dadosFiltradosPorData, String[] titulosRaias, Set<Integer> negritoRaiaFiltroAno
             , Map<String, IndicesDTO> indices, int nrColunas, String raias) {

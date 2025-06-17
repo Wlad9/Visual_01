@@ -9,6 +9,8 @@ import java.sql.Date;
 import java.util.*;
 
 public class DuplasCorridasComuns {
+    private static String raiaAtual;
+
     public static Object[][] montaObjetoDuplas(Map<String, List<DTO_x>> mapa) {
         int nrColunas = 11;
         int nrTitulos = mapa.size();
@@ -21,9 +23,9 @@ public class DuplasCorridasComuns {
         for (Map.Entry<String, List<DTO_x>> entry : mapa.entrySet()) {
             List<DTO_x> lista = new ArrayList<>(entry.getValue());
             lista.sort(Comparator.comparing(DTO_x::getRaia));
+            List<String> listaDeDados = montaCampos(lista);
             String titulo = montaTitulo(entry.getKey());
             System.out.println(" \n" + titulo);
-            List<String> listaDeDados = montaCampos(lista);
             obj[index++][0] = titulo;
             for (int i = 0; i < listaDeDados.size(); i++) {
                 obj[index][0] = listaDeDados.get(i++);
@@ -65,7 +67,8 @@ public class DuplasCorridasComuns {
         String[] d = dupla.split("#");
         String cav1 = d[0].trim();
         String cav2 = d[1].trim();
-        return "Animais - >  ".concat(cav1).concat("  x  ").concat(cav2);
+        return raiaAtual.concat(" ->").concat(cav1).concat("  x  ").concat(cav2);
+//        return "Animais - >  ".concat(cav1).concat("  x  ").concat(cav2);
     }
 
 
@@ -76,6 +79,7 @@ public class DuplasCorridasComuns {
             for (DTO_x dtoX : lista) {
                 if (raia.equalsIgnoreCase(dtoX.getRaia())) {
                     //TODO INSERIR AS RAIAS POR DUPLA DE PÁREO
+                    raiaAtual = raia;
                     System.out.println("RAIA>>> " + raia);
                     String hrData = montaHRdata(dtoX.getData(), dtoX.getHipoCod());
                     String posCrono1 = montaPosCrono(dtoX.getPos1(), dtoX.getCrono1());
@@ -172,7 +176,7 @@ public class DuplasCorridasComuns {
         return col;
     }
 
-    private static String montaHRdata(Date data, String hipoCod) {
+    public static String montaHRdata(Date data, String hipoCod) {
         String dt = new ConverteDateToString().converteMK1(data);
         return hipoCod.concat(" ").concat(dt);
     }

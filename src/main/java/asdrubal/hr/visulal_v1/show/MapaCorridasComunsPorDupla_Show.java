@@ -15,4 +15,16 @@ public class MapaCorridasComunsPorDupla_Show {
             }
         }
     }
+    public static void  showMapaIdsPareos(Map<Integer, List<Integer>>  mapa){
+        for(Map.Entry<Integer, List<Integer>> entry: mapa.entrySet()){
+            System.out.println("\nidCavalo:"+entry.getKey());
+            List<Integer> lista = entry.getValue();
+            int cont=0;
+            for(Integer id:lista){
+                System.out.println("idPareo:"+id);
+                ++cont;
+            }
+            System.out.println("Total de páreo:"+cont);
+        }
+    }
 }

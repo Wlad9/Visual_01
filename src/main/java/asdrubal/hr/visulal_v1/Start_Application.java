@@ -29,6 +29,8 @@ public class Start_Application implements CommandLineRunner {
     private IndicesService indicesService;
     @Autowired
     private CavaloService cavaloService;
+    @Autowired
+    private RaiaService raiaService;
 
     public static void main(String[] args) {
         System.setProperty("java.awt.headless", "false");
@@ -42,7 +44,8 @@ public class Start_Application implements CommandLineRunner {
 //            Pagina_02 pg2 = new Pagina_02();
 //            Pagina_03 pagina_03 = new Pagina_03();
 //
-            TelaInicial inicial = new TelaInicial(openPrograms, pareoService, competidorService, tempService, indicesService, cavaloService);
+            TelaInicial inicial = new TelaInicial(openPrograms, pareoService, competidorService, tempService
+                    , indicesService, cavaloService, raiaService);
 
 //            TelaInicial_01 inicial01 = new TelaInicial_01(programasOpen, pareoService, competidorService, tempService);// está ok
 //        PainelPareos painelPareos = new PainelPareos(pareoService, competidorService);

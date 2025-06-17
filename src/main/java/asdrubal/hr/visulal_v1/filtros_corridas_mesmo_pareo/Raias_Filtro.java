@@ -1,4 +1,4 @@
-package asdrubal.hr.visulal_v1.filtros;
+package asdrubal.hr.visulal_v1.filtros_corridas_mesmo_pareo;
 
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 

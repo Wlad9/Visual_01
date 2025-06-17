@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="asdrubal.hr.visulal_v1.z_TesteTabela.Tela_Analise2">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="861" height="435"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="f025f" binding="jp0_0" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="9" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="30"/>
+            <preferred-size width="-1" height="200"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <scrollpane id="7e167" binding="js00">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <minimum-size width="60" height="-1"/>
+                <preferred-size width="450" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="4bd9f" class="javax.swing.JTable" binding="tb00">
+                <constraints/>
+                <properties/>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+      <grid id="623de" binding="jp0_1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <scrollpane id="9269f" binding="js01">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="e4c91" class="javax.swing.JTable" binding="jt01">
+                <constraints/>
+                <properties/>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+      <grid id="ee48d" binding="jp1_0" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <scrollpane id="6864a" binding="jscrollPista">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="1" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="55" height="200"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="1cbcb" class="javax.swing.JList" binding="lst_Pistas">
+                <constraints/>
+                <properties>
+                  <model>
+                    <item value="GL"/>
+                    <item value="GM"/>
+                    <item value="GP"/>
+                    <item value="GE"/>
+                    <item value="AL"/>
+                    <item value="AM"/>
+                    <item value="AP"/>
+                    <item value="AE"/>
+                    <item value="ALV"/>
+                    <item value="AEV"/>
+                    <item value="AMV"/>
+                    <item value="APV"/>
+                    <item value="GLV"/>
+                    <item value="GMV"/>
+                    <item value="GPV"/>
+                    <item value="GEV"/>
+                    <item value="AÚ"/>
+                    <item value="G"/>
+                    <item value="A"/>
+                  </model>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <scrollpane id="7b7af" binding="js_Distancias">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="1" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="55" height="200"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="15c2c" class="javax.swing.JList" binding="lst_Distancias">
+                <constraints/>
+                <properties>
+                  <model>
+                    <item value="700"/>
+                    <item value="800"/>
+                    <item value="1000"/>
+                    <item value="1100"/>
+                    <item value="1200"/>
+                    <item value="1300"/>
+                    <item value="1380"/>
+                    <item value="1400"/>
+                    <item value="1500"/>
+                    <item value="1600"/>
+                    <item value="1800"/>
+                    <item value="1900"/>
+                    <item value="2000"/>
+                    <item value="2100"/>
+                    <item value="2200"/>
+                    <item value="2400"/>
+                    <item value="2500"/>
+                    <item value="2600"/>
+                    <item value="2800"/>
+                    <item value="3000"/>
+                    <item value="3200"/>
+                    <item value="3218"/>
+                  </model>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <scrollpane id="7ab1" binding="js_Years">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="1" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="55" height="200"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="574f7" class="javax.swing.JList" binding="lst_Years">
+                <constraints/>
+                <properties>
+                  <model>
+                    <item value="Todos"/>
+                    <item value="2025"/>
+                    <item value="2024"/>
+                    <item value="2023"/>
+                    <item value="2022"/>
+                  </model>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <grid id="adf7d" binding="jpBotoes" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="1" hsize-policy="1" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="5b246" class="javax.swing.JButton" binding="jb_Show">
+                <constraints/>
+                <properties>
+                  <text value="Filtrar"/>
+                </properties>
+              </component>
+              <component id="a5697" class="javax.swing.JButton" binding="jb_OrdTempo">
+                <constraints/>
+                <properties>
+                  <text value="Ord. Tempo"/>
+                </properties>
+              </component>
+              <component id="33f47" class="javax.swing.JButton" binding="jb_OrdData">
+                <constraints/>
+                <properties>
+                  <text value="Ord. Data"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <component id="6e342" class="javax.swing.JButton" binding="button1" default-binding="true">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Button"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

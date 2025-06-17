@@ -6,10 +6,10 @@ import asdrubal.hr.visulal_v1.dto.IndicesDTO;
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
 import asdrubal.hr.visulal_v1.dto_especiais.DTO_JT_tabPareos;
 import asdrubal.hr.visulal_v1.dto_especiais.DTO_TabelaCompetidores;
-import asdrubal.hr.visulal_v1.filtros.IdentificaCorridasComuns;
-import asdrubal.hr.visulal_v1.filtros.MontaObjetoFiltradoPorData;
-import asdrubal.hr.visulal_v1.filtros.MontaObjetoFiltradoPorRaia;
-import asdrubal.hr.visulal_v1.filtros.Raias_Filtro;
+import asdrubal.hr.visulal_v1.filtros_corridas_mesmo_pareo.IdentificaCorridasMesmoPareo;
+import asdrubal.hr.visulal_v1.filtros_corridas_mesmo_pareo.MontaObjetoFiltradoPorData;
+import asdrubal.hr.visulal_v1.filtros_corridas_mesmo_pareo.MontaObjetoFiltradoPorRaia;
+import asdrubal.hr.visulal_v1.filtros_corridas_mesmo_pareo.Raias_Filtro;
 import asdrubal.hr.visulal_v1.frame1.MontaItensDoMenu;
 import asdrubal.hr.visulal_v1.montadores.*;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.LeftPaddingCellRenderer;
@@ -18,6 +18,7 @@ import asdrubal.hr.visulal_v1.services.*;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxMontaSetNegritoCorridasComuns;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2;
 import asdrubal.hr.visulal_v1.tabelas_class.*;
+import asdrubal.hr.visulal_v1.z_TesteTabela.Tela_Analise2;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -36,6 +37,7 @@ public class TelaInicial extends JFrame {
     private final TempService tempService;
     private final IndicesService indicesService;
     private final CavaloService cavaloService;
+    private final RaiaService raiaService;
     private final ButtonGroup radioGruop;
 
     private JPanel contentPane;
@@ -91,12 +93,13 @@ public class TelaInicial extends JFrame {
     private LeftPaddingCellRenderer alinhaEsquerda = new LeftPaddingCellRenderer(5);
 
     public TelaInicial(Map<Integer, ProgramaDTO> programasOpen, PareoService pareoService, CompetidorService competidorService,
-                       TempService tempService, IndicesService indicesService, CavaloService cavaloService) {
+                       TempService tempService, IndicesService indicesService, CavaloService cavaloService, RaiaService raiaService) {
         this.pareoService = pareoService;
         this.competidorService = competidorService;
         this.tempService = tempService;
         this.indicesService = indicesService;
         this.cavaloService = cavaloService;
+        this.raiaService = raiaService;
         setContentPane(contentPane);
         menuBar = new JMenuBar();
         programaMenu = new JMenu("Programas");
@@ -159,6 +162,12 @@ public class TelaInicial extends JFrame {
 
 //                tabela2 = new Tabela_AnalisePareos(dadosMk3, titulos, negrito, indices, nrColunas);
 //                new TelaFiltroRaias(dadosMk3, titulos, tabela2, negrito, indices, 9, scroll2);//TODO=========
+            }
+        });
+        btComparaCavalos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tela_Analise2 tabTeste2 = new Tela_Analise2(dadosCavalosDoPareo, mapa3, indices);
             }
         });
     }
@@ -283,7 +292,7 @@ public class TelaInicial extends JFrame {
 //            System.out.println("\nidCavalo:"+entry.getKey());
 //            System.out.println(entry.getValue());
 //        }
-        IdentificaCorridasComuns idcorridas = new IdentificaCorridasComuns(competidorService, mapa2);
+        IdentificaCorridasMesmoPareo idcorridas = new IdentificaCorridasMesmoPareo(competidorService, raiaService, mapa2);
         Object[][] corridasComuns = idcorridas.pesquisa();
         montaTabelaComCorridasComuns(corridasComuns);
     }
