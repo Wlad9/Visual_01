@@ -167,7 +167,7 @@ public class TelaInicial extends JFrame {
         btComparaCavalos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Tela_Analise2 tabTeste2 = new Tela_Analise2(dadosCavalosDoPareo, mapa3, indices);
+                Tela_Analise2 tabTeste2 = new Tela_Analise2(dadosCavalosDoPareo, mapa3, indices, competidorService, raiaService);
             }
         });
     }

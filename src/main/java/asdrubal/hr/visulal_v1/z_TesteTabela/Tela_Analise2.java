@@ -5,13 +5,16 @@ import asdrubal.hr.visulal_v1.TitulosDasColunas.TitulosDados2;
 import asdrubal.hr.visulal_v1.classes_auxiliares.CapturaLinhasMarcadasNaTabela;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.dto.IndicesDTO;
+import asdrubal.hr.visulal_v1.estatisticas.Pistas_Estatistica;
 import asdrubal.hr.visulal_v1.mesmo_pareo.CavalosCorrendoMesmoPareo;
 import asdrubal.hr.visulal_v1.objetos.ObjetoAlfa;
-import asdrubal.hr.visulal_v1.show.ShowDadosTipo_2;
+import asdrubal.hr.visulal_v1.services.CompetidorService;
+import asdrubal.hr.visulal_v1.services.RaiaService;
 import asdrubal.hr.visulal_v1.z_TesteTabela.componentes_teste2.AlteraObjetoDados;
 import asdrubal.hr.visulal_v1.z_TesteTabela.componentes_teste2.Tabela_00;
 import asdrubal.hr.visulal_v1.z_TesteTabela.componentes_teste2.Tabela_01;
 import asdrubal.hr.visulal_v1.z_TesteTabela.componentes_teste2.Tabela_01v2;
+import asdrubal.hr.visulal_v1.z_painel_de_estatistica.PainelEstatistica_1;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,8 +24,10 @@ import java.util.Map;
 
 public class Tela_Analise2 extends JFrame {
     private final Object[][] dados;
-    private final Map<Integer, List<CompetidorDTO>> mapa;
+    private final Map<Integer, List<CompetidorDTO>> mapa3;
     private final Map<String, IndicesDTO> indices;
+    private final CompetidorService competidorService;
+    private final RaiaService raiaService;
     private JTable tb00;
     private JPanel jp0_0;
     private JPanel jp0_1;
@@ -42,12 +47,16 @@ public class Tela_Analise2 extends JFrame {
     private JScrollPane js_Years;
     private JPanel jpBotoes;
     private JButton jb_sameRun;
+    private JButton jb_Estatistica;
+//    private Map<Integer, List<Object[]>> dados3;
 
-    public Tela_Analise2(Object[][] dadosCavalosDoPareo, Map<Integer, List<CompetidorDTO>> mapa3, Map<String, IndicesDTO> indices) {
+    public Tela_Analise2(Object[][] dadosCavalosDoPareo, Map<Integer, List<CompetidorDTO>> mapa3, Map<String, IndicesDTO> indices, CompetidorService competidorService, RaiaService raiaService) {
         this.indices = indices;
+        this.competidorService = competidorService;
+        this.raiaService = raiaService;
         setContentPane(contentPane);
         dados = dadosCavalosDoPareo;
-        mapa = mapa3;
+        this.mapa3 = mapa3;
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         iniciaTela();
@@ -64,7 +73,14 @@ public class Tela_Analise2 extends JFrame {
                 listenerBtMesmoPareo();
             }
         });
+        jb_Estatistica.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listenerBtEstatistica();
+            }
+        });
     }
+
 
     private void iniciaTela() {
         String[] titulos00 = new String[]{"Nr", "Cavalo", "Jóquei", "treinador", "Sexo"};
@@ -90,7 +106,7 @@ public class Tela_Analise2 extends JFrame {
         lst_Distancias.clearSelection();
         lst_Years.clearSelection();
         ObjetoAlfa alfa = new ObjetoAlfa();
-        Object[][] dados1 = alfa.montaObjeto(dadosLinhasSelec, pistasLista, distanciasLista, yearsLista, mapa);
+        Object[][] dados1 = alfa.montaObjeto(dadosLinhasSelec, pistasLista, distanciasLista, yearsLista, mapa3);
 //        ShowDadosTipo_2.showDadosTipo2(dados1, "->dadosA - Raia => Competidores");
         TitulosDados1 titulos1 = new TitulosDados1();
         Object[] titulosDados1 = titulos1.inicia();
@@ -98,9 +114,9 @@ public class Tela_Analise2 extends JFrame {
 
     }
 
-    // Listener para o Botão Pareos------------------------------------------------------------------------
+    // Listener para o Botão mesma corrida entre cavalos------------------------------------------------------------------------
     private void listenerBtMesmoPareo() {
-        CavalosCorrendoMesmoPareo ccmp = new CavalosCorrendoMesmoPareo(mapa);
+        CavalosCorrendoMesmoPareo ccmp = new CavalosCorrendoMesmoPareo(mapa3);
         Object[][] dados2 = ccmp.montaObjBravo();
         TitulosDados2 titulos2 = new TitulosDados2();
         Object[] titulosDados2 = titulos2.inicia();
@@ -119,6 +135,14 @@ public class Tela_Analise2 extends JFrame {
             this.revalidate();
             this.repaint();
         }
+    }
+
+    //  Listener para o Botão estatisticas------------------------------------------------------------------------
+    private void listenerBtEstatistica() {
+        Pistas_Estatistica estatisticas = new Pistas_Estatistica(competidorService, raiaService, mapa3);
+        Map<Integer, List<Object[]>> mapaObjTotais = estatisticas.inicia(dados);
+//        ShowMapaObjUnid.show(mapaObjTotais, "Mapa com Totais por Rai e tempo");
+        PainelEstatistica_1 estatistica1 = new PainelEstatistica_1(mapaObjTotais, mapa3);
     }
 
 }
