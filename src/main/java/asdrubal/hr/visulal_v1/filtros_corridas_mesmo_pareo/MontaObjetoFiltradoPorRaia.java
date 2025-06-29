@@ -1,6 +1,7 @@
 package asdrubal.hr.visulal_v1.filtros_corridas_mesmo_pareo;
 
 import asdrubal.hr.visulal_v1.classes_auxiliares.ConverteDateToString;
+import asdrubal.hr.visulal_v1.classes_auxiliares.InserirNrNomeCavalo;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 
 import java.sql.Date;
@@ -12,10 +13,9 @@ public class MontaObjetoFiltradoPorRaia {
     private static Map<String, List<CompetidorDTO>> mapaZero;
     private static Set<Integer> negrito = new HashSet<>();
     private static String[] titulos = new String[]{"Tempo", "Cavalo", "Pos", "Data", "Joquei", "Treinador", "Rateio", "Crono", "Prova"};
-    private static String[] titulo = new String[]{"Tempo","Pos","Cavalo","Data","Jóquei","Treinador","Rateio","Prova","Crono"};
+    private static String[] titulo = new String[]{"Tempo", "Pos", "Cavalo", "Data", "Jóquei", "Treinador", "Rateio", "Prova", "Crono"};
 
-    public static Object[][] montaObject(Map<String, List<CompetidorDTO>> mapa) {
-        int i = 0;
+    public static Object[][] montaObject(Map<String, List<CompetidorDTO>> mapa, Object[][] dadosCavalosDoPareo) {
         mapaZero = new HashMap<>();
         Map<String, List<CompetidorDTO>> mapaOrdenado = new HashMap<>();
         for (Map.Entry<String, List<CompetidorDTO>> entry : mapa.entrySet()) {
@@ -29,14 +29,14 @@ public class MontaObjetoFiltradoPorRaia {
             mapaOrdenado.put(raia, listaOrdenada);
             mapaZero.put(raia, listaZero);
         }
-        return finalizaObjeto(mapaOrdenado);
+        return finalizaObjeto(mapaOrdenado, dadosCavalosDoPareo);
     }
 
     public static Map<String, List<CompetidorDTO>> getMapaZero() {
         return mapaZero;
     }
 
-    private static Object[][] finalizaObjeto(Map<String, List<CompetidorDTO>> mapaOrdenado) {
+    private static Object[][] finalizaObjeto(Map<String, List<CompetidorDTO>> mapaOrdenado, Object[][] dadosCP) {
         int nrRaias = mapaOrdenado.size();
         int nrLinhas = calculaNrLinhas(nrRaias, mapaOrdenado);
         int nrColunas = 11;
@@ -54,8 +54,12 @@ public class MontaObjetoFiltradoPorRaia {
                 cronometro = cronometro.toLowerCase();
                 dados[i][0] = cronometro;
 //                dados[i][0] = dto.getCronometro();
-                dados[i][1] = dto.getColocacao();
-                dados[i][2] = dto.getCavalo();
+                String pos = String.valueOf(dto.getColocacao());
+                pos = ArrumaPos(pos);
+                dados[i][1] = pos;
+                String cavalo = dto.getCavalo();
+                cavalo = InserirNrNomeCavalo.inicia(cavalo, dadosCP);
+                dados[i][2] = cavalo;
                 dados[i][3] = data;
                 dados[i][4] = dto.getJoquei();
                 dados[i][5] = dto.getTreinador();
@@ -70,6 +74,10 @@ public class MontaObjetoFiltradoPorRaia {
         return dados;
     }
 
+    private static String ArrumaPos(String pos) {
+        return pos.concat("°L");
+    }
+
     private static String montaDataHipo(Date data, String hipoCod) {
         if (hipoCod != null) {
             String dt = new ConverteDateToString().converteMK1(data);
@@ -82,10 +90,11 @@ public class MontaObjetoFiltradoPorRaia {
         return (nrRaias + mapaOrdenado.values().stream().mapToInt(List::size).sum());
     }
 
-//    public static String[] getTitulos() {
+    //    public static String[] getTitulos() {
 //        return titulos;
 //    }
-    public static Set<Integer> getNegrito(){
+    public static Set<Integer> getNegrito() {
         return negrito;
     }
+
 }

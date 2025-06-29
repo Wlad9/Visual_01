@@ -13,14 +13,15 @@ import java.util.Map;
 import java.util.Set;
 
 public class AuxPesquisa_mk2 {
-    private final Map<Integer, List<CompetidorDTO>> mapa;
+    private final Map<Integer, List<CompetidorDTO>> mapa6;
     private final Object[][] dadosDosCavalos;
     private String[] titulos;
     private Set<Integer> negrito = new HashSet<>();
     private final CavaloService cavaloService;
 
-    public AuxPesquisa_mk2(Map<Integer, List<CompetidorDTO>> mapa6, Object[][] dadosDosCavalo, CavaloService cavaloService) {
-        mapa = mapa6;
+    public AuxPesquisa_mk2(Map<Integer, List<CompetidorDTO>> mapa6, Object[][] dadosDosCavalo
+            , CavaloService cavaloService) {
+        this.mapa6 = mapa6;
         this.cavaloService = cavaloService;
         dadosDosCavalos = dadosDosCavalo;
         titulos = new String[]{" ", "Pos", "Raia", "Prova", "Crono", "Rateio", "Jóquei", "Treinador", "CorpCheg", "ER", "Tempo"};
@@ -28,13 +29,13 @@ public class AuxPesquisa_mk2 {
     }
 
     public Object[][] montaDadosDaTabela() {
-        int nrCavalos = mapa.size();
-        int nrLinhas = calculaLinhas(mapa) + nrCavalos;
+        int nrCavalos = mapa6.size();
+        int nrLinhas = calculaLinhas(mapa6) + nrCavalos;
         int nrColunas = titulos.length;
         Object[][] dados = new Object[nrLinhas][nrColunas];
         int i = 0;
-        for (Integer idCavalo : mapa.keySet()) {
-            List<CompetidorDTO> listaDTOs = mapa.get(idCavalo);
+        for (Integer idCavalo : mapa6.keySet()) {
+            List<CompetidorDTO> listaDTOs = mapa6.get(idCavalo);
             if (listaDTOs.size() == 0) {
                 String cavaloNome = cavaloService.findById(idCavalo);
                 if (cavaloNome != null) {

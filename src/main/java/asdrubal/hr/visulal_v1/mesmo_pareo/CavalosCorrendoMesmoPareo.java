@@ -2,31 +2,20 @@ package asdrubal.hr.visulal_v1.mesmo_pareo;
 
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.objetos.ObjetoBravo;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.util.*;
 
 public class CavalosCorrendoMesmoPareo {
     private final Map<Integer, List<CompetidorDTO>> mapa3;
 
-    public CavalosCorrendoMesmoPareo(Map<Integer, List<CompetidorDTO>> mapa3) {
+    public CavalosCorrendoMesmoPareo(Map<Integer, List<CompetidorDTO>> mapa3, Object[][] dadosCavalosDoPareo) {
         this.mapa3 = mapa3;
     }
 
     public Object[][] montaObjBravo() {
         Map<Integer, List<Integer>> mapaDePareosComuns = montaMapaDeIdsPareo();
-//        Map<Integer, List<Integer>> mapaDeCorridas = MapaPareosPorCavalo.inverteMapa(mapaDePareosComuns);
         ObjetoBravo bravo = new ObjetoBravo(mapa3, mapaDePareosComuns);
         Object dadosBravo[][] = bravo.montaObj();
-//        for (Map.Entry<Integer, List<Integer>> entry : mapaDeCorridas.entrySet()) {
-//            List<Integer> lst = entry.getValue();
-//            if (lst.size() > 1) {
-//                System.out.println("\nidPareo:" + entry.getKey());
-//                for (Integer id : lst) {
-//                    System.out.println("idCavalo: " + id);
-//                }
-//            }
-//        }
         return dadosBravo;
     }
 

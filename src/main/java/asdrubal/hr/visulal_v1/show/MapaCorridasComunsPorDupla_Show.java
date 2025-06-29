@@ -10,9 +10,9 @@ public class MapaCorridasComunsPorDupla_Show {
         for(Map.Entry<String, List<DTO_x>> entry : mapa.entrySet()){
             System.out.println("\nDupla:"+entry.getKey());
             List<DTO_x> lista = entry.getValue();
-            for(DTO_x dto: lista){
-                System.out.println(dto);
-            }
+//            for(DTO_x dto: lista){
+//                System.out.println(dto);
+//            }
         }
     }
     public static void  showMapaIdsPareos(Map<Integer, List<Integer>>  mapa){

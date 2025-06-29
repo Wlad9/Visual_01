@@ -36,8 +36,8 @@ public class MapaX1_Montador {
     }
 
 
-    private static Integer identificaId(Object nome, Map<Integer, List<CompetidorDTO>> mapa) {
-        String cavalo = nome.toString();
+    private static Integer identificaId(Object nomeDoCavalo, Map<Integer, List<CompetidorDTO>> mapa) {
+        String cavalo = nomeDoCavalo.toString();
         for (Map.Entry<Integer, List<CompetidorDTO>> entry : mapa.entrySet()) {
             cavalo = cavalo.trim();
             List<CompetidorDTO> lista = entry.getValue();

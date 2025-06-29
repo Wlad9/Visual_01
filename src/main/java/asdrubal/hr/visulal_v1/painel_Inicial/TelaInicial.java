@@ -15,8 +15,11 @@ import asdrubal.hr.visulal_v1.montadores.*;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.LeftPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.RightPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.services.*;
+import asdrubal.hr.visulal_v1.show.Mapa2_Show;
+import asdrubal.hr.visulal_v1.show.ShowObjectBiDim;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxMontaSetNegritoCorridasComuns;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2;
+import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2_v2;
 import asdrubal.hr.visulal_v1.tabelas_class.*;
 import asdrubal.hr.visulal_v1.z_TesteTabela.Tela_Analise2;
 
@@ -152,16 +155,8 @@ public class TelaInicial extends JFrame {
                 List<String> pistasLista = jlPista.getSelectedValuesList();
                 List<String> distanciasLista = jlDistancia.getSelectedValuesList();
                 List<String> raiasFiltro = Raias_Montador.raiasMk1(pistasLista, distanciasLista);
-//                Tela_RaiasFiltro trf = new Tela_RaiasFiltro(mapa1);
                 montaAnaliseDeRaias(raiasFiltro);
 
-//                showMapa3();
-
-
-//                 new PesquisaRaias_ConfiguraTabela2(tabela2, scroll2, dadosMk3, titulos, negrito, indices, nrColunas).configura();
-
-//                tabela2 = new Tabela_AnalisePareos(dadosMk3, titulos, negrito, indices, nrColunas);
-//                new TelaFiltroRaias(dadosMk3, titulos, tabela2, negrito, indices, 9, scroll2);//TODO=========
             }
         });
         btComparaCavalos.addActionListener(new ActionListener() {
@@ -248,7 +243,8 @@ public class TelaInicial extends JFrame {
 
     private void montaAnaliseDeRaias(List<String> raiasFiltro) {
         int nrColunas = 11;
-        dadosMk3 = Raias_Filtro.filtroMk3(raiasFiltro, mapa3);
+        dadosMk3 = Raias_Filtro.filtroMk3(raiasFiltro, mapa3, dadosCavalosDoPareo);
+//        ShowObjectBiDim.show(dadosMk3," Dados MK3");
         if (dadosMk3.length > 0) {
             objEmUso = "Mk3";
             System.out.println("USANDO O Obeto:" + objEmUso);
@@ -277,7 +273,7 @@ public class TelaInicial extends JFrame {
     }
 
     private void btAnalisaListener() {
-        btAnalisa.addActionListener(e -> montaAnalisePareos(mapa2));
+        btAnalisa.addActionListener(e -> montaAnalisePareos());
     }
 
     private void btPareoListener() {//Compara. Corridas em comum entre to
@@ -285,7 +281,8 @@ public class TelaInicial extends JFrame {
 //        btPareo.addActionListener(e -> new AnaliseEntreCompetidores(competidorService, mapa2
 //                , cavaloService).inicia());
     }
-/// //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void analisaCorridasEntreCompetidores() {//comparando corridas - isso é gambiarra
         showDados(dadosCavalosDoPareo);
 //        for(Map.Entry<Integer, DTO_TabelaCompetidores> entry: mapa2.entrySet()){
@@ -368,10 +365,12 @@ public class TelaInicial extends JFrame {
     private void preparaTabelaCompetidores(Integer idPareo, Integer idPrograma) {
         Mapa2Montador mapa2Montador = new Mapa2Montador();
         mapa2 = mapa2Montador.montaMapa2(tempService, idPareo, idPrograma);
+//        Mapa2_Show.show(mapa2, "Dados Mapa2");
         AuxTabCompetidores auxComp = new AuxTabCompetidores(mapa2);
         dadosCavalosDoPareo = auxComp.preparaDados();
         OrdenaMatriz.ordenaPelaPrimeiraColuna(dadosCavalosDoPareo);//TODO ALTERAR MÉTODO RETIRAR OBJETO CRIADO
 //        showDados(dadosOrdenados);
+//        ShowObjectBiDim.show(dadosCavalosDoPareo, "dadosCavalosDoPareo ordenados");
         Tabela_Competidores tabelaCompetidores = new Tabela_Competidores(dadosCavalosDoPareo, auxComp.getColunas());
         tabelaCompetidores.setRowSelectionAllowed(true);
         tabelaCompetidores.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -403,7 +402,7 @@ public class TelaInicial extends JFrame {
     }
 //---------------------------- Tabela de corridas
 
-    private void montaAnalisePareos(Map<Integer, DTO_TabelaCompetidores> mapa2) {
+    private void montaAnalisePareos() {
         int nrColunas = 10;
         mapa3 = new Mapa3_Montador(competidorService).montaMapa(mapa2);
         Mapa4_MontadorListaOrdenada mapa4Monta = new Mapa4_MontadorListaOrdenada();
@@ -411,16 +410,12 @@ public class TelaInicial extends JFrame {
         Map<Integer, List<CompetidorDTO>> mapa5 = mapa4Monta.getMapa5();
         OrdenaMapaPorDataDoPareo mapa6OderByData = new OrdenaMapaPorDataDoPareo();
         mapa6 = mapa6OderByData.ordena(mapa3);
-        AuxPesquisa_mk2 auxMk2 = new AuxPesquisa_mk2(mapa6, dadosCavalosDoPareo, cavaloService);
-        dadosMk2 = auxMk2.montaDadosDaTabela();
-        if (dadosMk2.length > 0) {
-            objEmUso = "Mk2";
-            System.out.println("USANDO O Obeto:" + objEmUso);
-        }
-        titulosPareos = auxMk2.getTitulos();
-        negritoPareo = auxMk2.getNegrito();
-        tabela2 = new Tabela_AnalisePareos(dadosMk2, titulosPareos, negritoPareo, indices, nrColunas, "Páreos"
-                , null);
+        ShowObjectBiDim.show(dadosCavalosDoPareo, "dadosCavalosDoPareo ordenados");
+        AuxPesquisa_mk2_v2 auxMk2v2 = new AuxPesquisa_mk2_v2(mapa6, dadosCavalosDoPareo, cavaloService);
+        dadosMk2 = auxMk2v2.montaObjeto();
+        titulosPareos = auxMk2v2.getTitulos();
+        negritoPareo = auxMk2v2.getNegrito();
+        tabela2 = new Tabela_AnalisePareos(dadosMk2, titulosPareos, negritoPareo, indices, nrColunas, "Páreos", null);
         tabela2.setFont(new Font("Arial", Font.PLAIN, 12));
         tabela2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela2.getColumnModel().getColumn(0).setPreferredWidth(120);
@@ -451,9 +446,10 @@ public class TelaInicial extends JFrame {
         this.revalidate();
         this.repaint();
     }
+
     private void montaTabelaComCorridasComuns(Object[][] corridasComuns) {
         int nrColunas = 11;
-        String[] titulo = new String[]{"Crono", "Pos", "Cavalo", "Data", "Jóquei", "Treinador", "Rateio","Prova","Corp","ER","Tempo"};
+        String[] titulo = new String[]{"Crono", "Pos", "Cavalo", "Data", "Jóquei", "Treinador", "Rateio", "Prova", "Corp", "ER", "Tempo"};
         Set<Integer> negrito = AuxMontaSetNegritoCorridasComuns.inicia(corridasComuns);
         tabela2 = new Tabela_AnalisePareos(corridasComuns, titulo, negrito, indices, nrColunas, "CorridasComuns", null);
         tabela2.setFont(new Font("Arial", Font.PLAIN, 12));

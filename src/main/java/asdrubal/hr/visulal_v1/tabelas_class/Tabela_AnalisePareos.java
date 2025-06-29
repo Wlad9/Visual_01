@@ -3,6 +3,7 @@ package asdrubal.hr.visulal_v1.tabelas_class;
 import asdrubal.hr.visulal_v1.dto.IndicesDTO;
 import asdrubal.hr.visulal_v1.painel_Inicial.RenderTipoPareos;
 import asdrubal.hr.visulal_v1.painel_Inicial.RenderTipoRaias;
+import asdrubal.hr.visulal_v1.show.ShowDadosNaTela;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +22,6 @@ public class Tabela_AnalisePareos extends JTable {
     private final List<String> raiasFiltro;
     private Color marrom = new Color(139, 69, 19);
 
-
     public Tabela_AnalisePareos(Object[][] dados, String[] colunas, Set<Integer> negrito, Map<String, IndicesDTO> indices
             , int nrColunas, String analiseDe, List<String> raiasFiltro) {
         super(new DefaultTableModel(dados, colunas));
@@ -33,31 +33,8 @@ public class Tabela_AnalisePareos extends JTable {
         this.raiasFiltro = raiasFiltro;
         setFillsViewportHeight(true);
         setRowHeight(20);
-//  Imprimir os dados da tabela--------------------------------------------------------------------------------------
-        if (dados != null) {
-            if (!analiseDe.equalsIgnoreCase("CorridasComuns")) {
-                for (int i = 0; i < dados.length; i++) { // Loop pelas linhas
-                    if (dados[i] != null) {
-                        StringBuilder linha = new StringBuilder();
-                        for (int j = 0; j < dados[i].length; j++) { // Loop pelas colunas da linha atual
-                            Object valor = dados[i][j];
-                            linha.append(valor == null ? "" : valor.toString());
-                            if (j < dados[i].length - 1) {
-                                linha.append(" - ");
-                            }
-                        }
-//                    System.out.println("Linha " + i + ": " + linha.toString());
-                        System.out.println(linha.toString());
-                    } else {
-                        System.out.println("Linha " + i + ": (nula)");
-                    }
-                }
-            } else {
-                System.out.println("O array de dados é nulo.");
-            }
-        }
+        ShowDadosNaTela.show(dados, analiseDe);//  Imprimir os dados da tabela-------------------------------------
     }
-
 
     public Tabela_AnalisePareos(Object[][] dadosFiltradosPorData, String[] titulosRaias, Set<Integer> negritoRaiaFiltroAno
             , Map<String, IndicesDTO> indices, int nrColunas, String raias) {
@@ -71,8 +48,6 @@ public class Tabela_AnalisePareos extends JTable {
         setFillsViewportHeight(true);
         setRowHeight(20);
     }
-
-
     @Override
     public Dimension getPreferredScrollableViewportSize() {
         System.out.println("Preferências:");
@@ -98,7 +73,6 @@ public class Tabela_AnalisePareos extends JTable {
                 comp.setFont(comp.getFont().deriveFont(Font.BOLD));
                 comp.setForeground(Color.BLACK);
             }
-
             // Lógica de colorização da linha para as linhas de dados
             if (!negrito.contains(row) && row < dados.length && dados[row].length == nrColunas) {
                 Object tempoObject = dados[row][nrColunas - 1]; // Última coluna é o tempo

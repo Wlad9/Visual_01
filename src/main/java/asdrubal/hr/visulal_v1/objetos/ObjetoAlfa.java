@@ -2,25 +2,28 @@ package asdrubal.hr.visulal_v1.objetos;
 
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.filtros_tela_analise2.FiltroRaia;
+import asdrubal.hr.visulal_v1.filtros_tela_analise2.FiltroTempo;
 import asdrubal.hr.visulal_v1.filtros_tela_analise2.FiltroYear;
 import asdrubal.hr.visulal_v1.montadores.MapaX1_Montador;
-import asdrubal.hr.visulal_v1.show.ShowDadosTipo_2;
-import asdrubal.hr.visulal_v1.show.ShowMapaRaiaCompetidores;
+import asdrubal.hr.visulal_v1.show.MapaX1_Show;
 
 import java.util.List;
 import java.util.Map;
 
 public class ObjetoAlfa {
-    public Object[][] montaObjeto(List<Object[]> dadosX1, List<String> pistasLista
-            , List<String> distanciasLista, List<String> yearsLista, Map<Integer, List<CompetidorDTO>> mapa) {
-        Map<String, List<CompetidorDTO>> mapaRaiaCompetidores;
-        Map<String, List<CompetidorDTO>> mapaCompetidoresPorRaia;
-        Map<String, List<CompetidorDTO>> mapaX1 = MapaX1_Montador.montaMapaX1(dadosX1, mapa);
 
+    public Object[][] montaObjeto(List<Object[]> dadosX1, List<String> pistasLista
+            , List<String> distanciasLista, List<String> yearsLista, Map<Integer
+                    , List<CompetidorDTO>> mapa) {
+
+        Map<String, List<CompetidorDTO>> mapaRaiaCompetidores;
+        Map<String, List<CompetidorDTO>> mapaX1 = MapaX1_Montador.montaMapaX1(dadosX1, mapa);
+//        MapaX1_Show.show(mapaX1, "MapaX1 da classe ObjetoAlfa");
         Map<String, List<CompetidorDTO>> mapaX2 = FiltroYear.iniciaFiltro(yearsLista, mapaX1);
+        Map<String, List<CompetidorDTO>> mapaX3 = FiltroTempo.ordena(mapaX1);
         if (mapaX2 == null || mapaX2.isEmpty()) {
             mapaRaiaCompetidores = FiltroRaia.iniciaFiltro(mapaX1, pistasLista, distanciasLista);
-        }else{
+        } else {
             mapaRaiaCompetidores = FiltroRaia.iniciaFiltro(mapaX2, pistasLista, distanciasLista);
         }
         Object[][] dadosA = ObjetoAlfa_Montador.monta_A(mapaRaiaCompetidores);

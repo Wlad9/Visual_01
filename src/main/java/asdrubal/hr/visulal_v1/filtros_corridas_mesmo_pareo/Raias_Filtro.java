@@ -10,7 +10,7 @@ import java.util.Map;
 public class Raias_Filtro {
     private static String[] titulo = new String[]{"Crono", "Pos", "Cavalo", "Data", "Jóquei", "Treinador", "Rateio","Prova","Corp","ER","Tempo"};
 
-    public static Object[][] filtroMk3(List<String> raiasFiltro, Map<Integer, List<CompetidorDTO>> mapa3) {
+    public static Object[][] filtroMk3(List<String> raiasFiltro, Map<Integer, List<CompetidorDTO>> mapa3, Object[][] dadosCavalosDoPareo) {
         Map<String, List<CompetidorDTO>> mapa = new HashMap<>();
         int i = 0;
         for (String raia : raiasFiltro) {
@@ -27,7 +27,7 @@ public class Raias_Filtro {
                 }
             }
         }
-        return MontaObjetoFiltradoPorRaia.montaObject(mapa);
+        return MontaObjetoFiltradoPorRaia.montaObject(mapa, dadosCavalosDoPareo);
     }
 
     public static String[] getTitulo() {

@@ -12,7 +12,7 @@ public class AuxTabCompetidores {
     public AuxTabCompetidores(Map<Integer, DTO_TabelaCompetidores> mapa2) {
         this.mapa2 = mapa2;
         colunas = new String[]{"N°", "Cavalo", "Joquei", "Treinador", "Idade", " Sx"};
-        nrCol = colunas.length;
+        nrCol = colunas.length+1;
     }
 
     public Object[][] preparaDados() {
@@ -26,6 +26,7 @@ public class AuxTabCompetidores {
             dadosTabela[i][3] = dto.getTreinador();
             dadosTabela[i][4] = dto.getIdade();
             dadosTabela[i][5] = dto.getSexo();
+            dadosTabela[i][6] = dto.getIdCavalo();
             i++;
         }
 //        System.out.println("mostrar dados:"+dadosTabela.length);

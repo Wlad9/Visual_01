@@ -52,7 +52,6 @@ public class Tabela_01v2 extends JTable {
                 getColumnModel().getColumn(8).setPreferredWidth(20);
                 getColumnModel().getColumn(9).setPreferredWidth(5);
         }
-        System.out.println(dados1.length + "--->" + titulosDados1.length);
         if (getColumnModel().getColumnCount() > 10) {
             getColumnModel().removeColumn(getColumnModel().getColumn(10));
         }

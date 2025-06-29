@@ -31,6 +31,7 @@ public class CapturaLinhasMarcadasNaTabela {
             for (int linha : linhasSelecionadas) {
                 Object nr = tabela.getValueAt(linha, 0);
                 Object cavalo = tabela.getValueAt(linha, 1);
+//                Object idCavalo = tabela.getValueAt(linha, 6);
                 dados.add(new Object[]{nr, cavalo});
             }
         } else {

@@ -33,9 +33,9 @@ public class FiltroRaia {
         for (Map.Entry<Integer, List<CompetidorDTO>> entry : mapaFiltradoPorAno.entrySet()) {
             System.out.println("Key:" + entry.getKey());
             List<CompetidorDTO> lista = entry.getValue();
-            for (CompetidorDTO cDTO : lista) {
-                System.out.println(cDTO);
-            }
+//            for (CompetidorDTO cDTO : lista) {
+//                System.out.println(cDTO);
+//            }
         }
         if (mapaFiltradoPorAno == null) {
             mapaFiltrado = FiltroRaia_Filtro.filtra2(mapaX11, pistasLista, distanciasLista);
