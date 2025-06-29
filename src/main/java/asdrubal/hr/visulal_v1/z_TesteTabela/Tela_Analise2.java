@@ -15,6 +15,8 @@ import asdrubal.hr.visulal_v1.objetos.ObjetoFiltrado;
 import asdrubal.hr.visulal_v1.services.CompetidorService;
 import asdrubal.hr.visulal_v1.services.RaiaService;
 import asdrubal.hr.visulal_v1.show.ShowDadosTipo_1;
+import asdrubal.hr.visulal_v1.show.ShowDadosTipo_2;
+import asdrubal.hr.visulal_v1.show.ShowObjectBiDim;
 import asdrubal.hr.visulal_v1.z_TesteTabela.componentes_teste2.AlteraObjetoDados;
 import asdrubal.hr.visulal_v1.z_TesteTabela.componentes_teste2.Tabela_00;
 import asdrubal.hr.visulal_v1.z_TesteTabela.componentes_teste2.Tabela_01;
@@ -35,6 +37,7 @@ public class Tela_Analise2 extends JFrame {
     private final Map<String, IndicesDTO> indices;
     private final CompetidorService competidorService;
     private final RaiaService raiaService;
+    private final int nrColFiltro = 11;
     private JTable tb00;
     private JPanel jp0_0;
     private JPanel jp0_1;
@@ -126,12 +129,13 @@ public class Tela_Analise2 extends JFrame {
         lst_Distancias.clearSelection();
         lst_Years.clearSelection();
         ObjetoFiltrado objF = new ObjetoFiltrado(mapa3, dadosCavalosDoPareo);
-        Object[][] dadosF = objF.inicia(dadosLS, pistasLista, distanciasLista, yearsLista);
-        ObjetoAlfa alfa = new ObjetoAlfa();
+        Object[][] dadosF = objF.inicia(dadosLS, pistasLista, distanciasLista, yearsLista, nrColFiltro);
+//        ObjetoAlfa alfa = new ObjetoAlfa();
 //        Object[][] dados1 = alfa.montaObjeto(dadosLinhasSelec, pistasLista, distanciasLista, yearsLista, mapa3);
-//        ShowDadosTipo_2.showDadosTipo2(dados1, "->dadosA - Raia => Competidores");
+//        ShowObjectBiDim.show(dadosF, "Dados F - Tipo 1");
         TitulosDados1 titulos1 = new TitulosDados1();
         Object[] titulosDados1 = titulos1.inicia();
+
         setTabela(dadosF, titulosDados1, "Dados1");
 
     }
@@ -162,6 +166,7 @@ public class Tela_Analise2 extends JFrame {
 
         DadosDaTabela_Montador dtm = new DadosDaTabela_Montador(mapa3, dadosCavalosDoPareo);
         cavalosMesmoPareo = dtm.inicia();
+        ShowObjectBiDim.show(cavalosMesmoPareo, "DADOS TIPO 2");
         setTabela(cavalosMesmoPareo, titulosDados2, "Dados2");
     }
 

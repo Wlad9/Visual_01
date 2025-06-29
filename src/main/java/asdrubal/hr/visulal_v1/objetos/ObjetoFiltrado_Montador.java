@@ -4,7 +4,6 @@ import asdrubal.hr.visulal_v1.analise2_objeto_montador.ObjetoFiltroAnalise2;
 import asdrubal.hr.visulal_v1.classes_auxiliares.ConverteDateToString;
 import asdrubal.hr.visulal_v1.classes_auxiliares.TransformaUniDiParaBiDi;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
-import asdrubal.hr.visulal_v1.filtros_corridas_mesmo_pareo.MontaObjetoFiltradoPorRaia;
 import asdrubal.hr.visulal_v1.show.ShowObjetoUniDim;
 
 import java.sql.Date;
@@ -33,8 +32,9 @@ public class ObjetoFiltrado_Montador {
 
         TransformaUniDiParaBiDi trbidi = new TransformaUniDiParaBiDi();
         Object[][] objX = trbidi.transforma_Mk2(lista);
-        Object[][] objX_Final = ObjetoFiltroAnalise2.montaObj(mapaA, dadoLS);
-        return ObjetoFiltrado_Transfoma.inicia(lista);
+//        Object[][] objX_Final = ObjetoFiltroAnalise2.montaObj(mapaA, dadoLS);
+
+        return null;
     }
 
     private static Object[] capturaDados(CompetidorDTO e, List<Object[]> dadoLS) {

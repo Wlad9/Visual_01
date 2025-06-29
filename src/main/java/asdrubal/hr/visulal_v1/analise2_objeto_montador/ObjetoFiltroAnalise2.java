@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class ObjetoFiltroAnalise2 {
     private static final int nrLn = 11;
 
-    public static Object[][] montaObj(Map<String, List<CompetidorDTO>> mapa, List<Object[]> dadosLS) {
+    public static Object[][] montaObj(Map<String, List<CompetidorDTO>> mapa, List<Object[]> dadosLS, int nrColunas) {
         Map<String, List<CompetidorDTO>> mapaOrdenado = new HashMap<>();
         for (Map.Entry<String, List<CompetidorDTO>> entry : mapa.entrySet()) {
             String raia = entry.getKey();
@@ -23,7 +23,7 @@ public class ObjetoFiltroAnalise2 {
         }
         List<Object[]> listObj = preparaObjetoUniDim(mapaOrdenado, dadosLS);
         Finaliza_FinalmenteKRaLHO kRaLHO = new Finaliza_FinalmenteKRaLHO();
-        return kRaLHO.finaliza(listObj);
+        return kRaLHO.finaliza(listObj, nrColunas);
     }
 
     private static List<Object[]> preparaObjetoUniDim(Map<String, List<CompetidorDTO>> mapaOrdenado, List<Object[]> dadosLS) {
@@ -55,6 +55,7 @@ public class ObjetoFiltroAnalise2 {
         String corpo = e.getCorpoChegada();
         String treinador = e.getTreinador();
         String rateio = e.getRateio();
+        String raia = e.getRaia();
         float tempo = e.getTempo();
         Object[] obj = new Object[nrLn];
         obj[0] = crono;
@@ -64,8 +65,9 @@ public class ObjetoFiltroAnalise2 {
         obj[4] = joquei;
         obj[5] = corpo;
         obj[6] = treinador;
-        obj[7] = treinador;
+        obj[7] = rateio;
         obj[8] = tempo;
+        obj[10]= raia;
         return obj;
     }
 
