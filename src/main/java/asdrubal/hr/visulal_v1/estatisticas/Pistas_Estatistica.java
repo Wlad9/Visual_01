@@ -9,6 +9,7 @@ import asdrubal.hr.visulal_v1.services.RaiaService;
 import asdrubal.hr.visulal_v1.show.ShowMapaObjUnid;
 import asdrubal.hr.visulal_v1.show.ShowMapaObjetoComInteiro;
 import asdrubal.hr.visulal_v1.show.ShowObjetoUniDim;
+import asdrubal.hr.visulal_v1.show.ShowTotaisPorColocacao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,11 +51,11 @@ public class Pistas_Estatistica {
 //  Objeto total por colocação na chegada
             Colocacao_Totalizador ct = new Colocacao_Totalizador();
             Object[] totaisColocacao = ct.calcula(entry.getValue(), index3);
-            totaisColocacao[0]=entry.getKey();
+            ShowTotaisPorColocacao.mostraTotaisPorColocacao(totaisColocacao, "Total de Colocaões.");
+            totaisColocacao[0] = entry.getKey();
             listaDeObjetos.add(totaisColocacao);
             mapaObjetos.put(entry.getKey(), listaDeObjetos);
         }
-        ShowMapaObjetoComInteiro.show(mapaObjetos);
         return mapaObjetos;
     }
 }

@@ -1,6 +1,5 @@
 package asdrubal.hr.visulal_v1.objetos;
 
-import asdrubal.hr.visulal_v1.analise2_objeto_montador.MontaTitulosDaTabela;
 import asdrubal.hr.visulal_v1.analise2_objeto_montador.ObjetoFiltroAnalise2;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.filtro_raia.FiltrarMapaPorRais;

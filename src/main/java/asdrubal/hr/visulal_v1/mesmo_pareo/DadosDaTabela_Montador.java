@@ -5,6 +5,8 @@ import asdrubal.hr.visulal_v1.classes_auxiliares.TransformaUniDiParaBiDi;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.objetos.AuxMontaCamposDoObjeto;
 import asdrubal.hr.visulal_v1.objetos.ObjetoBravo;
+import asdrubal.hr.visulal_v1.show.ShowDadosTipo_1;
+import asdrubal.hr.visulal_v1.show.ShowObjetoUniDim;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,7 @@ public class DadosDaTabela_Montador {
                 objetos.add(objLinha);
             }
         }
+//        ShowDadosTipo_1.show(objetos,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         TransformaUniDiParaBiDi tud = new TransformaUniDiParaBiDi();
         return tud.transforma(objetos, nrSpace, nrColunas);
     }

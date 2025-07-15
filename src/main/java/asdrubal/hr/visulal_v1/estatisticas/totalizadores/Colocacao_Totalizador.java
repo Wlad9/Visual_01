@@ -1,12 +1,14 @@
 package asdrubal.hr.visulal_v1.estatisticas.totalizadores;
 
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
+import asdrubal.hr.visulal_v1.show.ShowObjetoUniDim;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Colocacao_Totalizador {
     public Object[] calcula(List<CompetidorDTO> lDTO, int index) {
-        int[] ary = new int[index];
+
         int[] tG = new int[5];
         int[] tGL = new int[5];
         int[] tGM = new int[5];

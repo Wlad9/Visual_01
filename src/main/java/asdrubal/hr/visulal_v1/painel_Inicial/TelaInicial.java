@@ -91,6 +91,8 @@ public class TelaInicial extends JFrame {
     private Object[][] dadosMk2;
     private String objEmUso = null;
 
+    private String titPag;// título da página
+
     private DefaultTableCellRenderer centraliza = new DefaultTableCellRenderer();
     private RightPaddingCellRenderer alinhaDireita = new RightPaddingCellRenderer(15);
     private LeftPaddingCellRenderer alinhaEsquerda = new LeftPaddingCellRenderer(5);
@@ -162,7 +164,7 @@ public class TelaInicial extends JFrame {
         btComparaCavalos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Tela_Analise2 tabTeste2 = new Tela_Analise2(dadosCavalosDoPareo, mapa3, indices, competidorService, raiaService);
+                Tela_Analise2 tabTeste2 = new Tela_Analise2(dadosCavalosDoPareo, mapa3, indices, competidorService, raiaService, titPag);
             }
         });
     }
@@ -329,7 +331,6 @@ public class TelaInicial extends JFrame {
         scrolTabPareos.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrolTabPareos.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-//        tabPareos.setPreferredScrollableViewportSize(new Dimension(600, 400));
         tabPareos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
@@ -343,8 +344,8 @@ public class TelaInicial extends JFrame {
                         Integer idPareo = dto.getIdPareo();
                         Integer idPrograma = dto.getIdPrograma();
                         btPareo.setVisible(true);
+                        titPag = new TituloPagina(dto).montaTitulo();// titulo da proxima pagina-----------------------
                         preparaTabelaCompetidores(idPareo, idPrograma);
-
                     }
                 }
             }

@@ -3,19 +3,14 @@ package asdrubal.hr.visulal_v1.z_TesteTabela;
 import asdrubal.hr.visulal_v1.TitulosDasColunas.TitulosDados1;
 import asdrubal.hr.visulal_v1.TitulosDasColunas.TitulosDados2;
 import asdrubal.hr.visulal_v1.classes_auxiliares.CapturaLinhasMarcadasNaTabela;
-import asdrubal.hr.visulal_v1.concatenar_corridas.ConcatCorridasMesmaRaia;
+import asdrubal.hr.visulal_v1.corridas_na_mesma_raia.Alfa_MontaObjetoDaTabela;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.dto.IndicesDTO;
-import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
 import asdrubal.hr.visulal_v1.estatisticas.Pistas_Estatistica;
-import asdrubal.hr.visulal_v1.mesmo_pareo.CavalosCorrendoMesmoPareo;
 import asdrubal.hr.visulal_v1.mesmo_pareo.DadosDaTabela_Montador;
-import asdrubal.hr.visulal_v1.objetos.ObjetoAlfa;
 import asdrubal.hr.visulal_v1.objetos.ObjetoFiltrado;
 import asdrubal.hr.visulal_v1.services.CompetidorService;
 import asdrubal.hr.visulal_v1.services.RaiaService;
-import asdrubal.hr.visulal_v1.show.ShowDadosTipo_1;
-import asdrubal.hr.visulal_v1.show.ShowDadosTipo_2;
 import asdrubal.hr.visulal_v1.show.ShowObjectBiDim;
 import asdrubal.hr.visulal_v1.z_TesteTabela.componentes_teste2.AlteraObjetoDados;
 import asdrubal.hr.visulal_v1.z_TesteTabela.componentes_teste2.Tabela_00;
@@ -61,7 +56,7 @@ public class Tela_Analise2 extends JFrame {
     private JButton jb_concatenar;
 //    private Map<Integer, List<Object[]>> dados3;
 
-    public Tela_Analise2(Object[][] dadosCavalosDoPareo, Map<Integer, List<CompetidorDTO>> mapa3, Map<String, IndicesDTO> indices, CompetidorService competidorService, RaiaService raiaService) {
+    public Tela_Analise2(Object[][] dadosCavalosDoPareo, Map<Integer, List<CompetidorDTO>> mapa3, Map<String, IndicesDTO> indices, CompetidorService competidorService, RaiaService raiaService, String titPag) {
         this.indices = indices;
         this.competidorService = competidorService;
         this.raiaService = raiaService;
@@ -71,6 +66,7 @@ public class Tela_Analise2 extends JFrame {
         this.mapa3 = mapa3;
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setTitle(titPag);
         iniciaTela();
 
         jb_Filtro.addActionListener(new ActionListener() {
@@ -147,8 +143,8 @@ public class Tela_Analise2 extends JFrame {
             int nrI = Integer.parseInt(obj1[0].toString());
             for (int j = 0; j < dadosCavalosDoPareo.length; j++) {
                 int nrJ = Integer.parseInt(dadosCavalosDoPareo[j][0].toString());
-                if(nrJ == nrI){
-                    Object[] obj = new Object[]{dadosCavalosDoPareo[j][0],dadosCavalosDoPareo[j][1],dadosCavalosDoPareo[j][6]};
+                if (nrJ == nrI) {
+                    Object[] obj = new Object[]{dadosCavalosDoPareo[j][0], dadosCavalosDoPareo[j][1], dadosCavalosDoPareo[j][6]};
                     listaObjts.add(obj);
                 }
             }
@@ -158,11 +154,8 @@ public class Tela_Analise2 extends JFrame {
 
     // Listener para o Botão mesma corrida entre cavalos------------------------------------------------------------------------
     private void listenerBtMesmoPareo() {
-        CavalosCorrendoMesmoPareo ccmp = new CavalosCorrendoMesmoPareo(mapa3, dadosCavalosDoPareo);
-//        Object[][] dados2 = ccmp.montaObjBravo();
         TitulosDados2 titulos2 = new TitulosDados2();
         Object[] titulosDados2 = titulos2.inicia();
-//        setTabela(dados2, titulosDados2, "Dados2");
 
         DadosDaTabela_Montador dtm = new DadosDaTabela_Montador(mapa3, dadosCavalosDoPareo);
         cavalosMesmoPareo = dtm.inicia();
@@ -184,17 +177,31 @@ public class Tela_Analise2 extends JFrame {
         }
     }
 
-    //  Listener para o Botão estatisticas------------------------------------------------------------------------
+//  Listener para o Botão estatisticas------------------------------------------------------------------------
     private void listenerBtEstatistica() {
         Pistas_Estatistica estatisticas = new Pistas_Estatistica(competidorService, raiaService, mapa3);
         Map<Integer, List<Object[]>> mapaObjTotais = estatisticas.inicia(dadosCavalosDoPareo);
-//        ShowMapaObjUnid.show(mapaObjTotais, "Mapa com Totais por Rai e tempo");
-        PainelEstatistica_1 estatistica1 = new PainelEstatistica_1(mapaObjTotais, mapa3);
-    }
+        PainelEstatistica_1 estatistica1 = new PainelEstatistica_1(mapaObjTotais, mapa3, dadosCavalosDoPareo);
+        estatistica1.inicia();
 
-    //  Listener para botão concatenar corridas de cavalos que correram no memo pareo.----------
+    }
+//----------------------------------------------------------------------------------------------------------------
+//  Listener para botão concatenar corridas de cavalos que correram no memo pareo.----------
     private void listenerBtConcatenar() {
-        ConcatCorridasMesmaRaia concat = new ConcatCorridasMesmaRaia(cavalosMesmoPareo);
-        Object[][] conkat = concat.inicia();
+        List<String> pistasLista = lst_Pistas.getSelectedValuesList();
+        List<String> distanciasLista = lst_Distancias.getSelectedValuesList();
+
+        CapturaLinhasMarcadasNaTabela captura = new CapturaLinhasMarcadasNaTabela(tb00);
+        List<Object[]> dadosLinhasSelec = captura.linhasSelecionadas_mk1();
+        List<Object[]> dadosLS = incluiIdCavalo(dadosLinhasSelec);
+
+        TitulosDados1 titulos1 = new TitulosDados1();
+        Object[] titulosDados1 = titulos1.inicia();
+
+        Alfa_MontaObjetoDaTabela alfaObj = new Alfa_MontaObjetoDaTabela(mapa3, dadosLS);
+        Object[][] dados = alfaObj.inicia(pistasLista, distanciasLista);
+//        ConcatCorridasMesmaRaia concat = new ConcatCorridasMesmaRaia(cavalosMesmoPareo);
+//        Object[][] conkat = concat.inicia();
+        setTabela(dados, titulosDados1, "Dados1");
     }
 }
