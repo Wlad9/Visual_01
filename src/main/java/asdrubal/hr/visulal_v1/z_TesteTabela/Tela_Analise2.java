@@ -119,16 +119,12 @@ public class Tela_Analise2 extends JFrame {
         List<Object[]> dadosLinhasSelec = captura.linhasSelecionadas_mk1();
         List<Object[]> dadosLS = incluiIdCavalo(dadosLinhasSelec);
 
-//        ShowDadosTipo_1.show(dadosLS, "\nDados LS================]-------");
         tb00.clearSelection();// Desmarca as linhas da tabela
         lst_Pistas.clearSelection();
         lst_Distancias.clearSelection();
         lst_Years.clearSelection();
         ObjetoFiltrado objF = new ObjetoFiltrado(mapa3, dadosCavalosDoPareo);
         Object[][] dadosF = objF.inicia(dadosLS, pistasLista, distanciasLista, yearsLista, nrColFiltro);
-//        ObjetoAlfa alfa = new ObjetoAlfa();
-//        Object[][] dados1 = alfa.montaObjeto(dadosLinhasSelec, pistasLista, distanciasLista, yearsLista, mapa3);
-//        ShowObjectBiDim.show(dadosF, "Dados F - Tipo 1");
         TitulosDados1 titulos1 = new TitulosDados1();
         Object[] titulosDados1 = titulos1.inicia();
 

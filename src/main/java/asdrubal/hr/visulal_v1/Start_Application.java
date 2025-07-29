@@ -1,9 +1,6 @@
 package asdrubal.hr.visulal_v1;
 
-import asdrubal.hr.visulal_v1.Telas.TelaInicial_01;
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
-import asdrubal.hr.visulal_v1.pagina_02.Pagina_02;
-import asdrubal.hr.visulal_v1.pagina_03.Pagina_03;
 import asdrubal.hr.visulal_v1.painel_Inicial.TelaInicial;
 import asdrubal.hr.visulal_v1.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +9,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.swing.*;
-import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
@@ -31,6 +27,10 @@ public class Start_Application implements CommandLineRunner {
     private CavaloService cavaloService;
     @Autowired
     private RaiaService raiaService;
+    @Autowired
+    private RegistroService registroService;
+    @Autowired
+    private AnaliseService analiseService;
 
     public static void main(String[] args) {
         System.setProperty("java.awt.headless", "false");
@@ -40,12 +40,16 @@ public class Start_Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Map<Integer, ProgramaDTO> openPrograms = programaService.findByProgOpen();
+//        for(Map.Entry<Integer, ProgramaDTO>entry: openPrograms.entrySet()){
+//            System.out.println("\nId:"+ entry.getKey());
+//            System.out.println("ProgDTO:"+ entry.getValue());
+//        }
         SwingUtilities.invokeLater(() -> {
 //            Pagina_02 pg2 = new Pagina_02();
 //            Pagina_03 pagina_03 = new Pagina_03();
 //
             TelaInicial inicial = new TelaInicial(openPrograms, pareoService, competidorService, tempService
-                    , indicesService, cavaloService, raiaService);
+                    , indicesService, cavaloService, raiaService, registroService, analiseService);
 
 //            TelaInicial_01 inicial01 = new TelaInicial_01(programasOpen, pareoService, competidorService, tempService);// está ok
 //        PainelPareos painelPareos = new PainelPareos(pareoService, competidorService);

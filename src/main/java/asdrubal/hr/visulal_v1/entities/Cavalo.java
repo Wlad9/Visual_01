@@ -22,6 +22,7 @@ public class Cavalo {
 
     public Cavalo() {
     }
+
     public Cavalo(CavaloDTO cavaloDTO) {
         cavalo = cavaloDTO.getCavalo();
         idade = cavaloDTO.getIdade();
@@ -31,6 +32,7 @@ public class Cavalo {
         maeId = cavaloDTO.getMaeId();
         avoId = cavaloDTO.getAvoId();
     }
+
     public Integer getIdCavalo() {
         return idCavalo;
     }

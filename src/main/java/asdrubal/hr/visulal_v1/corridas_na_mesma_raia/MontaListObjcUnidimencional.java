@@ -24,7 +24,6 @@ public class MontaListObjcUnidimencional {
                 String pos = AuxMontaCamposDoObjeto.montaColocacao(e.getColocacao());
                 String cavalo = e.getCavalo();
                 cavalo = PreparaNrNomeCavalo.prepNomeCavalo(cavalo, idCavalo, dadosLS);
-                System.out.println("++++++++++++++++++CAVALO.........>"+cavalo);
                 String crono = e.getCronometro();
                 String joquei = e.getJoquei();
                 String corpoChegada = e.getCorpoChegada();

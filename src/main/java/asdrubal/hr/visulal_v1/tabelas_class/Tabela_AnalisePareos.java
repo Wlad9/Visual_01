@@ -16,6 +16,8 @@ import java.util.Set;
 public class Tabela_AnalisePareos extends JTable {
     private Set<Integer> negrito;
     private final Map<String, IndicesDTO> mapaIndices;
+    private Map<String, IndicesDTO> indicesGavea;
+    private Map<String, IndicesDTO> indicesOutros;
     private Object[][] dados;
     private final int nrColunas;
     private final String analiseDe;
@@ -31,6 +33,8 @@ public class Tabela_AnalisePareos extends JTable {
         this.nrColunas = nrColunas;
         this.analiseDe = analiseDe;
         this.raiasFiltro = raiasFiltro;
+//        indicesGavea = indicesService.findAllGavea();
+//        indicesOutros = indicesService.findAllOutros();
         setFillsViewportHeight(true);
         setRowHeight(20);
         ShowDadosNaTela.show(dados, analiseDe);//  Imprimir os dados da tabela-------------------------------------

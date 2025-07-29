@@ -24,16 +24,10 @@ public class Alfa_MontaObjetoDaTabela {
         SeparaCompetidorPorRaia scr = new SeparaCompetidorPorRaia();
         SeparaCompetidorPorRaia spc = new SeparaCompetidorPorRaia();
         Map<String, List<CompetidorDTO>> mapaA = spc.inicia(mapa3, dadosLS, raiasFiltro);
-
         MontaListObjcUnidimencional uniDi = new MontaListObjcUnidimencional();
         List<Object[]> objetos = uniDi.inicia(mapaA, nrCol, dadosLS);
-
-
-//        MontaObjetoDadosFinal modf = new MontaObjetoDadosFinal();
-//        Object[][] dadosFinal = modf.inicia(objetos, nrCol);
         Finaliza_FinalmenteKRaLHO ffkr = new Finaliza_FinalmenteKRaLHO();
         Object[][] dadosFinal = ffkr.finaliza(objetos, nrCol);
-        ShowObjectBiDim.show(dadosFinal,"fiana++++++++++++++++++++++++++++");
         return dadosFinal;
     }
 }

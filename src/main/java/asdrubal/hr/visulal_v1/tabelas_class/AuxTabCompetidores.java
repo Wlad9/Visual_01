@@ -15,7 +15,10 @@ public class AuxTabCompetidores {
         nrCol = colunas.length+1;
     }
 
-    public Object[][] preparaDados() {
+    public Object[][]
+
+
+    preparaDados() {
         Object[][] dadosTabela = new Object[mapa2.size()][nrCol];
         int i = 0;
         for (DTO_TabelaCompetidores dto : mapa2.values()) {

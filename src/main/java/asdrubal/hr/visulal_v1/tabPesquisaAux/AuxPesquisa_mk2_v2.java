@@ -20,7 +20,7 @@ public class AuxPesquisa_mk2_v2 {
         this.mapa6 = mapa6;
         this.dadosCavalosDoPareo = dadosCavalosDoPareo;
         this.cavaloService = cavaloService;
-        titulos = new String[]{" ", "Pos", "Raia", "Prova", "Crono", "Rateio", "Jóquei", "Treinador", "CorpCheg", "ER", "Tempo"};
+        titulos = new String[]{" ", "Pos", "Raia", "Prova", "Crono", "Rateio", "Jóquei", "Treinador", "CorpCheg", "ER", "Tempo", "Bolsa"};
         nrColunas = titulos.length;
     }
 
@@ -39,6 +39,7 @@ public class AuxPesquisa_mk2_v2 {
             nrEspace++;
             List<CompetidorDTO> lDTO = mapa6.get(idCavalo);
             for (CompetidorDTO cDTO : lDTO) {
+                System.out.println("CDTO===>>"+cDTO);
                 Object[] linhaY;
                 linhaY = montaLinha(cDTO);
                 objetos.add(linhaY);
@@ -80,6 +81,7 @@ public class AuxPesquisa_mk2_v2 {
                 dados[i][8] = obj[8];
                 dados[i][9] = obj[9];
                 dados[i][10] = obj[10];
+                dados[i][11] = obj[11];
                 i++;
             }
         }
@@ -110,6 +112,7 @@ public class AuxPesquisa_mk2_v2 {
         dados[8] = c.getCorpoChegada();
         dados[9] = c.getEntradaReta();
         dados[10] = c.getTempo();
+        dados[11]= c.getBolsa();
         return dados;
     }
 

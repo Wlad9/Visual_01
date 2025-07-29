@@ -14,11 +14,10 @@ import asdrubal.hr.visulal_v1.frame1.MontaItensDoMenu;
 import asdrubal.hr.visulal_v1.montadores.*;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.LeftPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.RightPaddingCellRenderer;
+import asdrubal.hr.visulal_v1.registro.TelaDeRegistro;
 import asdrubal.hr.visulal_v1.services.*;
-import asdrubal.hr.visulal_v1.show.Mapa2_Show;
 import asdrubal.hr.visulal_v1.show.ShowObjectBiDim;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxMontaSetNegritoCorridasComuns;
-import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2_v2;
 import asdrubal.hr.visulal_v1.tabelas_class.*;
 import asdrubal.hr.visulal_v1.z_TesteTabela.Tela_Analise2;
@@ -41,6 +40,8 @@ public class TelaInicial extends JFrame {
     private final IndicesService indicesService;
     private final CavaloService cavaloService;
     private final RaiaService raiaService;
+    private final RegistroService registroService;
+    private final AnaliseService analiseService;
     private final ButtonGroup radioGruop;
 
     private JPanel contentPane;
@@ -69,12 +70,14 @@ public class TelaInicial extends JFrame {
     private JRadioButton rb24P;
     private JRadioButton rbTodos;
     private JButton btComparaCavalos;
+    private JButton registrarButton;
 
     private JMenuBar menuBar;
     private JMenu programaMenu;
     private JMenuItem itemMenu;
 
     private Map<String, IndicesDTO> indices;
+
     private Map<Integer, DTO_JT_tabPareos> mapa1;
     private Map<Integer, DTO_TabelaCompetidores> mapa2;
     private Map<Integer, List<CompetidorDTO>> mapa3;
@@ -92,19 +95,22 @@ public class TelaInicial extends JFrame {
     private String objEmUso = null;
 
     private String titPag;// título da página
+    private DTO_JT_tabPareos dtoJtPareos;
 
     private DefaultTableCellRenderer centraliza = new DefaultTableCellRenderer();
     private RightPaddingCellRenderer alinhaDireita = new RightPaddingCellRenderer(15);
     private LeftPaddingCellRenderer alinhaEsquerda = new LeftPaddingCellRenderer(5);
 
     public TelaInicial(Map<Integer, ProgramaDTO> programasOpen, PareoService pareoService, CompetidorService competidorService,
-                       TempService tempService, IndicesService indicesService, CavaloService cavaloService, RaiaService raiaService) {
+                       TempService tempService, IndicesService indicesService, CavaloService cavaloService, RaiaService raiaService, RegistroService registroService, AnaliseService analiseService) {
         this.pareoService = pareoService;
         this.competidorService = competidorService;
         this.tempService = tempService;
         this.indicesService = indicesService;
         this.cavaloService = cavaloService;
         this.raiaService = raiaService;
+        this.registroService = registroService;
+        this.analiseService = analiseService;
         setContentPane(contentPane);
         menuBar = new JMenuBar();
         programaMenu = new JMenu("Programas");
@@ -115,6 +121,7 @@ public class TelaInicial extends JFrame {
         radioGruop.add(rb23P);
         radioGruop.add(rbTodos);
         indices = indicesService.findAll();
+
 
 //  Listener dos Botões----------------------------------------------------------------------
         btPareoListener();
@@ -165,6 +172,13 @@ public class TelaInicial extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Tela_Analise2 tabTeste2 = new Tela_Analise2(dadosCavalosDoPareo, mapa3, indices, competidorService, raiaService, titPag);
+            }
+        });
+        registrarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowObjectBiDim.show(dadosCavalosDoPareo, "DADOS 222");
+                TelaDeRegistro tReg = new TelaDeRegistro(dadosCavalosDoPareo, dtoJtPareos, registroService, analiseService);
             }
         });
     }
@@ -340,11 +354,11 @@ public class TelaInicial extends JFrame {
                     if (selectedRow != -1) {
                         // Código a ser executado quando uma linha é selecionada
                         Integer ordem = (Integer) dados[selectedRow][0];
-                        DTO_JT_tabPareos dto = mapa1.get(ordem);
-                        Integer idPareo = dto.getIdPareo();
-                        Integer idPrograma = dto.getIdPrograma();
+                        dtoJtPareos = mapa1.get(ordem);
+                        Integer idPareo = dtoJtPareos.getIdPareo();
+                        Integer idPrograma = dtoJtPareos.getIdPrograma();
                         btPareo.setVisible(true);
-                        titPag = new TituloPagina(dto).montaTitulo();// titulo da proxima pagina-----------------------
+                        titPag = new TituloPagina(dtoJtPareos).montaTitulo();// titulo da proxima pagina-----------------------
                         preparaTabelaCompetidores(idPareo, idPrograma);
                     }
                 }
@@ -403,7 +417,7 @@ public class TelaInicial extends JFrame {
     }
 //---------------------------- Tabela de corridas
 
-    private void montaAnalisePareos() {
+    private void montaAnalisePareos() {//monta a tabela com corridas de cada cavalo
         int nrColunas = 10;
         mapa3 = new Mapa3_Montador(competidorService).montaMapa(mapa2);
         Mapa4_MontadorListaOrdenada mapa4Monta = new Mapa4_MontadorListaOrdenada();

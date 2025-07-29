@@ -42,6 +42,7 @@ public class CompetidorDTO {
     private String hipoCod;
     private Date data;
     private CavaloDTO cavaloDTO;
+    private int bolsa;
 
     //    private PareoDTO pareoDTO;
     public CompetidorDTO(Competidor entity) {
@@ -83,10 +84,19 @@ public class CompetidorDTO {
         prova = entity.getProva();
         data = entity.getData();
         hipoCod = entity.getHipoCod();
+        bolsa = entity.getBolsa();
 //        pareoId = entity.getPareoId();
     }
 
     public CompetidorDTO() {
+    }
+
+    public int getBolsa() {
+        return bolsa;
+    }
+
+    public void setBolsa(int bolsa) {
+        this.bolsa = bolsa;
     }
 
     public Integer getIdCompetidor() {

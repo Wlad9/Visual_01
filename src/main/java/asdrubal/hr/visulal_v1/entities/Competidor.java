@@ -40,9 +40,11 @@ public class Competidor {
     private String prova;
     private String hipoCod;
     private Date data;
+    private int bolsa;
     @ManyToOne
     @JoinColumn(name = "horseId")
     private Cavalo horse;
+
 
     public Competidor() {
     }
@@ -79,6 +81,14 @@ public class Competidor {
 
 //        Cavalo cav = new Cavalo(dto.getCavaloDTO());
 //        horse = cav;
+    }
+
+    public int getBolsa() {
+        return bolsa;
+    }
+
+    public void setBolsa(int bolsa) {
+        this.bolsa = bolsa;
     }
 
     public Integer getIdCompetidor() {
