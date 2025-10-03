@@ -1,8 +1,6 @@
 package asdrubal.hr.visulal_v1.dto;
 
-import asdrubal.hr.visulal_v1.entities.Indices;
-import asdrubal.hr.visulal_v1.entities.IndicesOutros;
-import asdrubal.hr.visulal_v1.entities.IndicesSoGavea;
+import asdrubal.hr.visulal_v1.entities.*;
 
 public class IndicesDTO {
     private Integer idIndice;
@@ -25,25 +23,57 @@ public class IndicesDTO {
         laranja = entity.getLaranja();
         vermelho = entity.getVermelho();
     }
-//    public IndicesDTO(IndicesSoGavea indice) {
-//        this.raia = indice.getRaiaGavea();
-//        this.azul = indice.getAzul();
-//        this.verde = indice.getVerde();
-//        this.amarelo = indice.getAmarelo();
-//        this.laranja = indice.getLaranja();
-//        this.vermelho = indice.getVermelho();
-//    }
-//
-//
-//    public IndicesDTO(IndicesOutros entity) {
-//        idIndice = entity.getIdIndice();
-//        raia = entity.getRaia();
-//        azul = entity.getAzul();
-//        verde = entity.getVerde();
-//        amarelo = entity.getAmarelo();
-//        laranja = entity.getLaranja();
-//        vermelho = entity.getVermelho();
-//    }
+
+    public IndicesDTO(IndicesGV entity) {
+        idIndice = entity.getIdIndice();
+        raia = entity.getRaia();
+        azul = entity.getAzul();
+        verde = entity.getVerde();
+        amarelo = entity.getAmarelo();
+        laranja = entity.getLaranja();
+        vermelho = entity.getVermelho();
+    }
+
+    public IndicesDTO(IndicesRS entity) {
+        idIndice = entity.getIdIndice();
+        raia = entity.getRaia();
+        azul = entity.getAzul();
+        verde = entity.getVerde();
+        amarelo = entity.getAmarelo();
+        laranja = entity.getLaranja();
+        vermelho = entity.getVermelho();
+    }
+
+    public IndicesDTO(IndicesCJ entity) {
+        idIndice = entity.getIdIndice();
+        raia = entity.getRaia();
+        azul = entity.getAzul();
+        verde = entity.getVerde();
+        amarelo = entity.getAmarelo();
+        laranja = entity.getLaranja();
+        vermelho = entity.getVermelho();
+    }
+
+    public IndicesDTO(IndicesPR entity) {
+        idIndice = entity.getIdIndice();
+        raia = entity.getRaia();
+        azul = entity.getAzul();
+        verde = entity.getVerde();
+        amarelo = entity.getAmarelo();
+        laranja = entity.getLaranja();
+        vermelho = entity.getVermelho();
+    }
+
+
+    public IndicesDTO(IndicesOutros entity) {
+        idIndice = entity.getIdIndice();
+        raia = entity.getRaia();
+        azul = entity.getAzul();
+        verde = entity.getVerde();
+        amarelo = entity.getAmarelo();
+        laranja = entity.getLaranja();
+        vermelho = entity.getVermelho();
+    }
 
     public IndicesDTO(Integer idIndice) {
         this.idIndice = idIndice;

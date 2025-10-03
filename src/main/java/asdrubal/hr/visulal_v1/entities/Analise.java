@@ -9,18 +9,13 @@ public class Analise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAnalise;
     private Integer idCavalo;
-    private Integer idCompetidor = 0;
     private String cavalo;
-    @Column(nullable = false)
+    private String joquei;
+    private int pontuacao = 0;// Positiva +1 ou +2  Negativa -1 ou -2
     private String descricao;
-    private int positivo = 0;
-    private int negativo = 0;
     @ManyToOne
     @JoinColumn(name = "registro_id")
     private Registro registro;
-
-    public Analise() {
-    }
 
     public Integer getIdAnalise() {
         return idAnalise;
@@ -38,20 +33,28 @@ public class Analise {
         this.idCavalo = idCavalo;
     }
 
-    public Integer getIdCompetidor() {
-        return idCompetidor;
-    }
-
-    public void setIdCompetidor(Integer idCompetidor) {
-        this.idCompetidor = idCompetidor;
-    }
-
     public String getCavalo() {
         return cavalo;
     }
 
     public void setCavalo(String cavalo) {
         this.cavalo = cavalo;
+    }
+
+    public String getJoquei() {
+        return joquei;
+    }
+
+    public void setJoquei(String joquei) {
+        this.joquei = joquei;
+    }
+
+    public int getPontuacao() {
+        return pontuacao;
+    }
+
+    public void setPontuacao(int pontuacao) {
+        this.pontuacao = pontuacao;
     }
 
     public String getDescricao() {
@@ -62,27 +65,15 @@ public class Analise {
         this.descricao = descricao;
     }
 
-    public int getPositivo() {
-        return positivo;
-    }
-
-    public void setPositivo(int positivo) {
-        this.positivo = positivo;
-    }
-
-    public int getNegativo() {
-        return negativo;
-    }
-
-    public void setNegativo(int negativo) {
-        this.negativo = negativo;
-    }
-    
     public Registro getRegistro() {
         return registro;
     }
 
     public void setRegistro(Registro registro) {
         this.registro = registro;
+    }
+
+    public Analise() {
+
     }
 }

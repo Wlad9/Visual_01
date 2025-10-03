@@ -1,8 +1,8 @@
 package asdrubal.hr.visulal_v1;
 
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
-import asdrubal.hr.visulal_v1.painel_Inicial.TelaInicial;
 import asdrubal.hr.visulal_v1.services.*;
+import asdrubal.hr.visulal_v1.zV2_Versao2_Pagina1.Pagina_Inicial_v5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,6 +24,16 @@ public class Start_Application implements CommandLineRunner {
     @Autowired
     private IndicesService indicesService;
     @Autowired
+    private IndicesGV_Service indicesGV_service;
+    @Autowired
+    private IndicesCJ_Service indicesCJ_service;
+    @Autowired
+    private IndicesRS_Service indicesRS_service;
+    @Autowired
+    private IndicesPR_Service indicesPR_service;
+    @Autowired
+    private IndicesOutrosService indicesOutrosService;
+    @Autowired
     private CavaloService cavaloService;
     @Autowired
     private RaiaService raiaService;
@@ -44,18 +54,19 @@ public class Start_Application implements CommandLineRunner {
 //            System.out.println("\nId:"+ entry.getKey());
 //            System.out.println("ProgDTO:"+ entry.getValue());
 //        }
-        SwingUtilities.invokeLater(() -> {
-//            Pagina_02 pg2 = new Pagina_02();
-//            Pagina_03 pagina_03 = new Pagina_03();
-//
-            TelaInicial inicial = new TelaInicial(openPrograms, pareoService, competidorService, tempService
-                    , indicesService, cavaloService, raiaService, registroService, analiseService);
 
-//            TelaInicial_01 inicial01 = new TelaInicial_01(programasOpen, pareoService, competidorService, tempService);// está ok
-//        PainelPareos painelPareos = new PainelPareos(pareoService, competidorService);
-//        TelaInicial telaInicial = new TelaInicial(programasOpen, painelPareos);
-//            Painel_Base painelBase = new Painel_Base(pareoService, competidorService);
-//            TelaInicial telaInicial1 = new TelaInicial(programasOpen, painelBase);
+//        SwingUtilities.invokeLater(() -> {
+//            TelaInicial inicial = new TelaInicial(openPrograms, pareoService, competidorService, tempService
+//                    , indicesService, cavaloService, raiaService, registroService, analiseService);
+//        });
+
+//
+
+        SwingUtilities.invokeLater(() -> {
+            Pagina_Inicial_v5 paginaInicialv5 = new Pagina_Inicial_v5(openPrograms, pareoService, competidorService, tempService
+                    , indicesService, cavaloService, raiaService, registroService, analiseService, indicesGV_service, indicesOutrosService,indicesCJ_service, indicesPR_service, indicesRS_service);
         });
+
+
     }
 }

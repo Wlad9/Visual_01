@@ -7,26 +7,27 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class IndicesSoGavea {
+public class IndicesRS {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idIndice;
-    private String raiaGavea;
+    private String raia;
     private float azul;
     private float verde;
     private float amarelo;
     private float laranja;
     private float vermelho;
 
-    public IndicesSoGavea() {
+    public IndicesRS() {
     }
-    public IndicesSoGavea(IndicesDTO dto){
-        raiaGavea = dto.getRaia();
+
+    public IndicesRS(IndicesDTO dto) {
+        raia = dto.getRaia();
         azul = dto.getAzul();
         verde = dto.getVerde();
         amarelo = dto.getAmarelo();
         laranja = dto.getLaranja();
-        vermelho = dto.getVermelho();
+        verde = dto.getVermelho();
     }
 
     public Integer getIdIndice() {
@@ -37,12 +38,12 @@ public class IndicesSoGavea {
         this.idIndice = idIndice;
     }
 
-    public String getRaiaGavea() {
-        return raiaGavea;
+    public String getRaia() {
+        return raia;
     }
 
-    public void setRaiaGavea(String raiaGavea) {
-        this.raiaGavea = raiaGavea;
+    public void setRaia(String raia) {
+        this.raia = raia;
     }
 
     public float getAzul() {
@@ -83,18 +84,5 @@ public class IndicesSoGavea {
 
     public void setVermelho(float vermelho) {
         this.vermelho = vermelho;
-    }
-
-    @Override
-    public String toString() {
-        return "IndicesSoGavea{" +
-                "idIndice=" + idIndice +
-                ", raiaGavea='" + raiaGavea + '\'' +
-                ", azul=" + azul +
-                ", verde=" + verde +
-                ", amarelo=" + amarelo +
-                ", laranja=" + laranja +
-                ", vermelho=" + vermelho +
-                '}';
     }
 }

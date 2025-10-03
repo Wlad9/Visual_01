@@ -63,4 +63,16 @@ public class Registro_DTO {
     public void setAnalises(List<Analise> analises) {
         this.analises = analises;
     }
+
+    @Override
+    public String toString() {
+        return "Registro_DTO{" +
+                "idRegistro=" + idRegistro +
+                ", idPrograma=" + idPrograma +
+                ", idPareo=" + idPareo +
+                ", hipoData='" + hipoData + '\'' +
+                ", raia='" + raia + '\'' +
+                ", analises=" + analises +
+                '}';
+    }
 }

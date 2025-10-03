@@ -8,11 +8,10 @@ import jakarta.persistence.ManyToOne;
 public class Analise_DTO {
     private Integer idAnalise;
     private Integer idCavalo;
-    private Integer idCompetidor = 0;
     private String cavalo;
+    private String joquei;
     private String descricao;
-    private int positivo = 0;
-    private int negativo = 0;
+    private int pontuacao = 0;
     private Registro registro;
 
     public Analise_DTO() {
@@ -34,20 +33,20 @@ public class Analise_DTO {
         this.idCavalo = idCavalo;
     }
 
-    public Integer getIdCompetidor() {
-        return idCompetidor;
-    }
-
-    public void setIdCompetidor(Integer idCompetidor) {
-        this.idCompetidor = idCompetidor;
-    }
-
     public String getCavalo() {
         return cavalo;
     }
 
     public void setCavalo(String cavalo) {
         this.cavalo = cavalo;
+    }
+
+    public String getJoquei() {
+        return joquei;
+    }
+
+    public void setJoquei(String joquei) {
+        this.joquei = joquei;
     }
 
     public String getDescricao() {
@@ -58,20 +57,12 @@ public class Analise_DTO {
         this.descricao = descricao;
     }
 
-    public int getPositivo() {
-        return positivo;
+    public int getPontuacao() {
+        return pontuacao;
     }
 
-    public void setPositivo(int positivo) {
-        this.positivo = positivo;
-    }
-
-    public int getNegativo() {
-        return negativo;
-    }
-
-    public void setNegativo(int negativo) {
-        this.negativo = negativo;
+    public void setPontuacao(int pontuacao) {
+        this.pontuacao = pontuacao;
     }
 
     public Registro getRegistro() {
@@ -80,5 +71,18 @@ public class Analise_DTO {
 
     public void setRegistro(Registro registro) {
         this.registro = registro;
+    }
+
+    @Override
+    public String toString() {
+        return "Analise_DTO{" +
+                "idAnalise=" + idAnalise +
+                ", idCavalo=" + idCavalo +
+                ", cavalo='" + cavalo + '\'' +
+                ", joquei='" + joquei + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", pontuacao=" + pontuacao +
+                ", registro=" + registro +
+                '}';
     }
 }

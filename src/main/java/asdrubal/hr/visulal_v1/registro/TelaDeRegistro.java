@@ -13,6 +13,8 @@ import asdrubal.hr.visulal_v1.services.RegistroService;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TelaDeRegistro extends JFrame {
     private final Object[][] dadosCavalosDoPareo;
@@ -39,6 +41,7 @@ public class TelaDeRegistro extends JFrame {
     private JRadioButton rbNegativo;
     private JCheckBox cbUm;
     private JCheckBox cbDois;
+    private JButton jb_Fim;
     private JCheckBox cbZero;
     private String[] titulo1 = new String[]{"N°", "Cavalo", "Joquei", "Treinador", "Idade", " Sx"};
     private Object[] dadosDaLinhaSelec;
@@ -47,6 +50,8 @@ public class TelaDeRegistro extends JFrame {
 
     private Registro_DTO rDTO;
     private Analise_DTO aDTO;
+    private List<Analise_DTO> listaAnalies;
+
 
     public TelaDeRegistro(Object[][] dadosCavalosDoPareo, DTO_JT_tabPareos dtoJtPareos, RegistroService registroService, AnaliseService analiseService) {
         this.dadosCavalosDoPareo = dadosCavalosDoPareo;
@@ -60,6 +65,7 @@ public class TelaDeRegistro extends JFrame {
         jb_Descartar.setEnabled(false);
         jb_Save.setEnabled(false);
         rDTO = new Registro_DTO();
+        listaAnalies = new ArrayList<>();
 
 //  Listener botão Analisar
         jb_Select.addActionListener(new ActionListener() {
@@ -125,36 +131,43 @@ public class TelaDeRegistro extends JFrame {
         lb_Lb2.setVisible(true);
 
         idCavaloSelec = (Integer) dadosCavalosDoPareo[linhaSelec][6];
-        Integer idCavalo = (Integer)dadosDaLinhaSelec[6];
-        aDTO.setCavalo(cavalo);
-        aDTO.setIdCavalo(idCavalo);
+        String joquei = dadosCavalosDoPareo[linhaSelec][2].toString();
+        aDTO.setCavalo(cavalo.trim());
+        aDTO.setJoquei(joquei);
+        aDTO.setIdCavalo(idCavaloSelec);
 
     }
 
     private void listenerBtSalvarRegistro() {
+
         jb_Save.setEnabled(false);
         jb_Descartar.setEnabled(false);
+        String texto = jtA_Descricao.getText();
+        System.out.println("Texto==>"+ texto);
         if (rDTO == null) {
             MontaRegistroDTO montaRdto = new MontaRegistroDTO();
             rDTO = montaRdto.inicia(dadosDaLinhaSelec, dtoJtPareos, idCavaloSelec);
             rDTO = registroService.criaRegistro(rDTO);
         }
-        aDTO = new Analise_DTO();
         aDTO.setDescricao(jtA_Descricao.getText());
         if(rbPositivo.isSelected()){
             if(cbUm.isSelected()){
-                aDTO.setPositivo(1);
+                aDTO.setPontuacao(1);
             }else if(cbDois.isSelected()){
-                aDTO.setPositivo(2);
+                aDTO.setPontuacao(2);
             }//TODO construir msg informando que não foi selecionado nenhum cb
         }
         if(rbNegativo.isSelected()){
             if(cbUm.isSelected()){
-                aDTO.setNegativo(1);
+                aDTO.setPontuacao(-1);
             }else if(cbDois.isSelected()){
-                aDTO.setNegativo(2);
+                aDTO.setPontuacao(-2);
             }//TODO construir msg informando que não foi selecionado nenhum cb
         }
+        listaAnalies.add(aDTO);
+        System.out.println("rdto:"+rDTO);
+        System.out.println("Adto:"+aDTO);
+
 //        aDTO.setRegistro(rDTO.getIdRegistro());
     }
 

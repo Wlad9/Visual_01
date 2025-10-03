@@ -1,5 +1,6 @@
 package asdrubal.hr.visulal_v1.services;
 
+import asdrubal.hr.visulal_v1.corretor_tempo.TransformaCronometroEmTempo;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.entities.Competidor;
 import asdrubal.hr.visulal_v1.repositories.CompetidorRepository;
@@ -53,5 +54,25 @@ public class CompetidorService {
             if (!paginas.hasNext()) break;
         }
         return lista;
+    }
+
+    @Transactional
+    public void corrigeTempo() {
+        List<Competidor> lista = competidorRepository.findByCronometroIsNotNullAndTempo(0);
+
+        for (Competidor c : lista) {
+            try {
+                String cronometro = c.getCronometro();
+                if (!cronometro.isEmpty()) {
+                    TransformaCronometroEmTempo tct = new TransformaCronometroEmTempo(cronometro);
+                    float tempoCalculado = tct.cronoToTempo();
+                    c.setTempo(tempoCalculado);
+                }
+            } catch (Exception e) {
+                System.err.println("Erro. Cronometro não convertido:" + c);
+            }
+            competidorRepository.saveAll(lista);
+            System.out.println("\n\n------------------------FIM DA CORREÇÃO.");
+        }
     }
 }

@@ -14,4 +14,6 @@ public interface CompetidorRepository extends JpaRepository<Competidor, Integer>
     Optional<List<Competidor>> findByIdCompetidorIn(List<Integer> listaIds);
 
     Page<Competidor> findByHorse_IdCavalo(Integer idCavalo, PageRequest pageRequest);
+
+    List<Competidor> findByCronometroIsNotNullAndTempo(int i);
 }

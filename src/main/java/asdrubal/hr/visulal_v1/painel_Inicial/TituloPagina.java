@@ -24,11 +24,11 @@ public class TituloPagina {
         String hipoCod = dto.getHipocod();
         String ordem = String.valueOf(dto.getOrdem());
         ordem = ordem.concat("°Páreo.");
-        System.out.println("Distancia:"+distancia+"\tpista:"+pista);
-        System.out.println("Chamada:"+chamada);
-        System.out.println("Data:"+data);
-        System.out.println("hip:"+hipoCod);
-        System.out.println("Ordem:"+ordem);
+//        System.out.println("Distancia:"+distancia+"\tpista:"+pista);
+//        System.out.println("Chamada:"+chamada);
+//        System.out.println("Data:"+data);
+//        System.out.println("hip:"+hipoCod);
+//        System.out.println("Ordem:"+ordem);
         String x =ordem.concat("    ").concat(hipoCod).concat("  ").concat(data).concat("  -   ")
                 .concat(pista).concat(distancia).concat(" -       ").concat(chamada);
         return x;

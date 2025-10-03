@@ -1,6 +1,7 @@
 package asdrubal.hr.visulal_v1.painel_Inicial;
 
 import asdrubal.hr.visulal_v1.classes_auxiliares.OrdenaMatriz;
+import asdrubal.hr.visulal_v1.corretor_tempo.CorrigeTempo;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.dto.IndicesDTO;
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
@@ -71,6 +72,7 @@ public class TelaInicial extends JFrame {
     private JRadioButton rbTodos;
     private JButton btComparaCavalos;
     private JButton registrarButton;
+    private JButton jbt_corretor;
 
     private JMenuBar menuBar;
     private JMenu programaMenu;
@@ -102,7 +104,9 @@ public class TelaInicial extends JFrame {
     private LeftPaddingCellRenderer alinhaEsquerda = new LeftPaddingCellRenderer(5);
 
     public TelaInicial(Map<Integer, ProgramaDTO> programasOpen, PareoService pareoService, CompetidorService competidorService,
-                       TempService tempService, IndicesService indicesService, CavaloService cavaloService, RaiaService raiaService, RegistroService registroService, AnaliseService analiseService) {
+                       TempService tempService, IndicesService indicesService,
+                       CavaloService cavaloService, RaiaService raiaService, RegistroService registroService,
+                       AnaliseService analiseService) {
         this.pareoService = pareoService;
         this.competidorService = competidorService;
         this.tempService = tempService;
@@ -131,7 +135,9 @@ public class TelaInicial extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        setSize(screenSize.width, screenSize.height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        montaMenu(programasOpen);// construtor do menuProgramas
+
+// construtor do menuProgramas
+        montaMenu(programasOpen);
 
         jlPista.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jlDistancia.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -181,7 +187,14 @@ public class TelaInicial extends JFrame {
                 TelaDeRegistro tReg = new TelaDeRegistro(dadosCavalosDoPareo, dtoJtPareos, registroService, analiseService);
             }
         });
-    }
+//  Listener corretor de tempo
+        jbt_corretor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CorrigeTempo ct = new CorrigeTempo(competidorService);
+            }
+        });
+    }//-- FIM DO CONSTRUTOR ------------------
 
     private Object[][] montaObjetoFiltradoPorData() {
         switch (objEmUso) {

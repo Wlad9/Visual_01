@@ -39,7 +39,7 @@ public class AuxPesquisa_mk2_v2 {
             nrEspace++;
             List<CompetidorDTO> lDTO = mapa6.get(idCavalo);
             for (CompetidorDTO cDTO : lDTO) {
-                System.out.println("CDTO===>>"+cDTO);
+//                System.out.println("CDTO===>>"+cDTO);
                 Object[] linhaY;
                 linhaY = montaLinha(cDTO);
                 objetos.add(linhaY);
