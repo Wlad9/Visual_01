@@ -1,6 +1,7 @@
 package asdrubal.hr.visulal_v1;
 
 import asdrubal.hr.visulal_v1.dto.ProgramaDTO;
+import asdrubal.hr.visulal_v1.painel_Inicial.TelaInicial;
 import asdrubal.hr.visulal_v1.services.*;
 import asdrubal.hr.visulal_v1.zV2_Versao2_Pagina1.Pagina_Inicial_v5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,10 @@ public class Start_Application implements CommandLineRunner {
 //            System.out.println("ProgDTO:"+ entry.getValue());
 //        }
 
-//        SwingUtilities.invokeLater(() -> {
-//            TelaInicial inicial = new TelaInicial(openPrograms, pareoService, competidorService, tempService
-//                    , indicesService, cavaloService, raiaService, registroService, analiseService);
-//        });
+        SwingUtilities.invokeLater(() -> {
+            TelaInicial inicial = new TelaInicial(openPrograms, pareoService, competidorService, tempService
+                    , indicesService, cavaloService, raiaService, registroService, analiseService);
+        });
 
 //
 

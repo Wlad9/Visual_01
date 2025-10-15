@@ -2,6 +2,7 @@ package asdrubal.hr.visulal_v1.zV2_Versao2_Pagina1.Tabela_Dados_1;
 
 import asdrubal.hr.visulal_v1.dto.IndicesDTO;
 import asdrubal.hr.visulal_v1.show.ShowObjectBiDim;
+import asdrubal.hr.visulal_v1.zV2_ClassesAuxiliares.SeparaDadosFiltroP3;
 import asdrubal.hr.visulal_v1.zV2_Versao2_Pagina1.IdentificaCorDaLinha;
 import asdrubal.hr.visulal_v1.zV2_Versao2_Pagina1.IdentificaHipoCod;
 
@@ -23,6 +24,7 @@ public class Tabela_Dados_1 extends JTable {
     private Object[][] dados;
     private String[] colunas;
     private String tipoDeFiltro;
+    private Object[][] dadosP3;
     private int nrLinhas;
     private int nrColunas;
     private IdentificaCorDaLinha idCorLinha;
@@ -37,6 +39,10 @@ public class Tabela_Dados_1 extends JTable {
                           Map<String, IndicesDTO> indicesOutros) {
         super(new DefaultTableModel(dadosMk2, colunas));
 
+        //Dados da largura das colunas da tabela
+//        int largColA = this.getColumnModel().getColumn(3).getWidth();
+//        int largColB = this.getColumnModel().getColumn(0).getWidth();
+//        int tamanho = this.getColumnModel().getTotalColumnWidth();
         this.indicesGeral = indicesGeral;
         this.indicesGV = indicesGV;
         this.indicesPR = indicesPR;
@@ -65,7 +71,7 @@ public class Tabela_Dados_1 extends JTable {
         switch (filtroTipo) {
             case "P1":
                 ShowObjectBiDim.show(dadosMk2, "Dados MK2");
-                montaPadrao1();
+//                montaPadrao1();
                 break;
             case "P2":
                 break;
@@ -73,18 +79,22 @@ public class Tabela_Dados_1 extends JTable {
     }
 
     private void montaPadrao1() {
-        System.out.println("Padrão 1 ativado.");
-        TableColumnModel cm = getColumnModel();
-        setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        cm.getColumn(0).setPreferredWidth(120);
-        cm.getColumn(1).setPreferredWidth(40);
-        cm.getColumn(2).setPreferredWidth(80);
-        cm.getColumn(3).setPreferredWidth(80);
-        cm.getColumn(4).setPreferredWidth(80);
-        cm.getColumn(5).setPreferredWidth(40);
-        cm.getColumn(6).setPreferredWidth(100);
-        cm.getColumn(7).setPreferredWidth(110);
-        cm.getColumn(9).setPreferredWidth(30);
+        SwingUtilities.invokeLater(() -> {
+            setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            TableColumnModel cm = getColumnModel();
+            cm.getColumn(0).setPreferredWidth(145);
+            cm.getColumn(1).setPreferredWidth(30);
+            cm.getColumn(2).setPreferredWidth(75);
+            cm.getColumn(3).setPreferredWidth(100);
+            cm.getColumn(4).setPreferredWidth(75);
+            cm.getColumn(5).setPreferredWidth(45);
+            cm.getColumn(6).setPreferredWidth(100);
+            cm.getColumn(7).setPreferredWidth(115);
+            cm.getColumn(8).setPreferredWidth(55);
+            cm.getColumn(9).setPreferredWidth(25);
+            cm.getColumn(10).setPreferredWidth(68);
+            cm.getColumn(11).setPreferredWidth(67);
+        });
     }
 
     @Override
@@ -148,6 +158,41 @@ public class Tabela_Dados_1 extends JTable {
                     }
                 }
                 break;
+            case "P3":
+                Object obj3 = dadosP3[row][10];
+                if (obj3 instanceof Float) {
+                    Float tempo = (Float) obj3;
+                    String hipoCod = IdentificaHipoCod.idIpoCod(dadosP3[row][0]);
+                    Object objRaia = dadosP3[row][2];
+                    String raia = (String) objRaia;
+                    System.out.println("RAIA---->"+raia);
+                    if (raia.contains("G")) {
+                        System.out.println("-===========Contem G:"+raia);
+                        IndicesDTO dto = null;
+                        switch (hipoCod) {
+                            case "GV":
+                                dto = indicesGV.get(raia);
+                                break;
+                            case "CJ":
+                                dto = indicesCJ.get(raia);
+                                break;
+                            case "RS":
+                                dto = indicesRS.get(raia);
+                                break;
+                            case "PR":
+                                dto = indicesPR.get(raia);
+                                break;
+                        }
+                        if (tempo > 0 && dto != null) {
+                            Color corDaLinha = idCorLinha.corDaLinhaPeloTempoGeral(tempo, dto);
+                            if (corDaLinha == null) return null;
+                            Color corAjustada = ajustarCorAutomaticamente(corDaLinha);
+                            comp.setBackground(corAjustada);
+                            comp.setForeground(Color.BLACK);
+                        }
+                    }
+                }
+                break;
         }
         return comp;
     }
@@ -177,10 +222,21 @@ public class Tabela_Dados_1 extends JTable {
 
     public void aplicaFiltroTipoP2() {
         tipoDeFiltro = "P2";
-        System.out.println("entrou padrão 2");
-        montaPadrao1();
         this.setModel(new DefaultTableModel(dados, colunas));
+        montaPadrao1();
         this.revalidate();
         this.repaint();
+    }
+
+    public void aplicaFiltroTipoP3() {
+        SeparaDadosFiltroP3 sp3 = new SeparaDadosFiltroP3(dados);
+        dadosP3 = sp3.aplicaFiltroSoGrama();
+        System.out.println("Filtro P3");
+        tipoDeFiltro = "P3";
+        this.setModel(new DefaultTableModel(dados, colunas));
+        montaPadrao1();
+        this.revalidate();
+        this.repaint();
+
     }
 }

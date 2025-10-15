@@ -1,5 +1,6 @@
 package asdrubal.hr.visulal_v1.zV2_Versao2_Pagina1;
 
+import asdrubal.hr.visulal_v1.CopiaDeObjetoBiDimensional;
 import asdrubal.hr.visulal_v1.classes_auxiliares.OrdenaMatriz;
 import asdrubal.hr.visulal_v1.dto.CompetidorDTO;
 import asdrubal.hr.visulal_v1.dto.IndicesDTO;
@@ -16,12 +17,18 @@ import asdrubal.hr.visulal_v1.propriedadesDaTabela.LeftPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.propriedadesDaTabela.RightPaddingCellRenderer;
 import asdrubal.hr.visulal_v1.services.*;
 import asdrubal.hr.visulal_v1.show.ShowObjectBiDim;
+import asdrubal.hr.visulal_v1.show.ShowObjetoUniDim;
 import asdrubal.hr.visulal_v1.tabPesquisaAux.AuxPesquisa_mk2_v2;
 import asdrubal.hr.visulal_v1.tabelas_class.AuxTabCompetidores;
 import asdrubal.hr.visulal_v1.tabelas_class.AuxTabPareos;
 import asdrubal.hr.visulal_v1.tabelas_class.Tabela_Competidores;
 import asdrubal.hr.visulal_v1.tabelas_class.Tabela_Pareos;
+import asdrubal.hr.visulal_v1.zV2_ClassesAuxiliares.SeparaDadosFiltroP3;
+import asdrubal.hr.visulal_v1.zV2_Pag_Filtros_01.Pag_Filtros_01;
+import asdrubal.hr.visulal_v1.zV2_Pag_Filtros_01.Pag_Filtros_01_v2;
+import asdrubal.hr.visulal_v1.zV2_Pag_Filtros_01.Pag_Filtros_01_v3;
 import asdrubal.hr.visulal_v1.zV2_Versao2_Pagina1.Tabela_Dados_1.Tabela_Dados_1;
+import asdrubal.hr.visulal_v1.z_V2_TelasDeFiltros.JFrame_Filtro_GramaAreia;
 //import asdrubal.hr.visulal_v1.zV2_Versao2_Pagina1.Tabela_Dados_1.Tabela_Dados_1;
 
 import javax.swing.*;
@@ -87,6 +94,7 @@ public class Pagina_Inicial_v5 extends JFrame {
     private int anoPesquisa;
     private Object[][] dadosMk3;
     private Object[][] dadosMk2;
+    private Object[][] dadosBase;
     private String objEmUso = null;
 
     private JTable tabela2;
@@ -112,8 +120,11 @@ public class Pagina_Inicial_v5 extends JFrame {
     private String txt1_BtPareos = "Selecione Páreo";
     private String txt2_BtPareos = "PROGRAMAS";
 
-    private String FILTRO_TIPO_P1 = "P1";
-    private String FILTRO_TIPO_P2 = "P2";
+    private final String FILTRO_TIPO_P1 = "P1";//Usa IndieceGera.
+    private final String FILTRO_TIPO_P2 = "P2";//Usa Indices por hipodrômo
+    private final String FILTRO_TIPO_P3 = "P3";// Somente raias na Grama
+    private final String FILTRO_TIPO_P4 = "P3";// Somente raias na Areia
+
 
     public Pagina_Inicial_v5(Map<Integer, ProgramaDTO> openPrograms, PareoService pareoService, CompetidorService competidorService,
                              TempService tempService, IndicesService indicesService, CavaloService cavaloService,
@@ -150,7 +161,6 @@ public class Pagina_Inicial_v5 extends JFrame {
         indicesCJ = indicesCJ_service.findAll();
         indicesRS = indicesRS_service.findAll();
         indicesPR = indicesPR_service.findAll();
-
 
 
 //        System.out.println("Lista indices da gávea:" + indicesGV.size());
@@ -190,8 +200,19 @@ public class Pagina_Inicial_v5 extends JFrame {
                 listenerBt_Show_D();
             }
         });
+        bt_Show_B.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filtroSoGrama();
+            }
+        });
+        bt_Show_C.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filtroSoAreia();
+            }
+        });
     }
-
 
 
     private void listenerBt_Show_A() {
@@ -205,8 +226,13 @@ public class Pagina_Inicial_v5 extends JFrame {
         ShowObjectBiDim.show(dadosCavalosDoPareo, "dadosCavalosDoPareo ordenados");
         AuxPesquisa_mk2_v2 auxMk2v2 = new AuxPesquisa_mk2_v2(mapa6, dadosCavalosDoPareo, cavaloService);
         dadosMk2 = auxMk2v2.montaObjeto();
+        CopiaDeObjetoBiDimensional copiador = new CopiaDeObjetoBiDimensional(dadosMk2);
+        dadosBase = copiador.makeDeepCopy();
+        ShowObjectBiDim.show(dadosBase, "OBJETO CÓPIA>");
         titulosPareos = auxMk2v2.getTitulos();
         negritoPareo = auxMk2v2.getNegrito();
+
+        ShowObjetoUniDim.show(titulosPareos, "titulos-------------------------");
 
         tb_Dados_1 = new Tabela_Dados_1(dadosMk2, titulosPareos, negritoPareo, FILTRO_TIPO_P1,
                 indicesGeral, indicesGV, indicesPR, indicesRS, indicesCJ, indicesOutros);
@@ -217,9 +243,30 @@ public class Pagina_Inicial_v5 extends JFrame {
         this.revalidate();
         this.repaint();
     }
+
     private void listenerBt_Show_D() {
-        System.out.println("listener D");
         ((Tabela_Dados_1) tb_Dados_1).aplicaFiltroTipoP2();
+    }
+
+    private void filtroSoGrama() {
+        SeparaDadosFiltroP3 sp3 = new SeparaDadosFiltroP3(dadosBase);
+        Object[][] dadosFiltradosSoGrama = sp3.aplicaFiltroSoGrama();
+
+        JFrame_Filtro_GramaAreia criaJFrame = new JFrame_Filtro_GramaAreia(dadosFiltradosSoGrama, titulosPareos,
+                indicesGeral, indicesGV, indicesPR, indicesRS, indicesCJ);
+        criaJFrame.inicia();
+    }
+
+    private void filtroSoAreia() {
+        SeparaDadosFiltroP3 sp3 = new SeparaDadosFiltroP3(dadosBase);
+        Object[][] dadosFiltradosSoAreia = sp3.aplicaFiltroSoAreia();
+        JFrame_Filtro_GramaAreia criaJFrame = new JFrame_Filtro_GramaAreia(dadosFiltradosSoAreia, titulosPareos,
+                indicesGeral, indicesGV, indicesPR, indicesRS, indicesCJ);
+        criaJFrame.inicia();
+//
+//        Pag_Filtros_01_v2 pagFiltros01V2 = new Pag_Filtros_01_v2(indicesGeral,
+//                indicesGV, indicesPR, indicesRS, indicesCJ);
+//        pagFiltros01V2.inicia_mk1(dadosFiltradosSoAreia, titulosPareos);
     }
 
     private void montaMenu(Map<Integer, ProgramaDTO> programasOpen) {

@@ -11,7 +11,8 @@ public class IdentificaCorDaLinha {
     private final Map<String, IndicesDTO> indicesOutros;
     private Color marrom = new Color(139, 69, 19);
 
-    public IdentificaCorDaLinha(Map<String, IndicesDTO> indicesGeral, Map<String, IndicesDTO> indicesGV, Map<String, IndicesDTO> indicesOutros) {
+    public IdentificaCorDaLinha(Map<String, IndicesDTO> indicesGeral, Map<String, IndicesDTO> indicesGV,
+                                Map<String, IndicesDTO> indicesOutros) {
         this.indicesGeral = indicesGeral;
         this.indicesGV = indicesGV;
         this.indicesOutros = indicesOutros;

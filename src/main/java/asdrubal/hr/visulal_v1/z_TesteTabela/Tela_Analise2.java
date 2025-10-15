@@ -56,7 +56,8 @@ public class Tela_Analise2 extends JFrame {
     private JButton jb_concatenar;
 //    private Map<Integer, List<Object[]>> dados3;
 
-    public Tela_Analise2(Object[][] dadosCavalosDoPareo, Map<Integer, List<CompetidorDTO>> mapa3, Map<String, IndicesDTO> indices, CompetidorService competidorService, RaiaService raiaService, String titPag) {
+    public Tela_Analise2(Object[][] dadosCavalosDoPareo, Map<Integer, List<CompetidorDTO>> mapa3,
+                         Map<String, IndicesDTO> indices, CompetidorService competidorService, RaiaService raiaService, String titPag) {
         this.indices = indices;
         this.competidorService = competidorService;
         this.raiaService = raiaService;
